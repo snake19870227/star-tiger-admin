@@ -32,3 +32,6 @@ build/
 # system ignore
 .DS_Store
 Thumbs.db
+
+# plugin
+.flattened-pom.xml
