@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="global::style('登录')"/>
+    <link rel="stylesheet" th:href="@{/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo"><b>STiger</b>Admin</div>
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg" th:if="${not #lists.isEmpty(errorMessage)}" th:text="${errorMessage}">Sign in to start your session</p>
+            <form th:action="@{/login}" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="username" value="root" placeholder="用户名">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user-tie"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" name="password" value="123456" placeholder="密码">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="remember" name="rememberMe">
+                            <label for="remember">记住我</label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">登录</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="global::script-frame"/>
+<th:block th:replace="global::script-stiger"/>
+</body>
+</html>

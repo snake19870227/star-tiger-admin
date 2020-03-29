@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="global::style('出错了')"/>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+<div class="wrapper">
+
+    <th:block th:replace="global::ui-header"/>
+
+    <th:block th:replace="global::ui-user-sidebar(false)"/>
+
+    <div class="content-wrapper">
+
+        <th:block th:replace="global::ui-content-header(false, '', false)"/>
+
+        <section class="content">
+            <div class="error-page" style="width:700px;">
+                <h2 class="headline text-danger">500</h2>
+                <div class="error-content">
+                    <h3><i class="fas fa-exclamation-triangle text-danger"></i> 出错了!已记录日志,我们会尽快处理.</h3>
+                    <p>详细信息:&nbsp;<strong th:text="${errorMessage}" class="h5 text-danger"></strong>.</p>
+                    <p th:if="${not #lists.isEmpty(errorDetailMessages)}">
+                        <th:block th:each="errorDetailMessage:${errorDetailMessages}">
+                            <span th:text="${errorDetailMessage}"></span><br/>
+                        </th:block>
+                    </p>
+                    <p>快捷操作:&nbsp;<a th:href="@{/main}">返回主页</a>&nbsp;或&nbsp;<a th:href="@{/logout}">切换账户</a>&nbsp;</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+<!--    <th:block th:replace="global::ui-footer"/>-->
+
+</div>
+
+<th:block th:replace="global::script-frame"/>
+<th:block th:replace="global::script-stiger"/>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="global::style('')"/>
+    <link rel="stylesheet" th:href="@{/adminlte/plugins/select2/css/select2.min.css}">
+    <link rel="stylesheet" th:href="@{/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css}">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+<div class="wrapper">
+
+    <th:block th:replace="global::ui-header"/>
+
+    <th:block th:replace="global::ui-user-sidebar(false)"/>
+
+    <div class="content-wrapper">
+
+        <th:block th:replace="global::ui-content-header(true, '', true)"/>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <form id="resource-search-form">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="search-name" class="col-md-3 col-form-label text-right">资源名:</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="search-name" name="searchName" class="form-control"
+                                                   placeholder="资源名"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" id="search-button" class="btn btn-primary">查询</button>
+                        <button type="button" id="create-button" class="btn btn-success">新增</button>
+                    </div>
+                </div>
+                <div class="row" id="resources-container">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!--    <th:block th:replace="global::ui-footer"/>-->
+
+    <div class="modal fade" id="resource-detail-modal" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="resource-detail-form">
+                    <div class="modal-header">
+                        <h4 class="modal-title">资源详情</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="resFlow"/>
+                        <div class="form-group">
+                            <label for="res-name">资源名称</label>
+                            <input type="text" name="resName" class="form-control" id="res-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="res-path">资源路径</label>
+                            <input type="text" name="resPath" class="form-control" id="res-path">
+                        </div>
+                        <div class="form-group">
+                            <label for="res-method">操作范围</label>
+                            <select class="select2bs4" name="resMethod" id="res-method"
+                                    data-placeholder="选择操作范围" style="width: 100%;">
+                                <option value="ALL">全部</option>
+                                <option value="GET">查询</option>
+                                <option value="POST">创建</option>
+                                <option value="PUT">修改</option>
+                                <option value="DELETE">删除</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary save-resource-detail-modal">保存</button>
+                        <button type="button" class="btn btn-success save-and-continue">保存并继续添加</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<th:block th:replace="global :: script-frame"/>
+<script th:src="@{/adminlte/plugins/jquery-validation/jquery.validate.js}"></script>
+<script th:src="@{/adminlte/plugins/jquery-validation/additional-methods.js}"></script>
+<script th:src="@{/adminlte/plugins/jquery-validation/localization/messages_zh.js}"></script>
+<script th:src="@{/adminlte/plugins/select2/js/select2.full.js}"></script>
+<script th:src="@{/adminlte/plugins/select2/js/i18n/zh-CN.js}"></script>
+<th:block th:replace="global :: script-stiger"/>
+<script th:src="@{/js/sys/resource.js}"></script>
+</body>
+</html>

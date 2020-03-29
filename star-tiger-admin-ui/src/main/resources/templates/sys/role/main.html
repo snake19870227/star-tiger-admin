@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="global::style('')"/>
+    <link rel="stylesheet" th:href="@{/adminlte/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css}">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed-md">
+<div class="wrapper">
+
+    <th:block th:replace="global::ui-header"/>
+
+    <th:block th:replace="global::ui-user-sidebar(false)"/>
+
+    <div class="content-wrapper">
+
+        <th:block th:replace="global::ui-content-header(true, '', true)"/>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <form id="role-search-form">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="search-code" class="col-md-3 col-form-label text-right">角色码:</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="search-code" name="searchCode" class="form-control"
+                                                   placeholder="角色代码"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="search-name" class="col-md-3 col-form-label text-right">角色名:</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="search-name" name="searchName" class="form-control"
+                                                   placeholder="角色名"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="search-res-name" class="col-md-3 col-form-label text-right">资源名:</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="search-res-name" name="searchResName" class="form-control"
+                                                   placeholder="资源名"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" id="search-button" class="btn btn-primary">查询</button>
+                        <button type="button" id="create-button" class="btn btn-success">新增</button>
+                    </div>
+                </div>
+                <div class="row" id="roles-container">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" id="role-detail-modal" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="role-detail-form">
+                    <div class="modal-header">
+                        <h4 class="modal-title">角色详情</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="roleFlow"/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="role-code">角色代码</label>
+                                    <input type="text" name="roleCode" class="form-control"
+                                           id="role-code" placeholder="输入角色代码">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="role-name">角色名称</label>
+                                    <input type="text" name="roleName" class="form-control"
+                                           id="role-name" placeholder="输入角色名称">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <select class="duallistbox" name="resFlows" multiple="multiple"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default close-detail-modal-btn" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary save-detail-btn">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<th:block th:replace="global::script-frame"/>
+<script th:src="@{/adminlte/plugins/jquery-validation/jquery.validate.js}"></script>
+<script th:src="@{/adminlte/plugins/jquery-validation/additional-methods.js}"></script>
+<script th:src="@{/adminlte/plugins/jquery-validation/localization/messages_zh.js}"></script>
+<script th:src="@{/adminlte/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.js}"></script>
+<th:block th:replace="global::script-stiger"/>
+<script th:src="@{/js/sys/role.js}"></script>
+</body>
+</html>

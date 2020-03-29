@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.snake19870227.stiger.admin.dao.mapper.SysMapper">
+
+    <resultMap id="sys_resource_resultMap" type="com.snake19870227.stiger.admin.entity.po.SysResource">
+        <id property="resFlow" column="res_flow"/>
+        <result property="resName" column="res_name"/>
+        <result property="resPath" column="res_path"/>
+    </resultMap>
+    <select id="selectResourceByRoleFlow" resultMap="sys_resource_resultMap">
+        select res_flow, res_name, res_path
+        from sys_resource
+        where exists(
+                      select null
+                      from sys_role_resource
+                      where sys_resource.res_flow = sys_role_resource.res_flow
+                        and sys_role_resource.role_flow = #{roleFlow}
+                  )
+    </select>
+
+    <resultMap id="sys_role_resultMap" type="com.snake19870227.stiger.admin.entity.po.SysRole">
+        <id property="roleFlow" column="role_flow"/>
+        <result property="roleCode" column="role_code"/>
+        <result property="roleName" column="role_name"/>
+    </resultMap>
+    <select id="selectRoles" resultMap="sys_role_resultMap">
+        select role_flow, role_code, role_name
+        from sys_role
+        <where>
+            <if test="searchCode != null and searchCode != ''">
+                role_code = #{searchCode}
+            </if>
+            <if test="searchName != null and searchName != ''">
+                and role_name like concat(concat('%', #{searchName}), '%')
+            </if>
+            <if test="searchResName != null and searchResName != ''">
+                and exists (
+                    select null from sys_resource, sys_role_resource
+                    where sys_resource.res_name like concat(concat('%', #{searchResName}), '%')
+                    and sys_resource.res_flow = sys_role_resource.res_flow
+                    and sys_role.role_flow = sys_role_resource.role_flow
+                )
+            </if>
+        </where>
+        order by role_code
+    </select>
+
+    <resultMap id="sys_user_resultMap" type="com.snake19870227.stiger.admin.entity.po.SysUser">
+        <id property="userFlow" column="user_flow"/>
+        <result property="username" column="username"/>
+        <result property="encodePassword" column="encode_password"/>
+        <result property="shortName" column="short_name"/>
+        <result property="locked" column="locked"/>
+    </resultMap>
+    <select id="selectUsers" resultMap="sys_user_resultMap">
+        select user_flow, username, encode_password, short_name, locked
+        from sys_user
+        <where>
+            <if test="searcher.searchUsername != null and searcher.searchUsername != ''">
+                username = #{searcher.searchUsername}
+            </if>
+            <if test="searcher.searchShortName != null and searcher.searchShortName != ''">
+                and short_name like concat(concat('%', #{searcher.searchShortName}), '%')
+            </if>
+            <if test="searcher.locked != null and searcher.locked != ''">
+                and locked = #{searcher.locked}
+            </if>
+            <if test="searcher.searchUserRoleFlows != null and searcher.searchUserRoleFlows.length gt 0">
+                and exists (
+                    select null from sys_user_role
+                    where sys_user.user_flow = sys_user_role.user_flow
+                    <foreach item="item" index="index" collection="searcher.searchUserRoleFlows"
+                             open=" and (" separator=" or " close=")">
+                        sys_user_role.role_flow = #{item}
+                    </foreach>
+                )
+            </if>
+        </where>
+        order by short_name
+    </select>
+
+</mapper>

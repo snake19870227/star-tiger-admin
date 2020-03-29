@@ -1,0 +1,24 @@
+<div xmlns:th="http://www.thymeleaf.org" class="col-md-12">
+    <table class="table table-bordered table-hover" style="width:100%;">
+        <thead>
+        <tr>
+            <th style="width:300px">角色代码</th>
+            <th style="width:500px">角色名称</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sysRole : ${sysRoles.records}">
+            <td th:text="${sysRole.roleCode}">角色代码</td>
+            <td th:text="${sysRole.roleName}">角色名称</td>
+            <td th:attr="data-role-flow=${sysRole.roleFlow},data-role-code=${sysRole.roleCode},data-role-name=${sysRole.roleName}">
+                <button type="button" class="btn btn-primary modify-resource-btn btn-sm">修改</button>
+                <button type="button" class="btn btn-danger delete-resource-btn btn-sm">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div xmlns:th="http://www.thymeleaf.org" class="col-md-12">
+    <th:block th:replace="global::ui-page(${sysRoles},'SysRole.searchRoles')"/>
+</div>

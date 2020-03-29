@@ -1,0 +1,30 @@
+<div xmlns:th="http://www.thymeleaf.org" class="col-md-12">
+    <table class="table table-bordered table-hover table-striped" style="width:100%;">
+        <thead>
+        <tr>
+            <th style="width:300px">用户名</th>
+            <th style="width:500px">短名称</th>
+            <th>是否锁定</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sysUser : ${sysUsers.records}"
+            th:attr="data-user-flow=${sysUser.userFlow},data-username=${sysUser.username},data-short-name=${sysUser.shortName}">
+            <td th:text="${sysUser.username}">用户名</td>
+            <td th:text="${sysUser.shortName}">短名称</td>
+            <td>
+                <input type="checkbox" class="user-locked-state" th:checked="${sysUser.locked=='N'}">
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary modify-user-btn btn-sm">修改</button>
+                <button type="button" class="btn btn-danger delete-user-btn btn-sm">删除</button>
+                <button type="button" class="btn btn-info reset-user-btn btn-sm">重置密码</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div xmlns:th="http://www.thymeleaf.org" class="col-md-12">
+    <th:block th:replace="global::ui-page(${sysUsers},'SysUser.searchUsers')"/>
+</div>

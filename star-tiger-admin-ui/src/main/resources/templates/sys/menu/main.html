@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="global::style('')"/>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed-md">
+<div class="wrapper">
+
+    <th:block th:replace="global::ui-header"/>
+
+    <th:block th:replace="global::ui-user-sidebar(false)"/>
+
+    <div class="content-wrapper">
+
+        <th:block th:replace="global::ui-content-header(true, '', true)"/>
+
+        <section class="content">
+        </section>
+    </div>
+
+<!--    <th:block th:replace="global::ui-footer"/>-->
+
+</div>
+
+<th:block th:replace="global::script-frame"/>
+<th:block th:replace="global::script-stiger"/>
+</body>
+</html>

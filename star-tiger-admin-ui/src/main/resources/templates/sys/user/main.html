@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="global::style('')"/>
+    <link rel="stylesheet" th:href="@{/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/adminlte/plugins/select2/css/select2.min.css}">
+    <link rel="stylesheet" th:href="@{/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css}">
+    <link rel="stylesheet" th:href="@{/adminlte/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css}">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed-md">
+<div class="wrapper">
+
+    <th:block th:replace="global::ui-header"/>
+
+    <th:block th:replace="global::ui-user-sidebar(false)"/>
+
+    <div class="content-wrapper">
+
+        <th:block th:replace="global::ui-content-header(true, '', true)"/>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10">
+                        <form id="user-search-form">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="search-username" class="col-md-3 col-form-label text-right">用户名:</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="search-username" name="searchUsername" class="form-control"
+                                                   placeholder="搜索用户名"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="search-shortName" class="col-md-3 col-form-label text-right">短名称:</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="search-shortName" name="searchShortName" class="form-control"
+                                                   placeholder="搜索短名称"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 align-self-center">
+                                    <div class="form-group">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div class="icheck-primary d-inline">
+                                            <input type="radio" name="locked" value="" checked id="search-all-lock-state">
+                                            <label for="search-all-lock-state">所有</label>
+                                        </div>
+                                        &nbsp;&nbsp;
+                                        <div class="icheck-success d-inline">
+                                            <input type="radio" name="locked" value="N" id="search-unlocked">
+                                            <label for="search-unlocked">未锁定</label>
+                                        </div>
+                                        &nbsp;&nbsp;
+                                        <div class="icheck-danger d-inline">
+                                            <input type="radio" name="locked" value="Y" id="search-locked">
+                                            <label for="search-locked">已锁定</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <div class="form-group row">
+                                        <label for="search-user-role" class="col-md-1 col-form-label text-right">拥有角色:</label>
+                                        <div class="col-md-11">
+                                            <select class="select2bs4" multiple="multiple" name="searchUserRoleFlows" id="search-user-role" data-placeholder="选择角色"
+                                                    style="width: 100%;">
+                                                <option th:each="role : ${allRoles}"
+                                                        th:value="${role.roleFlow}"
+                                                        th:text="${role.roleName}">角色</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" id="search-button" class="btn btn-primary">查询</button>
+                        <button type="button" id="create-button" class="btn btn-success">新增</button>
+                    </div>
+                </div>
+                <div class="row" id="users-container">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" id="user-detail-modal" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="role-detail-form">
+                    <div class="modal-header">
+                        <h4 class="modal-title">用户详情</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" class="simple-fields" name="userFlow"/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="username">用户名</label>
+                                    <input type="text" name="username" class="form-control simple-fields"
+                                           id="username" placeholder="输入用户名">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="short_name">名称</label>
+                                    <input type="text" name="shortName" class="form-control simple-fields"
+                                           id="short_name" placeholder="输入名称">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <select class="duallistbox simple-fields" name="roleFlows" multiple="multiple"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default close-detail-modal-btn" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary save-detail-btn">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<th:block th:replace="global::script-frame"/>
+<script th:src="@{/adminlte/plugins/jquery-validation/jquery.validate.js}"></script>
+<script th:src="@{/adminlte/plugins/jquery-validation/additional-methods.js}"></script>
+<script th:src="@{/adminlte/plugins/jquery-validation/localization/messages_zh.js}"></script>
+<script th:src="@{/adminlte/plugins/select2/js/select2.full.js}"></script>
+<script th:src="@{/adminlte/plugins/select2/js/i18n/zh-CN.js}"></script>
+<script th:src="@{/adminlte/plugins-ext/bootstrap-switch/js/bootstrap-switch.js}"></script>
+<script th:src="@{/adminlte/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.js}"></script>
+<th:block th:replace="global::script-stiger"/>
+<script th:src="@{/js/sys/user.js}"></script>
+</body>
+</html>

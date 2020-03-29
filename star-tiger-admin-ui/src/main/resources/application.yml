@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: ${proj.profile.id}
+    include: base
+  application:
+    name: ${project.name}-${proj.profile.id}
+stiger:
+  frame:
+    use-http-status-code: false
+  admin:
+    web:
+      version: ${project.version}
+      security:
+        remember-me-cookie-name: RememberMe

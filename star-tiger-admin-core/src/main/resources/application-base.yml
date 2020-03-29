@@ -1,0 +1,31 @@
+server:
+  tomcat:
+    remote-ip-header: X-Forwarded-For
+    protocol-header: X-Forwarded-Proto
+spring:
+  http:
+    encoding:
+      enabled: true
+      charset: utf-8
+      force-response: true
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+    parser:
+      ALLOW_UNQUOTED_FIELD_NAMES: true
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      base-path: /actuator
+      exposure:
+        include: '*'
+mybatis-plus:
+  global-config:
+    banner: false
+  configuration:
+    lazy-loading-enabled: false
+    aggressive-lazy-loading: false
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
