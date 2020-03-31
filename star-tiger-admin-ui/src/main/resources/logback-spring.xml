@@ -12,7 +12,7 @@
 <!--        <logger name="com.snake19870227.stiger.admin.dao" level="error"/>-->
     </springProfile>
 
-    <springProfile name="prod">
+    <springProfile name="docker">
         <root level="info">
             <appender-ref ref="CONSOLE"/>
         </root>

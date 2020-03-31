@@ -26,6 +26,12 @@
                 <proj.profile.id>dev</proj.profile.id>
             </properties>
         </profile>
+        <profile>
+            <id>docker</id>
+            <properties>
+                <proj.profile.id>docker</proj.profile.id>
+            </properties>
+        </profile>
     </profiles>
 
     <build>

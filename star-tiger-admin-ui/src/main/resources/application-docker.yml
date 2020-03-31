@@ -11,12 +11,12 @@ spring:
 #            user.password: 123456
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:13306/stigeradmin?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
+    url: jdbc:mysql://mysql13306:3306/stigeradmin?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
     username: root
     password: 123456
   redis:
-    host: localhost
-    port: 16379
+    host: redis16379
+    port: 6379
   thymeleaf:
     cache: false
   cache:
