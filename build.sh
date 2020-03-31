@@ -10,7 +10,7 @@ help() {
 
 mvn clean package -Pdocker
 
-docker-compose build
+#docker-compose build
 docker-compose up -d
 
 #artifactId="star-tiger-admin-ui"

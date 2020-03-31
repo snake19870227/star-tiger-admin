@@ -11,7 +11,12 @@ services:
     ports:
       - 13306:3306
     volumes:
-      - "/Users/snake/docker/container/mysql/5.7.29/mysql13306:/var/lib/mysql"
+      - "/Users/snake/docker/container/mysql/5.7.29/mysql13306/data:/var/lib/mysql"
+      - "/Users/snake/docker/container/mysql/5.7.29/mysql13306/conf.d:/etc/mysql/conf.d"
+    command: [
+      '--character-set-server=utf8mb4',
+      '--collation-server=utf8mb4_unicode_ci'
+    ]
   stiger-admin-redis:
     image: redis:5.0.8
     hostname: redis16379
@@ -24,14 +29,14 @@ services:
   stiger-admin-ui:
     build:
       context: ./star-tiger-admin-ui
-#      args:
-#        jar_file: ./target/StarTigerAdminUi.jar
-#        spring_prifiles_active: docker
+    #      args:
+    #        jar_file: ./target/StarTigerAdminUi.jar
+    #        spring_prifiles_active: docker
     restart: always
     ports:
       - 19999:9999
-#    links:
-#      - "mysql13306:mysql13306"
-#      - "redis16379:redis16379"
+    #    links:
+    #      - "mysql13306:mysql13306"
+    #      - "redis16379:redis16379"
     container_name: stigeradmin19999
     image: stiger-admin-ui
