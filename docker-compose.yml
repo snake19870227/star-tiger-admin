@@ -29,10 +29,8 @@ services:
   stiger-admin-ui:
     build:
       context: ./star-tiger-admin-ui
-    #      args:
-    #        jar_file: ./target/StarTigerAdminUi.jar
-    #        spring_prifiles_active: docker
-    restart: always
+      args:
+        profile: docker
     ports:
       - 19999:9999
     #    links:
