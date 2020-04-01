@@ -1,28 +1,29 @@
 version: '2'
 services:
   stiger-admin-db:
-    build:
-      context: ./database
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456
+    image: mysql:5.7.29
     container_name: mysql13306
-    image: stiger-admin-db
     hostname: mysql13306
     ports:
       - 13306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    # 将./database/my.cnf拷贝至映射出来的conf.d目录下
+    # 将./database/sql.sql拷贝到映射出来的docker-entrypoint-initdb.d目录下
     volumes:
       - "/Users/snake/docker/container/mysql/5.7.29/mysql13306/data:/var/lib/mysql"
       - "/Users/snake/docker/container/mysql/5.7.29/mysql13306/conf.d:/etc/mysql/conf.d"
+      - "/Users/snake/docker/container/mysql/5.7.29/mysql13306/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
     command: [
       '--character-set-server=utf8mb4',
       '--collation-server=utf8mb4_unicode_ci'
     ]
   stiger-admin-redis:
     image: redis:5.0.8
+    container_name: redis16379
     hostname: redis16379
     ports:
       - 16379:6379
-    container_name: redis16379
     volumes:
       - "/Users/snake/docker/container/redis/5.0.8/etc:/usr/local/etc/redis"
       - "/Users/snake/docker/container/redis/5.0.8/data:/data"
@@ -31,10 +32,7 @@ services:
       context: ./star-tiger-admin-ui
       args:
         profile: docker
+    image: stiger-admin-ui
+    container_name: stigeradmin19999
     ports:
       - 19999:9999
-    #    links:
-    #      - "mysql13306:mysql13306"
-    #      - "redis16379:redis16379"
-    container_name: stigeradmin19999
-    image: stiger-admin-ui
