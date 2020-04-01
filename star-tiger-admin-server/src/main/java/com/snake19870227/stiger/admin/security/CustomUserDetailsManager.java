@@ -53,7 +53,7 @@ public class CustomUserDetailsManager implements UserDetailsManager {
 
     @Override
     public boolean userExists(String username) {
-        return sysUserService.getUserByUsername(username).isPresent();
+        return sysUserService.getUserByUsername(username) != null;
     }
 
     @Override

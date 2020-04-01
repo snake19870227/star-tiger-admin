@@ -8,10 +8,10 @@ import com.snake19870227.stiger.admin.entity.po.SysUser;
 
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
-    default Optional<SysUser> queryByUsername(String username) {
+    default SysUser queryByUsername(String username) {
         QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
         wrapper.eq("username", username);
-        return Optional.ofNullable(this.selectOne(wrapper));
+        return this.selectOne(wrapper);
     }
 
     default int changeLockState(String userFlow, String locked) {

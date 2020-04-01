@@ -13,7 +13,7 @@ import com.snake19870227.stiger.admin.entity.po.SysUser;
  */
 public interface SysUserService {
 
-    Optional<SysUser> getUserByUsername(String username);
+    SysUser getUserByUsername(String username);
 
     UserInfo loadUserInfoByUsername(String username);
 

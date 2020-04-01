@@ -54,14 +54,17 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public Optional<SysUser> getUserByUsername(String username) {
+    public SysUser getUserByUsername(String username) {
         return sysUserMapper.queryByUsername(username);
     }
 
     @Override
     public UserInfo loadUserInfoByUsername(String username) {
-        Optional<SysUser> userObj = sysUserMapper.queryByUsername(username);
-        return userObj.map(userInfoOpt::loadUserInfo).orElse(null);
+        SysUser user = sysUserMapper.queryByUsername(username);
+        if (user != null) {
+            return userInfoOpt.loadUserInfo(user);
+        }
+        return null;
     }
 
     @Override
@@ -78,7 +81,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     @Caching(
             put = {
-                    @CachePut(cacheNames = "UserInfo", key = "#user.userFlow")
+                    @CachePut(cacheNames = "SysUser", key = "#user.userFlow")
             }
     )
     @Transactional(rollbackFor = Exception.class)
@@ -92,6 +95,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     @Caching(
             evict = {
+                    @CacheEvict(cacheNames = "SysUser", key = "#user.userFlow", beforeInvocation = true),
                     @CacheEvict(cacheNames = "UserInfo", key = "#user.userFlow", beforeInvocation = true)
             }
     )
@@ -115,6 +119,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     @Caching(
             evict = {
+                    @CacheEvict(cacheNames = "SysUser", key = "#userFlow", beforeInvocation = true),
                     @CacheEvict(cacheNames = "UserInfo", key = "#userFlow", beforeInvocation = true)
             }
     )
@@ -135,6 +140,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     @Caching(
             evict = {
+                    @CacheEvict(cacheNames = "SysUser", key = "#userFlow", beforeInvocation = true),
                     @CacheEvict(cacheNames = "UserInfo", key = "#userFlow", beforeInvocation = true)
             }
     )

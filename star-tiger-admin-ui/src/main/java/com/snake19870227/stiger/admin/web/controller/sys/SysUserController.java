@@ -98,8 +98,7 @@ public class SysUserController extends BaseController {
     @GetMapping(path = "/checkUsername")
     @ResponseBody
     public boolean checkUsername(@RequestParam(name = "username") String username) {
-        Optional<SysUser> user = sysUserService.getUserByUsername(username);
-        return !user.isPresent();
+        return sysUserService.getUserByUsername(username) == null;
     }
 
     @PostMapping
