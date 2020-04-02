@@ -2,6 +2,7 @@ package com.snake19870227.stiger.admin.entity.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author buhuayang
- * @since 2020-03-27
+ * @since 2020-04-02
  */
 @ApiModel(value="SysUserSubject对象", description="")
 public class SysUserSubject implements Serializable {
@@ -31,6 +32,10 @@ public class SysUserSubject implements Serializable {
 
     @ApiModelProperty(value = "用户流水号")
     private String userFlow;
+
+    @ApiModelProperty(value = "删除标记")
+    @TableLogic
+    private String deleteFlag;
 
 
     public String getSubjectFlow() {
@@ -69,6 +74,15 @@ public class SysUserSubject implements Serializable {
         return this;
     }
 
+    public String getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public SysUserSubject setDeleteFlag(String deleteFlag) {
+        this.deleteFlag = deleteFlag;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "SysUserSubject{" +
@@ -76,6 +90,7 @@ public class SysUserSubject implements Serializable {
         ", orgFlow=" + orgFlow +
         ", deptFlow=" + deptFlow +
         ", userFlow=" + userFlow +
+        ", deleteFlag=" + deleteFlag +
         "}";
     }
 }

@@ -2,6 +2,7 @@ package com.snake19870227.stiger.admin.entity.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author buhuayang
- * @since 2020-03-27
+ * @since 2020-04-02
  */
 @ApiModel(value="SysRoleResource对象", description="")
 public class SysRoleResource implements Serializable {
@@ -28,6 +29,10 @@ public class SysRoleResource implements Serializable {
 
     @ApiModelProperty(value = "资源流水号")
     private String resFlow;
+
+    @ApiModelProperty(value = "删除标记")
+    @TableLogic
+    private String deleteFlag;
 
 
     public String getRoleResFlow() {
@@ -57,12 +62,22 @@ public class SysRoleResource implements Serializable {
         return this;
     }
 
+    public String getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public SysRoleResource setDeleteFlag(String deleteFlag) {
+        this.deleteFlag = deleteFlag;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "SysRoleResource{" +
         "roleResFlow=" + roleResFlow +
         ", roleFlow=" + roleFlow +
         ", resFlow=" + resFlow +
+        ", deleteFlag=" + deleteFlag +
         "}";
     }
 }

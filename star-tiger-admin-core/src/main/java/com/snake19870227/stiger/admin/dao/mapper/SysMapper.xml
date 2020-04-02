@@ -15,7 +15,9 @@
                       from sys_role_resource
                       where sys_resource.res_flow = sys_role_resource.res_flow
                         and sys_role_resource.role_flow = #{roleFlow}
+                        and sys_role_resource.delete_flag = 'N'
                   )
+          and delete_flag = 'N'
     </select>
 
     <resultMap id="sys_role_resultMap" type="com.snake19870227.stiger.admin.entity.po.SysRole">
@@ -39,8 +41,11 @@
                     where sys_resource.res_name like concat(concat('%', #{searchResName}), '%')
                     and sys_resource.res_flow = sys_role_resource.res_flow
                     and sys_role.role_flow = sys_role_resource.role_flow
+                    and sys_resource.delete_flag = 'N'
+                    and sys_role_resource.delete_flag = 'N'
                 )
             </if>
+            and delete_flag = 'N'
         </where>
         order by role_code
     </select>
@@ -73,8 +78,10 @@
                              open=" and (" separator=" or " close=")">
                         sys_user_role.role_flow = #{item}
                     </foreach>
+                    and sys_user_role.delete_flag = 'N'
                 )
             </if>
+            and delete_flag = 'N'
         </where>
         order by short_name
     </select>
