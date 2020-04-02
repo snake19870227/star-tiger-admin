@@ -63,7 +63,7 @@
     </modules>
 
     <properties>
-        <admin.version>0.0.1</admin.version>
+        <admin.version>0.0.2</admin.version>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
