@@ -25,6 +25,10 @@ management:
 mybatis-plus:
   global-config:
     banner: false
+    db-config:
+      logic-delete-field: delete_flag
+      logic-delete-value: Y
+      logic-not-delete-value: N
   configuration:
     lazy-loading-enabled: false
     aggressive-lazy-loading: false

@@ -9,7 +9,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 123456
     # 将./database/my.cnf拷贝至映射出来的conf.d目录下
-    # 将./database/sql.sql拷贝到映射出来的docker-entrypoint-initdb.d目录下
+    # 将./database/sql下的sql脚本拷贝到映射出来的docker-entrypoint-initdb.d目录下
     volumes:
       - "/Users/snake/docker/container/mysql/5.7.29/mysql13306/data:/var/lib/mysql"
       - "/Users/snake/docker/container/mysql/5.7.29/mysql13306/conf.d:/etc/mysql/conf.d"

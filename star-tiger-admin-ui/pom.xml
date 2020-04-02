@@ -67,6 +67,11 @@
                             <mainClass>com.snake19870227.stiger.admin.web.StarTigerAdminWebApplication</mainClass>
                         </configuration>
                     </execution>
+                    <execution>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
