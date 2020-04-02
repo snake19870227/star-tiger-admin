@@ -145,6 +145,10 @@ let DualListbox = function () {
 
 let Proj = function () {
 
+    let $contentWrapper = $(".content-wrapper");
+    let $contentHeader = $contentWrapper.find(".content-header");
+    let $mainHeader = $(".main-header");
+
     let toastTypes = ["info", "success", "warning", "danger"];
     let toastTitle = ["提示", "成功", "警告", "错误"];
     let toastIcons = ["fa-info-circle", "fa-check-circle", "fa-exclamation-circle", "fa-exclamation-triangle"];
@@ -152,6 +156,21 @@ let Proj = function () {
     let contextPath = $("#context-path").val();
 
     let runningMode = $("#runningMode").val();
+
+    let onWindowResizeHandlers = [];
+
+    function loadHeight() {
+        let heights = {
+            window: $(window).height(),
+            header: $mainHeader.outerHeight(),
+            contentHeader: $contentHeader.outerHeight()
+        };
+        heights.content = heights.window - heights.header - heights.contentHeader;
+        if (Proj.isDev()) {
+            console.log(heights);
+        }
+        return heights;
+    }
 
     function isDev() {
         return runningMode === "dev";
@@ -164,6 +183,15 @@ let Proj = function () {
     });
 
     return {
+        init: function () {
+            $(window).resize(function () {
+                $.each(onWindowResizeHandlers, function (index, handler) {
+                    if (typeof handler === "function") {
+                        handler();
+                    }
+                })
+            });
+        },
         isDev: function () {
             return isDev();
         },
@@ -198,6 +226,24 @@ let Proj = function () {
             if (modal) {
                 modal[methodPaths[1]](page);
             }
+        },
+        getContentHeight: function () {
+            return loadHeight().content;
+        },
+        addWindowResizeHandlers: function (handler) {
+            onWindowResizeHandlers.push(handler);
+        },
+        fixCardHeight: function ($card) {
+            let contentHeight = Proj.getContentHeight();
+            let cardHeaderHeight = $card.find(".card-header").outerHeight();
+            let cardBodyHeight = contentHeight - cardHeaderHeight - 16;
+            if (Proj.isDev()) {
+                console.log(contentHeight + " - " + cardHeaderHeight + " - " + cardBodyHeight);
+            }
+            $card.find(".card-body").css("min-height", cardBodyHeight);
         }
     }
 }();
+$(function () {
+    Proj.init();
+});

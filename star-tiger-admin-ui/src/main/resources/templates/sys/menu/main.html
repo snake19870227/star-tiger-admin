@@ -1,28 +1,75 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <th:block th:replace="global::style('')"/>
-</head>
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed-md">
-<div class="wrapper">
+    <head>
+        <th:block th:replace="global::style('')"/>
+    </head>
+    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+        <div class="wrapper">
 
-    <th:block th:replace="global::ui-header"/>
+            <th:block th:replace="global::ui-header"/>
 
-    <th:block th:replace="global::ui-user-sidebar(false)"/>
+            <th:block th:replace="global::ui-user-sidebar(false)"/>
 
-    <div class="content-wrapper">
+            <div class="content-wrapper">
 
-        <th:block th:replace="global::ui-content-header(true, '', true)"/>
+                <th:block th:replace="global::ui-content-header(true, '', true)"/>
 
-        <section class="content">
-        </section>
-    </div>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div id="menu-tree-card" class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">菜单树</h3>
+                                    </div>
+                                    <div class="card-body overflow-auto" style="height:auto;">
 
-<!--    <th:block th:replace="global::ui-footer"/>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div id="menu-detail-card" class="card" style="display:none;">
+                                    <div class="card-header">
+                                        <h3 class="card-title">菜单详情</h3>
+                                    </div>
+                                    <form>
+                                        <input type="hidden" name="menuFlow">
+                                        <input type="hidden" name="parentMenuFlow">
+                                        <input type="hidden" name="menuLevel">
+                                        <div class="card-body overflow-auto" style="height:auto;">
+                                            <div class="form-group">
+                                                <label for="menu-code">菜单code</label>
+                                                <input type="text" class="form-control" name="menuCode" id="menu-code" placeholder="输入菜单code">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="menu-name">菜单名称</label>
+                                                <input type="text" class="form-control" name="menuName" id="menu-name" placeholder="输入菜单名称">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="menu-path">菜单地址</label>
+                                                <input type="text" class="form-control" name="menuPath" id="menu-path" placeholder="输入菜单地址">
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="button" class="btn btn-primary save-menu">保存</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
 
-</div>
+            <!--    <th:block th:replace="global::ui-footer"/>-->
 
-<th:block th:replace="global::script-frame"/>
-<th:block th:replace="global::script-stiger"/>
-</body>
+        </div>
+
+        <th:block th:replace="global::script-frame"/>
+        <script th:src="@{/adminlte/plugins/jquery-validation/jquery.validate.js}"></script>
+        <script th:src="@{/adminlte/plugins/jquery-validation/additional-methods.js}"></script>
+        <script th:src="@{/adminlte/plugins/jquery-validation/localization/messages_zh.js}"></script>
+        <th:block th:replace="global::script-stiger"/>
+        <script th:src="@{/js/sys/menu.js}"></script>
+    </body>
 </html>

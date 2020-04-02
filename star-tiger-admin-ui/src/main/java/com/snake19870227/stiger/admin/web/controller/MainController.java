@@ -42,14 +42,18 @@ public class MainController extends BaseController {
     public String menuRouting(@RequestParam(name = "menuCode") String menuCode,
                               RedirectAttributes redirectAttributes) {
 
-        SysMenu menu = routerService.getRouterMenu(menuCode);
+        try {
+            SysMenu menu = routerService.getRouterMenu(menuCode);
 
-        if (menu == null) {
-            throw new MvcException("未找到该功能[menuCode=" + menuCode + "]");
+            if (menu == null) {
+                throw new MvcException("未找到该功能[menuCode=" + menuCode + "]");
+            }
+
+            redirectAttributes.addAttribute("menuCode", menuCode);
+
+            return "redirect:" + menu.getMenuPath();
+        } catch (Exception e) {
+            throw new MvcException(e);
         }
-
-        redirectAttributes.addAttribute("menuCode", menuCode);
-
-        return "redirect:" + menu.getMenuPath();
     }
 }

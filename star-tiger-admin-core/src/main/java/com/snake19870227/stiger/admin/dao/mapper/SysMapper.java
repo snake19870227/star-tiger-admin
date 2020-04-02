@@ -24,4 +24,6 @@ public interface SysMapper {
 
     RecordPage<SysUser> selectUsers(RecordPage<SysUser> pager,
                                     @Param("searcher") SysUserSearcher searcher);
+
+    int selectMaxMenuOrder();
 }

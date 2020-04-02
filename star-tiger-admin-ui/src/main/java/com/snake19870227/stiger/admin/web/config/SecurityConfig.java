@@ -13,6 +13,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.admin.security.CustomUserDetailsManager;
+import com.snake19870227.stiger.admin.service.sys.SysMenuService;
 import com.snake19870227.stiger.admin.service.sys.SysService;
 import com.snake19870227.stiger.admin.service.sys.SysUserService;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
@@ -98,8 +99,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public WebAuthenticationSuccessHandler webAuthenticationSuccessHandler(SysService sysService) {
-        return new WebAuthenticationSuccessHandler(sysService);
+    public WebAuthenticationSuccessHandler webAuthenticationSuccessHandler(SysService sysService, SysMenuService sysMenuService) {
+        return new WebAuthenticationSuccessHandler(sysService, sysMenuService);
     }
 
     @Bean

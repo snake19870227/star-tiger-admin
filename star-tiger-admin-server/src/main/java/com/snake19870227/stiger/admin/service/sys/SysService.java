@@ -37,8 +37,4 @@ public interface SysService {
     /* ====================< User >==================== */
 
     /* ====================< Menu >==================== */
-
-    SysMenu getMenuByMenuCode(String menuCode);
-
-    List<MenuInfo> allMenuTree();
 }

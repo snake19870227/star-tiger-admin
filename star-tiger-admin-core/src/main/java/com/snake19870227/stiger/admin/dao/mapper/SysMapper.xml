@@ -9,7 +9,7 @@
     </resultMap>
     <select id="selectResourceByRoleFlow" resultMap="sys_resource_resultMap">
         select res_flow, res_name, res_path
-        from sys_resource
+        from stigeradmin.sys_resource
         where exists(
                       select null
                       from sys_role_resource
@@ -27,7 +27,7 @@
     </resultMap>
     <select id="selectRoles" resultMap="sys_role_resultMap">
         select role_flow, role_code, role_name
-        from sys_role
+        from stigeradmin.sys_role
         <where>
             <if test="searchCode != null and searchCode != ''">
                 role_code = #{searchCode}
@@ -59,7 +59,7 @@
     </resultMap>
     <select id="selectUsers" resultMap="sys_user_resultMap">
         select user_flow, username, encode_password, short_name, locked
-        from sys_user
+        from stigeradmin.sys_user
         <where>
             <if test="searcher.searchUsername != null and searcher.searchUsername != ''">
                 username = #{searcher.searchUsername}
@@ -84,6 +84,10 @@
             and delete_flag = 'N'
         </where>
         order by short_name
+    </select>
+
+    <select id="selectMaxMenuOrder" resultType="java.lang.Integer">
+        select max(menu_order) from stigeradmin.sys_menu
     </select>
 
 </mapper>

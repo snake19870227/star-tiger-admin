@@ -136,15 +136,4 @@ public class SysServiceImpl implements SysService {
     /* ====================< User >==================== */
 
     /* ====================< Menu >==================== */
-
-    @Override
-    public SysMenu getMenuByMenuCode(String menuCode) {
-        return sysMenuMapper.getMenuByMenuCode(menuCode);
-    }
-
-    @Override
-    public List<MenuInfo> allMenuTree() {
-        List<SysMenu> level1Menus = menuInfoOpt.getAllLevel1Menu();
-        return level1Menus.stream().map(menuInfoOpt::menuTree).collect(Collectors.toList());
-    }
 }

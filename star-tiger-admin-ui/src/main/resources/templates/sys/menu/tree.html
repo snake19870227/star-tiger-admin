@@ -1,0 +1,39 @@
+<ul xmlns:th="http://www.thymeleaf.org" id="menu-tree" class="list-unstyled">
+    <li th:each="menuInfo : ${menuInfos}"
+        th:attr="data-menu-flow=${menuInfo.menu.menuFlow},data-menu-name=${menuInfo.menu.menuName}">
+        [[${menuInfo.menu.menuName}]]&nbsp;
+        <a href="javascript:void(0);" class="badge badge-secondary menu-detail">编辑</a>
+        <a href="javascript:void(0);" class="badge badge-primary move-up"
+           th:if="${menuInfoStat.count != 1}">
+            <i class="fa fa-arrow-up" aria-hidden="true"></i>
+        </a>
+        <a href="javascript:void(0);" class="badge badge-primary move-down"
+           th:if="${menuInfoStat.count != menuInfoStat.size}">
+            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+        </a>
+        <a href="javascript:void(0);" class="badge badge-danger menu-delete">删除</a>
+        <ul th:if="${not #lists.isEmpty(menuInfo.childMenus)}">
+            <li th:each="childMenu : ${menuInfo.childMenus}"
+                th:attr="data-menu-flow=${childMenu.menuFlow},data-menu-name=${childMenu.menuName},data-menu-path=${childMenu.menuPath}">
+                [[${childMenu.menuName}]]&nbsp;
+                <a href="javascript:void(0);" class="badge badge-secondary menu-detail">编辑</a>
+                <a href="javascript:void(0);" class="badge badge-primary move-up"
+                   th:if="${childMenuStat.count != 1}">
+                    <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                </a>
+                <a href="javascript:void(0);" class="badge badge-primary move-down"
+                   th:if="${childMenuStat.count != childMenuStat.size}">
+                    <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                </a>
+                <a href="javascript:void(0);" class="badge badge-danger menu-delete">删除</a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" class="badge badge-success menu-create"
+                   th:attr="data-parent-menu-flow=${menuInfo.menu.menuFlow}" data-menu-level="2">添加</a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="javascript:void(0);" class="badge badge-success menu-create" data-menu-level="1">添加</a>
+    </li>
+</ul>

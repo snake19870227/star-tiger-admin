@@ -26,6 +26,7 @@ import com.snake19870227.stiger.admin.StarTigerAdminConstant;
 import com.snake19870227.stiger.admin.entity.bo.MenuInfo;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
+import com.snake19870227.stiger.admin.service.sys.SysMenuService;
 import com.snake19870227.stiger.admin.service.sys.SysService;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
 import com.snake19870227.stiger.admin.web.entity.vo.Sidebar;
@@ -44,8 +45,11 @@ public class WebAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 
     private final SysService sysService;
 
-    public WebAuthenticationSuccessHandler(SysService sysService) {
+    private final SysMenuService sysMenuService;
+
+    public WebAuthenticationSuccessHandler(SysService sysService, SysMenuService sysMenuService) {
         this.sysService = sysService;
+        this.sysMenuService = sysMenuService;
     }
 
     @Override
@@ -65,7 +69,7 @@ public class WebAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 
     private void loadUserSidebar(HttpServletRequest request, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        List<MenuInfo> menuInfos = sysService.allMenuTree();
+        List<MenuInfo> menuInfos = sysMenuService.allMenuTree();
         List<MenuInfo> userMenuInfos = new ArrayList<>();
         for (MenuInfo level1 : menuInfos) {
             List<SysMenu> childMenus = level1.getChildMenus().stream().filter(

@@ -21,12 +21,14 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
     default List<SysMenu> getChildMenu(String parentMenuFlow) {
         QueryWrapper<SysMenu> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("parent_menu_flow", parentMenuFlow);
+        queryWrapper.orderByAsc("menu_order");
         return this.selectList(queryWrapper);
     }
 
     default List<SysMenu> getAllMenu(int level) {
         QueryWrapper<SysMenu> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("menu_level", level);
+        queryWrapper.orderByAsc("menu_order");
         return this.selectList(queryWrapper);
     }
 }

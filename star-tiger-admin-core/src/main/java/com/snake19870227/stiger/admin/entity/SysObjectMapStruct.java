@@ -5,9 +5,11 @@ import cn.hutool.core.util.StrUtil;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import com.snake19870227.stiger.admin.StarTigerAdminConstant;
+import com.snake19870227.stiger.admin.entity.dto.SysMenuModel;
 import com.snake19870227.stiger.admin.entity.dto.SysResModel;
 import com.snake19870227.stiger.admin.entity.dto.SysRoleModel;
 import com.snake19870227.stiger.admin.entity.dto.SysUserModel;
+import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
 import com.snake19870227.stiger.admin.entity.po.SysUser;
@@ -62,4 +64,12 @@ public interface SysObjectMapStruct {
     @Mapping(target = "userFlow", source = "userFlow")
     @Mapping(target = "shortName", source = "shortName")
     SysUser toUserPo(SysUserModel model);
+
+    @Mapping(target = "menuFlow", source = "menuFlow")
+    @Mapping(target = "parentMenuFlow", source = "parentMenuFlow")
+    @Mapping(target = "menuLevel", source = "menuLevel")
+    @Mapping(target = "menuCode", source = "menuCode")
+    @Mapping(target = "menuName", source = "menuName")
+    @Mapping(target = "menuPath", source = "menuPath")
+    SysMenu toMenuPo(SysMenuModel model);
 }
