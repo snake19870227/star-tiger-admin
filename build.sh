@@ -1,34 +1,35 @@
 #!/bin/bash
 
-echo "--------------------------------------------------------------------------"
-echo ""
-echo "usage: ./build.sh 打包并发布docker镜像"
-echo ""
-echo "--------------------------------------------------------------------------"
+help(){
+  echo "--------------------------------------------------------------------------"
+  echo ""
+  echo "usage: ./build.sh [args...]"
+  echo ""
+  echo "-updateVersion    更新版本号 eg: ./build.sh updateVersion 0.0.1"
+  echo "-packdev          打包开发环境"
+  echo "-packdevdy        打包开发环境，读写分离方式"
+  echo "-packdocker       打包docker环境"
+  echo "-packdockerdy     打包docker环境，读写分离方式"
+  echo ""
+  echo "--------------------------------------------------------------------------"
+}
 
-mvn clean package -Pdocker
-
-#docker-compose build
-docker-compose up -d
-
-#artifactId="star-tiger-admin-ui"
-#adminUiPath="./$artifactId"
-#
-#while read line; do
-#  if [[ $line == version* ]]; then
-#    version=${line#*=}
-#  fi
-#done < "$adminUiPath/target/maven-archiver/pom.properties"
-#
-#if [[ -n $version ]]; then
-#  imageName=$artifactId
-#  echo "镜像名称: $imageName"
-#  echo "构建版本: $version"
-#  jarFile="$adminUiPath/target/$artifactId-$version.jar"
-#  if [[ -f $jarFile ]]; then
-#    echo "jar文件: $jarFile"
-#    containerName="$imageName-$version-test"
-#    echo "测试容器: $containerName"
-#    docker build --build-arg "jar_file=$jarFile" --build-arg "spring_prifiles_active=docker" -t "$imageName" -t "$imageName:$version" ./star-tiger-admin-ui
-#  fi
-#fi
+case "$1" in
+  'updateVersion')
+    bin/updateVersion.sh $2
+	;;
+  'packdev')
+    bin/package.sh dev
+	;;
+  'packdevdy')
+    bin/package.sh devdynamic
+	;;
+  'packdocker')
+    bin/package.sh docker
+	;;
+  'packdockerdy')
+    bin/package.sh dockerdynamic
+	;;
+  *)
+    help
+esac
