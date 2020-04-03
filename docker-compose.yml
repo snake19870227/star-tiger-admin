@@ -1,7 +1,9 @@
 version: '2'
 services:
   stiger-admin-db-master:
-    image: mysql:5.7.29
+    build:
+      context: ./database
+    image: stiger-admin-mysql
     container_name: mysql13306
     hostname: mysql13306
     ports:
@@ -20,7 +22,7 @@ services:
       "--collation-server=utf8mb4_unicode_ci"
     ]
   stiger-admin-db-slave1:
-    image: mysql:5.7.29
+    image: stiger-admin-mysql
     container_name: mysql23306
     hostname: mysql23306
     ports:
@@ -32,7 +34,6 @@ services:
     volumes:
       - "/Users/snake/docker/container/mysql/5.7.29/mysql23306/data:/var/lib/mysql"
       - "/Users/snake/docker/container/mysql/5.7.29/mysql23306/conf.d:/etc/mysql/conf.d"
-      - "/Users/snake/docker/container/mysql/5.7.29/mysql23306/sql:/init"
     command: [
       "--character-set-server=utf8mb4",
       "--collation-server=utf8mb4_unicode_ci"
