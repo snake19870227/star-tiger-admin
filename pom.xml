@@ -47,12 +47,12 @@
         <repository>
             <id>release</id>
             <name>Project Release</name>
-            <url>http://localhost:8081/repository/maven-releases/</url>
+            <url>http://localhost:18081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
             <name>Project SNAPSHOTS</name>
-            <url>http://localhost:8081/repository/maven-snapshots/</url>
+            <url>http://localhost:18081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
