@@ -8,11 +8,11 @@
     <parent>
         <groupId>com.snake19870227</groupId>
         <artifactId>star-tiger-admin</artifactId>
-        <version>${admin.version}</version>
+        <version>0.0.4</version>
     </parent>
 
     <artifactId>star-tiger-admin-core</artifactId>
-    <version>${admin.version}</version>
+    <version>0.0.4</version>
     <name>StarTigerAdminCore</name>
     <description>Star Tiger 后端管理 core 模块</description>
 
@@ -133,10 +133,6 @@
             <artifactId>mapstruct-processor</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>star-tiger-spring-boot-starter</artifactId>
-        </dependency>
     </dependencies>
 
 </project>
