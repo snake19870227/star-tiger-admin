@@ -37,14 +37,16 @@
 ```
 git仓库地址：https://github.com/snake19870227/star-tiger-framework
 
-## 部署
+## Docker部署
 - mysql主从
+
     1. **在 star-tiger-admin 目录下执行 docker-compose 命令**
         - 将./database/my.cnf分别拷贝至**主从两个mysql容器映射出来的conf.d目录**下  
         - 将./database/sql下的初始化脚本拷贝至**主mysql容器映射出来的init目录**下  
     ```bash
     docker-compose up -d stiger-admin-db-master stiger-admin-db-slave1
     ```
+    
     2. **分别连到两台mysql容器中**
     
     主库：
@@ -64,12 +66,14 @@ git仓库地址：https://github.com/snake19870227/star-tiger-framework
     master_log_pos=599, master_connect_retry=30;
     start slave;
     ```
-    'master_log_file''master_log_pos'分别对应主库'show msater status'的结果，'File'和'Position'的值
+    'master_log_file''master_log_pos'分别对应主库'show msater status'的结果，'File'和'Position'的值  
+    
     3. **主库初始化数据**
     ```mysql
     source /init/ddl.sql
     source /init/dml.sql
     ```
+    
     4. 从库查看是否已同步数据
     
 - redis
