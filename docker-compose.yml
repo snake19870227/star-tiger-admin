@@ -51,8 +51,17 @@ services:
     build:
       context: ./star-tiger-admin-ui
       args:
-        profile: docker
+        ACTIVE_PROFILE: docker
     image: stiger-admin-ui
     container_name: stigeradmin19999
     ports:
       - 19999:9999
+  stiger-admin-ui-dynamic:
+    build:
+      context: ./star-tiger-admin-ui
+      args:
+        ACTIVE_PROFILE: dockerdynamic
+    image: stiger-admin-ui-dynamic
+    container_name: stigeradmin29999
+    ports:
+      - 29999:9999
