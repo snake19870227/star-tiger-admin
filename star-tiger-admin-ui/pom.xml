@@ -37,12 +37,26 @@
             <properties>
                 <proj.profile.id>devdynamic</proj.profile.id>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.snake19870227</groupId>
+                    <artifactId>star-tiger-admin-dynamic-datasource</artifactId>
+                    <version>0.0.5</version>
+                </dependency>
+            </dependencies>
         </profile>
         <profile>
             <id>dockerdynamic</id>
             <properties>
                 <proj.profile.id>dockerdynamic</proj.profile.id>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.snake19870227</groupId>
+                    <artifactId>star-tiger-admin-dynamic-datasource</artifactId>
+                    <version>0.0.5</version>
+                </dependency>
+            </dependencies>
         </profile>
     </profiles>
 
@@ -92,10 +106,6 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
@@ -123,7 +133,7 @@
         <dependency>
             <groupId>com.snake19870227</groupId>
             <artifactId>star-tiger-admin-server</artifactId>
-            <version>${project.parent.version}</version>
+            <version>0.0.5</version>
         </dependency>
     </dependencies>
 

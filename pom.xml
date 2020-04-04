@@ -8,7 +8,7 @@
     <parent>
         <groupId>com.snake19870227</groupId>
         <artifactId>star-tiger-framework</artifactId>
-        <version>0.0.4</version>
+        <version>0.0.5</version>
     </parent>
 
     <artifactId>star-tiger-admin</artifactId>
@@ -60,6 +60,7 @@
         <module>star-tiger-admin-core</module>
         <module>star-tiger-admin-server</module>
         <module>star-tiger-admin-ui</module>
+        <module>star-tiger-admin-dynamic-datasource</module>
     </modules>
 
     <properties>
@@ -169,7 +170,7 @@
                 <version>${maven-dependency-plugin.version}</version>
                 <executions>
                     <execution>
-                        <phase>compile</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
@@ -185,7 +186,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>compile</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>

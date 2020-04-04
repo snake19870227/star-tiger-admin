@@ -11,16 +11,20 @@
         <version>0.0.5</version>
     </parent>
 
-    <artifactId>star-tiger-admin-server</artifactId>
+    <artifactId>star-tiger-admin-dynamic-datasource</artifactId>
     <version>0.0.5</version>
-    <name>StarTigerAdminServer</name>
-    <description>Star Tiger 后端管理 server 模块</description>
+    <name>StarTigerAdminDynamicDatasource</name>
+    <description>Star Tiger 后端管理主从数据源配置模块</description>
 
     <dependencies>
         <dependency>
             <groupId>com.snake19870227</groupId>
             <artifactId>star-tiger-admin-core</artifactId>
             <version>0.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 

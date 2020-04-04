@@ -1,0 +1,42 @@
+spring:
+  redis:
+    host: redis16379
+    port: 6379
+  thymeleaf:
+    cache: false
+  cache:
+    type: redis
+    redis:
+      time-to-live: 1m
+  session:
+    store-type: redis
+  shardingsphere:
+    datasource:
+      names: ds_master,ds_slave_0
+      ds_master:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://mysql13306:3306/stigeradmin?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
+        username: root
+        password: 123456
+      ds_slave_0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://mysql23306:3306/stigeradmin?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
+        username: root
+        password: 123456
+    masterslave:
+      load-balance-algorithm-type: round_robin
+      name: ds_ms
+      master-data-source-name: ds_master
+      slave-data-source-names: ds_slave_0
+server:
+  port: 9999
+  servlet:
+    session:
+      timeout: 30M
+stiger:
+  admin:
+    web:
+      security:
+        remember-me-key: stiger-admin
