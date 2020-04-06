@@ -12,14 +12,14 @@ spring:
     store-type: redis
   shardingsphere:
     datasource:
-      names: ds_master,ds_slave_0
-      ds_master:
+      names: ds-master,ds-slave-0
+      ds-master:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
         jdbc-url: jdbc:mysql://mysql13306:3306/stigeradmin?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
         username: root
         password: 123456
-      ds_slave_0:
+      ds-slave-0:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
         jdbc-url: jdbc:mysql://mysql23306:3306/stigeradmin?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
@@ -27,9 +27,11 @@ spring:
         password: 123456
     masterslave:
       load-balance-algorithm-type: round_robin
-      name: ds_ms
-      master-data-source-name: ds_master
-      slave-data-source-names: ds_slave_0
+      name: ds-ms
+      master-data-source-name: ds-master
+      slave-data-source-names: ds-slave-0
+    props:
+      sql.show: true
 server:
   port: 9999
   servlet:

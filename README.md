@@ -24,7 +24,7 @@
 ```
 由 https://github.com/snake19870227/StarTiger/tree/master/StarTiger-admin 迁移至此  
 
-## 说明
+### 说明
 后端管理中心，spring boot 2.x + spring security + AdminLTE  
 
 依赖项目：
@@ -32,55 +32,77 @@
 <parent>
     <groupId>com.snake19870227</groupId>
     <artifactId>star-tiger-framework</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.5</version>
 </parent>
 ```
 git仓库地址：https://github.com/snake19870227/star-tiger-framework
 
-## Docker部署
-- mysql主从
-
-    1. **在 star-tiger-admin 目录下执行 docker-compose 命令**
-        - 将./database/my.cnf分别拷贝至**主从两个mysql容器映射出来的conf.d目录**下  
-        - 将./database/sql下的初始化脚本拷贝至**主mysql容器映射出来的init目录**下  
+### 部署准备
+1. 授权脚本文件
     ```bash
-    docker-compose up -d stiger-admin-db-master stiger-admin-db-slave1
+    chmod u+x build.sh
+    chmod u+x bin/*
     ```
-    
-    2. **分别连到两台mysql容器中**
-    
-    主库：
-    ```mysql
-    mysql -uroot -p123456
-    grant replication slave on *.* to 'slaveuser23306'@'%' identified by '123456';
-    flush privileges;
-    show master status;
+
+2. 本地部署nexus
+    ```bash
+    docker run -d -p 18081:8081 \
+        --name nexus18081 \
+        --restart=always \
+        -v /Users/snake/docker/container/nexus/data:/nexus-data \
+        sonatype/nexus3
     ```
-    记录下'show msater status'的结果，'File'和'Position'的值  
+
+3. 发布`star-tiger-framework`至本地nexus私仓
+
+### 普通部署
+1. 数据库与初始化数据
+
+    - 本机安装mysql
+    - 初始化数据  
+    `mysql -uroot -p123456 < /init/ddl.sql`  
+    `mysql -uroot -p123456 < /init/dml.sql`
+
+2. redis  
+   本机安装redis
+
+3. 配置文件与启动程序
+   - 修改`star-tiger-admin-ui`模块下`application-dev.yml`关于数据库连接与redis连接的配置
+   - 在根目录[`star-tiger-admin`]下执行`./build.sh packdev`进行打包
+   - 执行`java -jar ./star-tiger-admin-ui/target/StarTigerAdminUi.jar`启动程序
+
+### Docker部署
+1. mysql主从部署及配置
+
+    - 构建主从数据库镜像并创建容器
+        ```bash
+        build.sh db-master
+        build.sh db-slave 1
+        ```
+    其中第二行命令的第二个参数为从数据库索引，即`docker-compose.yml`中前缀为`stiger-admin-db-slave`的从库配置，  
+    构建`stiger-admin-db-slave2`则命令为`build.sh db-slave 2`
     
-    从库：
-    ```mysql
-    mysql -uroot -p123456
-    change master to master_host='mysql13306', master_user='slaveuser23306', \
-        master_password='123456', master_port=3306, master_log_file='mysql-bin.000003', \
-    master_log_pos=599, master_connect_retry=30;
-    start slave;
-    ```
-    'master_log_file''master_log_pos'分别对应主库'show msater status'的结果，'File'和'Position'的值  
+    - 主从配置
+        ```bash
+        build.sh db-init-master
+        build.sh db-init-slave mysql23306 mysql-bin.000004 591
+        ```
+        第二行命令参数:   
+        - `db-init-slave` 执行从库配置  
+        - `mysql23306` 从库容器名，`docker-compose.yml`中配置  
+        - `mysql-bin.000004`与`591` 主库`show master status`输出结果（第一行命令会默认执行输出）`File`与`Position`
     
-    3. **主库初始化数据**
-    ```mysql
-    source /init/ddl.sql
-    source /init/dml.sql
-    ```
+    - 初始化数据
+        ```bash
+        build.sh db-init-data
+        ```
     
-    4. 从库查看是否已同步数据
-    
-- redis
+2. redis
     ```bash
     docker-compose up -d stiger-admin-redis
     ```
-- 应用
+3. 应用
     ```bash
-    docker-compose up -d stiger-admin-ui
+    docker-compose build stiger-admin-ui-dynamic
+    docker-compose up -d stiger-admin-ui-dynamic
     ```

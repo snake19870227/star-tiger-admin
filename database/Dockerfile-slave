@@ -1,0 +1,8 @@
+FROM mysql:5.7.29
+MAINTAINER snake19870227
+VOLUME ["/tmp"]
+ARG server_id
+COPY my.cnf /etc/mysql/conf.d/
+RUN ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && echo Asia/Shanghai > /etc/timezone \
+    && echo -e "\nserver-id=${server_id}" >> /etc/mysql/conf.d/my.cnf

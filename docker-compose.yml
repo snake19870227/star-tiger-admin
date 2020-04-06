@@ -3,7 +3,8 @@ services:
   stiger-admin-db-master:
     build:
       context: ./database
-    image: stiger-admin-mysql
+      dockerfile: Dockerfile-master
+    image: stiger-admin-db-master
     container_name: mysql13306
     hostname: mysql13306
     ports:
@@ -11,18 +12,19 @@ services:
     privileged: true
     environment:
       MYSQL_ROOT_PASSWORD: 123456
-    # 将./database/my.cnf拷贝至映射出来的conf.d目录下
-    # 将./database/sql下的初始化脚本拷贝至映射出来的init目录下
     volumes:
       - "/Users/snake/docker/container/mysql/5.7.29/mysql13306/data:/var/lib/mysql"
-      - "/Users/snake/docker/container/mysql/5.7.29/mysql13306/conf.d:/etc/mysql/conf.d"
-      - "/Users/snake/docker/container/mysql/5.7.29/mysql13306/sql:/init"
     command: [
       "--character-set-server=utf8mb4",
       "--collation-server=utf8mb4_unicode_ci"
     ]
   stiger-admin-db-slave1:
-    image: stiger-admin-mysql
+    build:
+      context: ./database
+      dockerfile: Dockerfile-slave
+      args:
+        server_id: 2
+    image: stiger-admin-db-slave1
     container_name: mysql23306
     hostname: mysql23306
     ports:
@@ -30,10 +32,8 @@ services:
     privileged: true
     environment:
       MYSQL_ROOT_PASSWORD: 123456
-    # 将./database/my.cnf拷贝至映射出来的conf.d目录下，并将server-id改成2
     volumes:
       - "/Users/snake/docker/container/mysql/5.7.29/mysql23306/data:/var/lib/mysql"
-      - "/Users/snake/docker/container/mysql/5.7.29/mysql23306/conf.d:/etc/mysql/conf.d"
     command: [
       "--character-set-server=utf8mb4",
       "--collation-server=utf8mb4_unicode_ci"

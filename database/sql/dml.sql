@@ -4,7 +4,12 @@ SET character_set_connection = utf8;
 
 begin;
 insert into stigeradmin.sys_resource (res_flow, res_name, res_path, res_method)
-values (replace(uuid(), '-', ''), '查询资源', '/sys/resource/**', 'GET'),
+values (replace(uuid(), '-', ''), '查询菜单', '/sys/menu/**', 'GET'),
+       (replace(uuid(), '-', ''), '创建菜单', '/sys/menu', 'POST'),
+       (replace(uuid(), '-', ''), '修改菜单', '/sys/menu', 'PUT'),
+       (replace(uuid(), '-', ''), '删除菜单', '/sys/menu/*', 'DELETE'),
+       (replace(uuid(), '-', ''), '排序菜单', '/sys/menu/swap/**', 'PUT'),
+       (replace(uuid(), '-', ''), '查询资源', '/sys/resource/**', 'GET'),
        (replace(uuid(), '-', ''), '创建资源', '/sys/resource', 'POST'),
        (replace(uuid(), '-', ''), '修改资源', '/sys/resource', 'PUT'),
        (replace(uuid(), '-', ''), '删除资源', '/sys/resource/*', 'DELETE'),
