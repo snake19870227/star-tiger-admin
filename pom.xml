@@ -59,7 +59,6 @@
     <modules>
         <module>star-tiger-admin-core</module>
         <module>star-tiger-admin-server</module>
-        <module>star-tiger-admin-dynamic-datasource</module>
         <module>star-tiger-admin-ui</module>
     </modules>
 
