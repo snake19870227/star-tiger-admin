@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.snake19870227</groupId>
+        <groupId>com.github.snake19870227</groupId>
         <artifactId>star-tiger-admin</artifactId>
         <version>0.0.5</version>
     </parent>
@@ -39,7 +39,7 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>com.snake19870227</groupId>
+                    <groupId>com.github.snake19870227</groupId>
                     <artifactId>star-tiger-admin-dynamic-datasource</artifactId>
                     <version>0.0.5</version>
                 </dependency>
@@ -52,7 +52,7 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>com.snake19870227</groupId>
+                    <groupId>com.github.snake19870227</groupId>
                     <artifactId>star-tiger-admin-dynamic-datasource</artifactId>
                     <version>0.0.5</version>
                 </dependency>
@@ -131,7 +131,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.snake19870227</groupId>
+            <groupId>com.github.snake19870227</groupId>
             <artifactId>star-tiger-admin-server</artifactId>
             <version>0.0.5</version>
         </dependency>

@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.snake19870227</groupId>
+        <groupId>com.github.snake19870227</groupId>
         <artifactId>star-tiger-admin</artifactId>
         <version>0.0.5</version>
     </parent>
@@ -127,7 +127,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.snake19870227</groupId>
+            <groupId>com.github.snake19870227</groupId>
             <artifactId>star-tiger-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
