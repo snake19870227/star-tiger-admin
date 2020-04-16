@@ -60,6 +60,8 @@
         <module>star-tiger-admin-core</module>
         <module>star-tiger-admin-server</module>
         <module>star-tiger-admin-ui</module>
+        <module>star-tiger-admin-runtime</module>
+        <module>star-tiger-admin-security</module>
     </modules>
 
     <properties>

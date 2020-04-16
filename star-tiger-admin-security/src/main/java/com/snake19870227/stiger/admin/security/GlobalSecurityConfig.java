@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.config;
+package com.snake19870227.stiger.admin.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

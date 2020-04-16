@@ -16,7 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestAttribute;
-import com.snake19870227.stiger.admin.web.ProjectConstant;
+import com.snake19870227.stiger.admin.StarTigerAdminConstant;
 import com.snake19870227.stiger.core.context.StarTigerContext;
 import com.snake19870227.stiger.web.StarTigerWebConstant;
 
@@ -34,33 +34,33 @@ public class LoginController {
         while (paramNames.hasMoreElements()) {
             String paramName = paramNames.nextElement();
             String errorMessage = null;
-            if (StrUtil.equals(ProjectConstant.UrlParamNames.LOGIN_ERROR, paramName)) {
+            if (StrUtil.equals(StarTigerAdminConstant.UrlParamNames.LOGIN_ERROR, paramName)) {
                 errorMessage = StarTigerContext.getMessage("code.1001");
             }
-            if (StrUtil.equals(ProjectConstant.UrlParamNames.LOGIN_EXPIRE, paramName)) {
+            if (StrUtil.equals(StarTigerAdminConstant.UrlParamNames.LOGIN_EXPIRE, paramName)) {
                 errorMessage = StarTigerContext.getMessage("code.2003");
             }
-            if (StrUtil.equals(ProjectConstant.UrlParamNames.LOGIN_LOCKED, paramName)) {
+            if (StrUtil.equals(StarTigerAdminConstant.UrlParamNames.LOGIN_LOCKED, paramName)) {
                 errorMessage = StarTigerContext.getMessage("code.2004");
             }
             model.addAttribute(StarTigerWebConstant.ViewAttrKey.ERROR_MESSAGE, errorMessage);
         }
     }
 
-    @GetMapping(path = ProjectConstant.UrlPath.LOGIN)
+    @GetMapping(path = StarTigerAdminConstant.UrlPath.LOGIN)
     public String login() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             User user = (User) authentication.getPrincipal();
             if (user != null) {
                 logger.info("用户[{}]已登录", user.getUsername());
-                return "redirect:" + ProjectConstant.UrlPath.MAIN;
+                return "redirect:" + StarTigerAdminConstant.UrlPath.MAIN;
             }
         }
         return "login";
     }
 
-    @GetMapping(path = ProjectConstant.UrlPath.ACCESS_DENIED)
+    @GetMapping(path = StarTigerAdminConstant.UrlPath.ACCESS_DENIED)
     public String accessDenied(@RequestAttribute(name =StarTigerWebConstant.ViewAttrKey.ACCESS_DENIED_URL) String accessDeniedUrl,
                                Model model) {
         model.addAttribute(StarTigerWebConstant.ViewAttrKey.ERROR_MESSAGE, accessDeniedUrl);

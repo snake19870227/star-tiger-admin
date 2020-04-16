@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.snake19870227.stiger.admin.StarTigerAdminConstant;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
-import com.snake19870227.stiger.admin.web.ProjectConstant;
 import com.snake19870227.stiger.admin.web.service.RouterService;
 import com.snake19870227.stiger.web.exception.MvcException;
 
@@ -27,18 +27,18 @@ public class MainController extends BaseController {
         this.routerService = routerService;
     }
 
-    @GetMapping(path = {ProjectConstant.UrlPath.ROOT, ProjectConstant.UrlPath.INDEX})
+    @GetMapping(path = {StarTigerAdminConstant.UrlPath.ROOT, StarTigerAdminConstant.UrlPath.INDEX})
     public String index() {
-        return "redirect:" + ProjectConstant.UrlPath.LOGIN;
+        return "redirect:" + StarTigerAdminConstant.UrlPath.LOGIN;
     }
 
-    @GetMapping(path = ProjectConstant.UrlPath.MAIN)
+    @GetMapping(path = StarTigerAdminConstant.UrlPath.MAIN)
     public String toMain(HttpServletRequest request) {
         closeAllMenu(request);
         return "main";
     }
 
-    @GetMapping(path = ProjectConstant.UrlPath.MENU_ROUTING)
+    @GetMapping(path = StarTigerAdminConstant.UrlPath.MENU_ROUTING)
     public String menuRouting(@RequestParam(name = "menuCode") String menuCode,
                               RedirectAttributes redirectAttributes) {
 

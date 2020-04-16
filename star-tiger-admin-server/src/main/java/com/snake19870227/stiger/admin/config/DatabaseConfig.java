@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.web.config;
+package com.snake19870227.stiger.admin.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;

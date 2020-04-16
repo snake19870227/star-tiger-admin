@@ -12,94 +12,8 @@
     </parent>
 
     <artifactId>star-tiger-admin-ui</artifactId>
-    <version>0.0.5</version>
     <name>StarTigerAdminUi</name>
     <description>Star Tiger 后端管理 UI 模块</description>
-
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <proj.profile.id>dev</proj.profile.id>
-            </properties>
-        </profile>
-        <profile>
-            <id>docker</id>
-            <properties>
-                <proj.profile.id>docker</proj.profile.id>
-            </properties>
-        </profile>
-        <profile>
-            <id>devdynamic</id>
-            <properties>
-                <proj.profile.id>devdynamic</proj.profile.id>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.shardingsphere</groupId>
-                    <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>dockerdynamic</id>
-            <properties>
-                <proj.profile.id>dockerdynamic</proj.profile.id>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.shardingsphere</groupId>
-                    <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
-
-    <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/webresources</directory>
-                <filtering>false</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>repackage</id>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                            <mainClass>com.snake19870227.stiger.admin.web.StarTigerAdminWebApplication</mainClass>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <goals>
-                            <goal>build-info</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>
@@ -130,7 +44,7 @@
 
         <dependency>
             <groupId>com.github.snake19870227</groupId>
-            <artifactId>star-tiger-admin-server</artifactId>
+            <artifactId>star-tiger-admin-security</artifactId>
             <version>0.0.5</version>
         </dependency>
     </dependencies>

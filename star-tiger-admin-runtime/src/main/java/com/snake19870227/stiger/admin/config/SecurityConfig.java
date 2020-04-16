@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.web.config;
+package com.snake19870227.stiger.admin.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -12,14 +12,14 @@ import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.snake19870227.stiger.admin.StarTigerAdminConstant;
 import com.snake19870227.stiger.admin.security.CustomUserDetailsManager;
+import com.snake19870227.stiger.admin.security.UiAuthenticationFailureHandler;
+import com.snake19870227.stiger.admin.security.UiAuthenticationSuccessHandler;
+import com.snake19870227.stiger.admin.security.WebSecurityExceptionHandler;
 import com.snake19870227.stiger.admin.service.sys.SysMenuService;
 import com.snake19870227.stiger.admin.service.sys.SysService;
 import com.snake19870227.stiger.admin.service.sys.SysUserService;
-import com.snake19870227.stiger.admin.web.ProjectConstant;
-import com.snake19870227.stiger.admin.web.security.WebAuthenticationFailureHandler;
-import com.snake19870227.stiger.admin.web.security.WebAuthenticationSuccessHandler;
-import com.snake19870227.stiger.admin.web.security.WebSecurityExceptionHandler;
 import com.snake19870227.stiger.autoconfigure.properties.StarTigerFrameProperties;
 
 /**
@@ -43,19 +43,19 @@ public class SecurityConfig {
         @Value("${stiger.admin.web.security.remember-me-key}")
         private String rememberMeKey;
 
-        private final WebAuthenticationSuccessHandler webAuthenticationSuccessHandler;
-        private final WebAuthenticationFailureHandler webAuthenticationFailureHandler;
+        private final UiAuthenticationSuccessHandler uiAuthenticationSuccessHandler;
+        private final UiAuthenticationFailureHandler uiAuthenticationFailureHandler;
 
         private final WebSecurityExceptionHandler webSecurityExceptionHandler;
 
         private final RememberMeServices rememberMeServices;
 
-        public CustomWebSecurityConfigurerAdapter(WebAuthenticationSuccessHandler webAuthenticationSuccessHandler,
-                                                  WebAuthenticationFailureHandler webAuthenticationFailureHandler,
+        public CustomWebSecurityConfigurerAdapter(UiAuthenticationSuccessHandler uiAuthenticationSuccessHandler,
+                                                  UiAuthenticationFailureHandler uiAuthenticationFailureHandler,
                                                   WebSecurityExceptionHandler webSecurityExceptionHandler,
                                                   RememberMeServices rememberMeServices) {
-            this.webAuthenticationSuccessHandler = webAuthenticationSuccessHandler;
-            this.webAuthenticationFailureHandler = webAuthenticationFailureHandler;
+            this.uiAuthenticationSuccessHandler = uiAuthenticationSuccessHandler;
+            this.uiAuthenticationFailureHandler = uiAuthenticationFailureHandler;
             this.webSecurityExceptionHandler = webSecurityExceptionHandler;
             this.rememberMeServices = rememberMeServices;
         }
@@ -72,21 +72,21 @@ public class SecurityConfig {
 
             urlRegistry
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                    .antMatchers(ProjectConstant.UrlPath.anonymousPaths()).permitAll()
-                    .antMatchers(ProjectConstant.UrlPath.authenticatedPaths()).authenticated()
+                    .antMatchers(StarTigerAdminConstant.UrlPath.anonymousPaths()).permitAll()
+                    .antMatchers(StarTigerAdminConstant.UrlPath.authenticatedPaths()).authenticated()
                     .anyRequest().access("@authAssert.canAccess(request, authentication)");
 
             http.formLogin()
-                    .failureHandler(webAuthenticationFailureHandler)
-                    .successHandler(webAuthenticationSuccessHandler)
+                    .failureHandler(uiAuthenticationFailureHandler)
+                    .successHandler(uiAuthenticationSuccessHandler)
                 .and()
                 .logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher(ProjectConstant.UrlPath.LOGOUT, "GET"))
+                    .logoutRequestMatcher(new AntPathRequestMatcher(StarTigerAdminConstant.UrlPath.LOGOUT, "GET"))
                 .and()
                 .rememberMe()
                     .key(rememberMeKey)
                     .rememberMeServices(rememberMeServices)
-                    .authenticationSuccessHandler(webAuthenticationSuccessHandler)
+                    .authenticationSuccessHandler(uiAuthenticationSuccessHandler)
                 .and()
                 .httpBasic()
                 .and().sessionManagement().maximumSessions(1);
@@ -99,13 +99,13 @@ public class SecurityConfig {
     }
 
     @Bean
-    public WebAuthenticationSuccessHandler webAuthenticationSuccessHandler(SysService sysService, SysMenuService sysMenuService) {
-        return new WebAuthenticationSuccessHandler(sysService, sysMenuService);
+    public UiAuthenticationSuccessHandler webAuthenticationSuccessHandler(SysService sysService, SysMenuService sysMenuService) {
+        return new UiAuthenticationSuccessHandler(sysService, sysMenuService);
     }
 
     @Bean
-    public WebAuthenticationFailureHandler webAuthenticationFailureHandler(StarTigerFrameProperties starTigerFrameProperties) {
-        return new WebAuthenticationFailureHandler(starTigerFrameProperties);
+    public UiAuthenticationFailureHandler webAuthenticationFailureHandler(StarTigerFrameProperties starTigerFrameProperties) {
+        return new UiAuthenticationFailureHandler(starTigerFrameProperties);
     }
 
     @Bean

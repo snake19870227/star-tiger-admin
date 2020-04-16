@@ -6,7 +6,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.snake19870227.stiger.admin.web.common.GlobalErrorViewResolver;
+import com.snake19870227.stiger.admin.security.GlobalErrorViewResolver;
 import com.snake19870227.stiger.admin.web.common.WebPostWebErrorHandler;
 import com.snake19870227.stiger.web.exception.PostWebErrorHandler;
 
@@ -15,7 +15,7 @@ import com.snake19870227.stiger.web.exception.PostWebErrorHandler;
  */
 @Configuration
 @EnableCaching
-public class ProjectConfig {
+public class UiConfig {
 
     @Bean
     public WebPostWebErrorHandler postWebErrorHandler() {

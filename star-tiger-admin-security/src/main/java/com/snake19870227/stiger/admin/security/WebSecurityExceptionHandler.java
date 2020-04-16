@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.web.security;
+package com.snake19870227.stiger.admin.security;
 
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.ContentType;
@@ -18,7 +18,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snake19870227.stiger.admin.web.ProjectConstant;
+import com.snake19870227.stiger.admin.StarTigerAdminConstant;
 import com.snake19870227.stiger.autoconfigure.properties.StarTigerFrameProperties;
 import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.core.context.StarTigerContext;
@@ -60,7 +60,7 @@ public class WebSecurityExceptionHandler implements AuthenticationEntryPoint, Ac
         if (WebUtil.isAjaxRequest(request)) {
             responseIfAjax("2001", response);
         } else {
-            response.sendRedirect(ProjectConstant.UrlPath.LOGIN + "?" + ProjectConstant.UrlParamNames.LOGIN_EXPIRE);
+            response.sendRedirect(StarTigerAdminConstant.UrlPath.LOGIN + "?" + StarTigerAdminConstant.UrlParamNames.LOGIN_EXPIRE);
         }
     }
 
@@ -82,7 +82,7 @@ public class WebSecurityExceptionHandler implements AuthenticationEntryPoint, Ac
             responseIfAjax("2002", response);
         } else {
             request.setAttribute(StarTigerWebConstant.ViewAttrKey.ACCESS_DENIED_URL, request.getServletPath());
-            request.getRequestDispatcher(ProjectConstant.UrlPath.ACCESS_DENIED)
+            request.getRequestDispatcher(StarTigerAdminConstant.UrlPath.ACCESS_DENIED)
                     .forward(request, response);
         }
     }

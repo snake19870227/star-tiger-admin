@@ -67,9 +67,9 @@ git仓库地址：https://github.com/snake19870227/star-tiger-framework
    本机安装redis
 
 3. 配置文件与启动程序
-   - 修改`star-tiger-admin-ui`模块下`application-dev.yml`关于数据库连接与redis连接的配置
+   - 修改`star-tiger-admin-runtime`模块下`application-dev.yml`关于数据库连接与redis连接的配置
    - 在根目录[`star-tiger-admin`]下执行`./build.sh packdev`进行打包
-   - 执行`java -jar ./star-tiger-admin-ui/target/StarTigerAdminUi.jar`启动程序
+   - 执行`java -jar ./star-tiger-admin-runtime/target/StarTigerAdminRuntime.jar`启动程序
 
 ### Docker部署
 1. mysql主从部署及配置
@@ -103,6 +103,6 @@ git仓库地址：https://github.com/snake19870227/star-tiger-framework
     ```
 3. 应用
     ```bash
-    docker-compose build stiger-admin-ui-dynamic
-    docker-compose up -d stiger-admin-ui-dynamic
+    docker-compose build stiger-admin-runtime-dynamic
+    docker-compose up -d stiger-admin-runtime-dynamic
     ```

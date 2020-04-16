@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.web.security;
+package com.snake19870227.stiger.admin.security;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,20 +11,20 @@ import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import com.snake19870227.stiger.admin.web.ProjectConstant;
+import com.snake19870227.stiger.admin.StarTigerAdminConstant;
 import com.snake19870227.stiger.autoconfigure.properties.StarTigerFrameProperties;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
  * @date 2020/03/16
  */
-public class WebAuthenticationFailureHandler implements AuthenticationFailureHandler {
+public class UiAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebAuthenticationFailureHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(UiAuthenticationFailureHandler.class);
 
     private final StarTigerFrameProperties starTigerFrameProperties;
 
-    public WebAuthenticationFailureHandler(StarTigerFrameProperties starTigerFrameProperties) {
+    public UiAuthenticationFailureHandler(StarTigerFrameProperties starTigerFrameProperties) {
         this.starTigerFrameProperties = starTigerFrameProperties;
     }
 
@@ -36,12 +36,12 @@ public class WebAuthenticationFailureHandler implements AuthenticationFailureHan
         }
         String urlParam = null;
         if (exception instanceof CredentialsExpiredException) {
-            urlParam = ProjectConstant.UrlParamNames.LOGIN_EXPIRE;
+            urlParam = StarTigerAdminConstant.UrlParamNames.LOGIN_EXPIRE;
         } else if (exception instanceof LockedException) {
-            urlParam = ProjectConstant.UrlParamNames.LOGIN_LOCKED;
+            urlParam = StarTigerAdminConstant.UrlParamNames.LOGIN_LOCKED;
         } else {
-            urlParam = ProjectConstant.UrlParamNames.LOGIN_ERROR;
+            urlParam = StarTigerAdminConstant.UrlParamNames.LOGIN_ERROR;
         }
-        response.sendRedirect(ProjectConstant.UrlPath.LOGIN + "?" + urlParam);
+        response.sendRedirect(StarTigerAdminConstant.UrlPath.LOGIN + "?" + urlParam);
     }
 }

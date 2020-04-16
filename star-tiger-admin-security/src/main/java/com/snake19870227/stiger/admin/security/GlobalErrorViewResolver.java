@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.web.common;
+package com.snake19870227.stiger.admin.security;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;

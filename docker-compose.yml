@@ -47,21 +47,21 @@ services:
     volumes:
       - "/Users/snake/docker/container/redis/5.0.8/etc:/usr/local/etc/redis"
       - "/Users/snake/docker/container/redis/5.0.8/data:/data"
-  stiger-admin-ui:
+  stiger-admin-runtime:
     build:
-      context: ./star-tiger-admin-ui
+      context: ./star-tiger-admin-runtime
       args:
         ACTIVE_PROFILE: docker
-    image: stiger-admin-ui
+    image: stiger-admin-runtime
     container_name: stigeradmin19999
     ports:
       - 19999:9999
-  stiger-admin-ui-dynamic:
+  stiger-admin-runtime-dynamic:
     build:
-      context: ./star-tiger-admin-ui
+      context: ./star-tiger-admin-runtime
       args:
         ACTIVE_PROFILE: dockerdynamic
-    image: stiger-admin-ui-dynamic
+    image: stiger-admin-runtime-dynamic
     container_name: stigeradmin29999
     ports:
       - 29999:9999

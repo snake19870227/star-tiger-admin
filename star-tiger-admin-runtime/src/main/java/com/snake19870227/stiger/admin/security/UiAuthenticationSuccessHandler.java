@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.web.security;
+package com.snake19870227.stiger.admin.security;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
@@ -28,7 +28,6 @@ import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.service.sys.SysMenuService;
 import com.snake19870227.stiger.admin.service.sys.SysService;
-import com.snake19870227.stiger.admin.web.ProjectConstant;
 import com.snake19870227.stiger.admin.web.entity.vo.Sidebar;
 import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.web.utils.WebUtil;
@@ -37,9 +36,9 @@ import com.snake19870227.stiger.web.utils.WebUtil;
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
  * @date 2020/03/16
  */
-public class WebAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class UiAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebAuthenticationSuccessHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(UiAuthenticationSuccessHandler.class);
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -47,7 +46,7 @@ public class WebAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 
     private final SysMenuService sysMenuService;
 
-    public WebAuthenticationSuccessHandler(SysService sysService, SysMenuService sysMenuService) {
+    public UiAuthenticationSuccessHandler(SysService sysService, SysMenuService sysMenuService) {
         this.sysService = sysService;
         this.sysMenuService = sysMenuService;
     }
@@ -97,6 +96,6 @@ public class WebAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
                 userMenuInfos.add(userLevel1);
             }
         }
-        request.getSession().setAttribute(ProjectConstant.WebAttrKey.USER_SIDEBAR, new Sidebar(userMenuInfos));
+        request.getSession().setAttribute(StarTigerAdminConstant.WebAttrKey.USER_SIDEBAR, new Sidebar(userMenuInfos));
     }
 }
