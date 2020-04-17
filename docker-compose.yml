@@ -5,15 +5,14 @@ services:
       context: ./database
       dockerfile: Dockerfile-master
     image: stiger-admin-db-master
-    container_name: mysql13306
-    hostname: mysql13306
+    container_name: adminDbMaster13306
     ports:
       - 13306:3306
     privileged: true
     environment:
       MYSQL_ROOT_PASSWORD: 123456
     volumes:
-      - "/Users/snake/docker/container/mysql/5.7.29/mysql13306/data:/var/lib/mysql"
+      - "/Users/snake/docker/container/mysql/5.7.29/adminDbMaster13306/data:/var/lib/mysql"
     command: [
       "--character-set-server=utf8mb4",
       "--collation-server=utf8mb4_unicode_ci"
@@ -25,15 +24,14 @@ services:
       args:
         server_id: 2
     image: stiger-admin-db-slave1
-    container_name: mysql23306
-    hostname: mysql23306
+    container_name: adminDbSlave123306
     ports:
       - 23306:3306
     privileged: true
     environment:
       MYSQL_ROOT_PASSWORD: 123456
     volumes:
-      - "/Users/snake/docker/container/mysql/5.7.29/mysql23306/data:/var/lib/mysql"
+      - "/Users/snake/docker/container/mysql/5.7.29/adminDbSlave123306/data:/var/lib/mysql"
     command: [
       "--character-set-server=utf8mb4",
       "--collation-server=utf8mb4_unicode_ci"
