@@ -32,7 +32,7 @@
 <parent>
     <groupId>com.snake19870227</groupId>
     <artifactId>star-tiger-framework</artifactId>
-    <version>0.0.5</version>
+    <version>${lastVersion}</version>
 </parent>
 ```
 git仓库地址：https://github.com/snake19870227/star-tiger-framework
@@ -44,16 +44,11 @@ git仓库地址：https://github.com/snake19870227/star-tiger-framework
     chmod u+x bin/*
     ```
 
-2. 本地部署nexus
-    ```bash
-    docker run -d -p 18081:8081 \
-        --name nexus18081 \
-        --restart=always \
-        -v /Users/snake/docker/container/nexus/data:/nexus-data \
-        sonatype/nexus3
-    ```
+2. `com.snake19870227:star-tiger-framework` 已发布至中央仓库，因此无需部署nexus私仓
 
-3. 发布`star-tiger-framework`至本地nexus私仓
+~~2. 本地部署nexus~~  
+
+~~3. 发布`star-tiger-framework`至本地nexus私仓~~
 
 ### 普通部署
 1. 数据库与初始化数据
@@ -85,7 +80,7 @@ git仓库地址：https://github.com/snake19870227/star-tiger-framework
     - 主从配置
         ```bash
         build.sh db-init-master
-        build.sh db-init-slave mysql23306 mysql-bin.000004 591
+        build.sh db-init-slave adminDbSlave123306 mysql-bin.000004 591
         ```
         第二行命令参数:   
         - `db-init-slave` 执行从库配置  
