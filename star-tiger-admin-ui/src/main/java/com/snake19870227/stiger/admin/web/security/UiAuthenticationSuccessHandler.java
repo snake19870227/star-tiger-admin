@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.security;
+package com.snake19870227.stiger.admin.web.security;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;

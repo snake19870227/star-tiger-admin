@@ -99,9 +99,11 @@ public class StarTigerAdminConstant {
         public static final String ADMINLTE = "/adminlte";
         public static final String MENU_ROUTING = "/routing";
 
+        public static final String OAUTH_PATTERN = "/oauth/**";
+
         public static String[] anonymousPaths() {
             return new String[] {
-                    ROOT, INDEX, LOGIN, ACCESS_DENIED, ADMINLTE + "/**", "/session/**"
+                    ROOT, INDEX, LOGIN, ACCESS_DENIED, ADMINLTE + "/**", OAUTH_PATTERN
             };
         }
 
@@ -114,6 +116,5 @@ public class StarTigerAdminConstant {
 
     public static class WebAttrKey {
         public static final String USER_SIDEBAR = "userSidebar";
-        public static final String REMEMBER_ME = "rememberMe";
     }
 }

@@ -1,38 +1,38 @@
 package com.snake19870227.stiger.admin.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
-import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.admin.StarTigerAdminConstant;
-import com.snake19870227.stiger.admin.security.CustomUserDetailsManager;
-import com.snake19870227.stiger.admin.security.UiAuthenticationFailureHandler;
-import com.snake19870227.stiger.admin.security.UiAuthenticationSuccessHandler;
+import com.snake19870227.stiger.admin.StarTigerAdminConstant.UrlPath;
+import com.snake19870227.stiger.admin.oauth2.StarTigerAdminOauth2AutoConfiguration;
 import com.snake19870227.stiger.admin.security.WebSecurityExceptionHandler;
-import com.snake19870227.stiger.admin.service.sys.SysMenuService;
-import com.snake19870227.stiger.admin.service.sys.SysService;
-import com.snake19870227.stiger.admin.service.sys.SysUserService;
-import com.snake19870227.stiger.autoconfigure.properties.StarTigerFrameProperties;
+import com.snake19870227.stiger.admin.web.security.UiAuthenticationFailureHandler;
+import com.snake19870227.stiger.admin.web.security.UiAuthenticationSuccessHandler;
 
 /**
  * @author Bu HuaYang
  */
 @Configuration
 public class SecurityConfig {
-
-    @Value("${stiger.admin.web.security.remember-me-key}")
-    private String rememberMeKey;
-
-    @Value("${stiger.admin.web.security.remember-me-cookie-name}")
-    private String rememberMeCookieName;
 
     @Configuration
     public static class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
@@ -61,11 +61,17 @@ public class SecurityConfig {
         }
 
         @Override
+        @Bean
+        public AuthenticationManager authenticationManagerBean() throws Exception {
+            return super.authenticationManagerBean();
+        }
+
+        @Override
         protected void configure(HttpSecurity http) throws Exception {
 
             String springActuatorPaths = springActuatorPath + "/**";
 
-            http.csrf().ignoringAntMatchers(springActuatorPaths);
+            http.csrf().ignoringAntMatchers(springActuatorPaths, UrlPath.OAUTH_PATTERN);
             http.headers().frameOptions().sameOrigin();
 
             ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry urlRegistry = http.authorizeRequests();
@@ -91,6 +97,9 @@ public class SecurityConfig {
                 .httpBasic()
                 .and().sessionManagement().maximumSessions(1);
 
+            http.oauth2ResourceServer().jwt()
+            ;
+
             http.exceptionHandling()
                     .authenticationEntryPoint(webSecurityExceptionHandler)
                     .accessDeniedHandler(webSecurityExceptionHandler)
@@ -98,32 +107,50 @@ public class SecurityConfig {
         }
     }
 
-    @Bean
-    public UiAuthenticationSuccessHandler webAuthenticationSuccessHandler(SysService sysService, SysMenuService sysMenuService) {
-        return new UiAuthenticationSuccessHandler(sysService, sysMenuService);
-    }
+    @Configuration
+    @ConditionalOnBean(StarTigerAdminOauth2AutoConfiguration.class)
+    @ConditionalOnProperty(prefix = "stiger.admin.oauth2", name = "enable", havingValue = "true")
+    @EnableAuthorizationServer
+    public static class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    @Bean
-    public UiAuthenticationFailureHandler webAuthenticationFailureHandler(StarTigerFrameProperties starTigerFrameProperties) {
-        return new UiAuthenticationFailureHandler(starTigerFrameProperties);
-    }
+        private final ClientDetailsService clientDetailsService;
+        private final TokenStore tokenStore;
+        private final AuthenticationManager authenticationManager;
+        private final JwtAccessTokenConverter jwtAccessTokenConverter;
+        private final UserDetailsService userDetailsService;
 
-    @Bean
-    public WebSecurityExceptionHandler webSecurityExceptionHandler(StarTigerFrameProperties starTigerFrameProperties, ObjectMapper objectMapper) {
-        return new WebSecurityExceptionHandler(starTigerFrameProperties, objectMapper);
-    }
+        public AuthorizationServerConfig(ClientDetailsService clientDetailsService,
+                                         TokenStore tokenStore,
+                                         AuthenticationManager authenticationManager,
+                                         JwtAccessTokenConverter jwtAccessTokenConverter,
+                                         UserDetailsService userDetailsService) {
+            this.clientDetailsService = clientDetailsService;
+            this.tokenStore = tokenStore;
+            this.authenticationManager = authenticationManager;
+            this.jwtAccessTokenConverter = jwtAccessTokenConverter;
+            this.userDetailsService = userDetailsService;
+        }
 
-    @Bean
-    public UserDetailsManager userDetailsManager(SysUserService sysUserService) {
-        return new CustomUserDetailsManager(sysUserService);
-    }
+        @Override
+        public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+            clients.withClientDetails(clientDetailsService);
+        }
 
-    @Bean
-    public RememberMeServices rememberMeServices(UserDetailsManager userDetailsManager) {
-        SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices();
-//        TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices(rememberMeKey, userDetailsManager);
-//        rememberMeServices.setParameter(Pr;
-//        memberMeCookieName);
-        return rememberMeServices;
+        @Override
+        public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+            endpoints.authenticationManager(authenticationManager)
+                    .userDetailsService(userDetailsService)
+                    .tokenStore(tokenStore)
+                    .accessTokenConverter(jwtAccessTokenConverter)
+            ;
+        }
+
+        @Override
+        public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+            security.tokenKeyAccess("isAuthenticated()")
+                    .checkTokenAccess("isAuthenticated()")
+                    .allowFormAuthenticationForClients()
+            ;
+        }
     }
 }

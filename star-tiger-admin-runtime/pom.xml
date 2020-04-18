@@ -63,17 +63,6 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
-            <resource>
-                <directory>src/main/webresources</directory>
-                <filtering>false</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
         </resources>
         <plugins>
             <plugin>
@@ -101,6 +90,11 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>com.github.snake19870227</groupId>
+            <artifactId>star-tiger-admin-oauth2</artifactId>
+            <version>0.0.5</version>
+        </dependency>
         <dependency>
             <groupId>com.github.snake19870227</groupId>
             <artifactId>star-tiger-admin-ui</artifactId>

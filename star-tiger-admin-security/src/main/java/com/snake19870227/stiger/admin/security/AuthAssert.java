@@ -15,6 +15,7 @@ import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 import com.snake19870227.stiger.admin.StarTigerAdminConstant;
@@ -44,7 +45,12 @@ public class AuthAssert {
     public boolean canAccess(HttpServletRequest request, Authentication authentication) {
 
         if (authentication instanceof AnonymousAuthenticationToken) {
+            logger.error("匿名用户未授权访问...");
             return false;
+        }
+
+        if (authentication instanceof JwtAuthenticationToken) {
+
         }
 
         User user = (User) authentication.getPrincipal();

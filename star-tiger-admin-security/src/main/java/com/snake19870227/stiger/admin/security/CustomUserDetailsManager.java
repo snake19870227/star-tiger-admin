@@ -80,6 +80,7 @@ public class CustomUserDetailsManager implements UserDetailsManager {
                 userInfo.getUser().getEncodePassword(),
                 roleCodeList.isEmpty() ? AuthorityUtils.NO_AUTHORITIES : roleCodeList,
                 userInfo.getUser().getShortName(),
+                userInfo.getUser().getUserFlow(),
                 StrUtil.equals(userInfo.getUser().getLocked(), StarTigerConstant.FLAG_N)
         );
         adminUser.setShortName(userInfo.getUser().getShortName());

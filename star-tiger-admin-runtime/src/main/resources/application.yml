@@ -4,11 +4,13 @@ spring:
     include: base
   application:
     name: ${project.name}-${proj.profile.id}
+  main:
+    allow-bean-definition-overriding: true
 stiger:
   frame:
     use-http-status-code: false
   admin:
     web:
       version: ${project.version}
-      security:
-        remember-me-cookie-name: RememberMe
+    oauth2:
+      enable: true

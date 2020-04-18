@@ -15,6 +15,19 @@
     <name>StarTigerAdminUi</name>
     <description>Star Tiger 后端管理 UI 模块</description>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/webresources</directory>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
