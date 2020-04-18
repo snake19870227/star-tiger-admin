@@ -18,11 +18,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
-import com.snake19870227.stiger.admin.StarTigerAdminConstant;
 import com.snake19870227.stiger.admin.entity.bo.ResourceInfo;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
 import com.snake19870227.stiger.admin.service.sys.SysService;
+import com.snake19870227.stiger.admin.utils.SecurityUtil;
 import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.web.utils.WebUtil;
 
@@ -75,7 +75,7 @@ public class AuthAssert {
                     }
                 });
 
-        matchedRoleList.add(StarTigerAdminConstant.getSuperRole());
+        matchedRoleList.add(SecurityUtil.getSuperRole());
 
         String[] roles = matchedRoleList.stream()
                 .map(sysRole -> StarTigerConstant.SPRING_SECURITY_ROLE_PREFIX + sysRole.getRoleCode())

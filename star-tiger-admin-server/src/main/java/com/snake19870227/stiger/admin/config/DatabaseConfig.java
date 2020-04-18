@@ -13,24 +13,19 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParser
  * @author Bu HuaYang
  */
 @Configuration
+@AutoConfigureAfter(MybatisPlusAutoConfiguration.class)
+@MapperScan(basePackages = {
+        "com.snake19870227.stiger.admin.dao.mapper"
+})
 @EnableTransactionManagement(proxyTargetClass = true)
 public class DatabaseConfig {
 
-    @Configuration
-    @AutoConfigureAfter(MybatisPlusAutoConfiguration.class)
-    @MapperScan(basePackages = {
-            "com.snake19870227.stiger.admin.dao.mapper"
-    })
-    public static class MybatisConfig {
-
-        @Bean
-        public PaginationInterceptor paginationInterceptor() {
-            PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
-            paginationInterceptor.setOverflow(false);
-            paginationInterceptor.setLimit(500);
-            paginationInterceptor.setCountSqlParser(new JsqlParserCountOptimize(true));
-            return paginationInterceptor;
-        }
-
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+        paginationInterceptor.setOverflow(false);
+        paginationInterceptor.setLimit(500);
+        paginationInterceptor.setCountSqlParser(new JsqlParserCountOptimize(true));
+        return paginationInterceptor;
     }
 }

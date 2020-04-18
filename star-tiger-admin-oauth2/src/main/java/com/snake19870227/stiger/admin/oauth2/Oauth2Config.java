@@ -4,15 +4,23 @@ import java.security.KeyPair;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.builders.ClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
@@ -27,7 +35,9 @@ import com.snake19870227.stiger.admin.security.AdminUser;
  * 2020/04/18
  */
 @Configuration
-public class StarTigerAdminOauth2AutoConfiguration {
+@ConditionalOnProperty(prefix = "stiger.admin.oauth2", name = "enable", havingValue = "true")
+@EnableAuthorizationServer
+public class Oauth2Config {
 
     @Bean
     public ClientDetailsService clientDetailsService(PasswordEncoder passwordEncoder) throws Exception {
@@ -35,7 +45,7 @@ public class StarTigerAdminOauth2AutoConfiguration {
                 = new ClientDetailsServiceBuilder<>().inMemory();
         builder.withClient("client1")
                 .secret(passwordEncoder.encode("123"))
-                .authorizedGrantTypes("authorization_code", "password", "refresh_token")
+                .authorizedGrantTypes("authorization_code", "password", "client_credentials", "refresh_token")
                 .scopes("user_base_info")
                 .redirectUris(
                         "http://example.com"
@@ -77,12 +87,54 @@ public class StarTigerAdminOauth2AutoConfiguration {
 
     @Bean
     public KeyPair keyPair() {
-        KeyStoreKeyFactory keyStoreKeyFactory
-                = new KeyStoreKeyFactory(
-                new ClassPathResource("snake.keystore"),
-                "123456".toCharArray()
-        );
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("snake.keystore"), "123456".toCharArray());
         return keyStoreKeyFactory.getKeyPair("com.snake19870227");
+    }
+
+    @Configuration
+    @ConditionalOnProperty(prefix = "stiger.admin.oauth2", name = "enable", havingValue = "true")
+    @EnableAuthorizationServer
+    public static class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+
+        private final ClientDetailsService clientDetailsService;
+        private final TokenStore tokenStore;
+        private final AuthenticationManager authenticationManager;
+        private final JwtAccessTokenConverter jwtAccessTokenConverter;
+        private final UserDetailsService userDetailsService;
+
+        public AuthorizationServerConfig(ClientDetailsService clientDetailsService,
+                                         TokenStore tokenStore,
+                                         AuthenticationManager authenticationManager,
+                                         JwtAccessTokenConverter jwtAccessTokenConverter,
+                                         UserDetailsService userDetailsService) {
+            this.clientDetailsService = clientDetailsService;
+            this.tokenStore = tokenStore;
+            this.authenticationManager = authenticationManager;
+            this.jwtAccessTokenConverter = jwtAccessTokenConverter;
+            this.userDetailsService = userDetailsService;
+        }
+
+        @Override
+        public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+            clients.withClientDetails(clientDetailsService);
+        }
+
+        @Override
+        public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+            endpoints.authenticationManager(authenticationManager)
+                    .userDetailsService(userDetailsService)
+                    .tokenStore(tokenStore)
+                    .accessTokenConverter(jwtAccessTokenConverter)
+            ;
+        }
+
+        @Override
+        public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+            security.tokenKeyAccess("isAuthenticated()")
+                    .checkTokenAccess("isAuthenticated()")
+                    .allowFormAuthenticationForClients()
+            ;
+        }
     }
 
 }

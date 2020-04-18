@@ -25,6 +25,11 @@ spring:
       time-to-live: 1m
   session:
     store-type: redis
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          public-key-location: classpath:oauth-jwt-public-key.txt
 server:
   port: 9999
   servlet:

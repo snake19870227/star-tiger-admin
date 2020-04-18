@@ -3,7 +3,7 @@ package com.snake19870227.stiger.admin.entity.dto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.snake19870227.stiger.admin.StarTigerAdminConstant;
+import com.snake19870227.stiger.admin.enums.ResourceMethod;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -22,7 +22,7 @@ public class SysResModel {
     private String resPath;
 
     @NotNull
-    private StarTigerAdminConstant.ResourceMethod resMethod;
+    private ResourceMethod resMethod;
 
     public String getResFlow() {
         return resFlow;
@@ -48,11 +48,11 @@ public class SysResModel {
         this.resPath = resPath;
     }
 
-    public StarTigerAdminConstant.ResourceMethod getResMethod() {
+    public ResourceMethod getResMethod() {
         return resMethod;
     }
 
-    public void setResMethod(StarTigerAdminConstant.ResourceMethod resMethod) {
+    public void setResMethod(ResourceMethod resMethod) {
         this.resMethod = resMethod;
     }
 }

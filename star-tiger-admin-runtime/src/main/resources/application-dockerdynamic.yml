@@ -32,6 +32,11 @@ spring:
       slave-data-source-names: ds-slave-0
     props:
       sql.show: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          public-key-location: classpath:oauth-jwt-public-key.txt
 server:
   port: 9999
   servlet:
