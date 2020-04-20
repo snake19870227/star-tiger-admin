@@ -56,7 +56,7 @@ public class Oauth2Config {
 
     @Bean
     public ClientDetailsService clientDetailsService(SysClientService sysClientService) {
-        return new StarTigerClientDetailsService(sysClientService);
+        return new DefaultDbClientDetailsService(sysClientService);
     }
 
     @Bean
