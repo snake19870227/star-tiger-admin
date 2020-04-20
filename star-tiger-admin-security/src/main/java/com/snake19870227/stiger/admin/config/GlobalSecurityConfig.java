@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.security;
+package com.snake19870227.stiger.admin.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,6 +7,8 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.snake19870227.stiger.admin.security.CustomUserDetailsManager;
+import com.snake19870227.stiger.admin.security.WebSecurityExceptionHandler;
 import com.snake19870227.stiger.admin.service.sys.SysUserService;
 import com.snake19870227.stiger.autoconfigure.properties.StarTigerFrameProperties;
 

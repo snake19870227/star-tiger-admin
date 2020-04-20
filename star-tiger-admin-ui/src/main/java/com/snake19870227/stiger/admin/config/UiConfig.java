@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.web.config;
+package com.snake19870227.stiger.admin.config;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;

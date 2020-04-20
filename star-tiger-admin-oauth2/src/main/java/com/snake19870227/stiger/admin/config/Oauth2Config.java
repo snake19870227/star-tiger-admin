@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.oauth2;
+package com.snake19870227.stiger.admin.config;
 
 import java.security.KeyPair;
 import java.util.LinkedHashMap;
@@ -26,6 +26,7 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import com.snake19870227.stiger.admin.oauth2.DefaultDbClientDetailsService;
 import com.snake19870227.stiger.admin.security.AdminUser;
 import com.snake19870227.stiger.admin.service.sys.SysClientService;
 
