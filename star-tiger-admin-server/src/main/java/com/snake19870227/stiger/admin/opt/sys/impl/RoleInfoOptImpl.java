@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.opt.impl;
+package com.snake19870227.stiger.admin.opt.sys.impl;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import com.snake19870227.stiger.admin.dao.mapper.SysRoleMapper;
 import com.snake19870227.stiger.admin.entity.bo.RoleInfo;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
-import com.snake19870227.stiger.admin.opt.RoleInfoOpt;
+import com.snake19870227.stiger.admin.opt.sys.RoleInfoOpt;
 import com.snake19870227.stiger.core.exception.OptException;
 
 /**

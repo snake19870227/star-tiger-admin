@@ -1,7 +1,6 @@
 package com.snake19870227.stiger.admin.service.sys.impl;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.snake19870227.stiger.admin.dao.mapper.SysMenuMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysResourceMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysRoleResourceMapper;
-import com.snake19870227.stiger.admin.entity.bo.MenuInfo;
 import com.snake19870227.stiger.admin.entity.bo.RecordPage;
 import com.snake19870227.stiger.admin.entity.bo.ResourceInfo;
-import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
-import com.snake19870227.stiger.admin.opt.MenuInfoOpt;
-import com.snake19870227.stiger.admin.opt.ResourceInfoOpt;
+import com.snake19870227.stiger.admin.opt.sys.MenuInfoOpt;
+import com.snake19870227.stiger.admin.opt.sys.ResourceInfoOpt;
 import com.snake19870227.stiger.admin.service.sys.SysService;
 import com.snake19870227.stiger.core.exception.ServiceException;
 

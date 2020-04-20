@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.opt.impl;
+package com.snake19870227.stiger.admin.opt.sys.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,7 +14,7 @@ import com.snake19870227.stiger.admin.entity.bo.ResourceInfo;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
 import com.snake19870227.stiger.admin.entity.po.SysRoleResource;
-import com.snake19870227.stiger.admin.opt.ResourceInfoOpt;
+import com.snake19870227.stiger.admin.opt.sys.ResourceInfoOpt;
 
 /**
  * @author Bu HuaYang

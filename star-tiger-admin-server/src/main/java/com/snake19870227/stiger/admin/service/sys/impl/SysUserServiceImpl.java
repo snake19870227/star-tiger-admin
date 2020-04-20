@@ -1,7 +1,5 @@
 package com.snake19870227.stiger.admin.service.sys.impl;
 
-import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
@@ -18,7 +16,7 @@ import com.snake19870227.stiger.admin.entity.bo.UserInfo;
 import com.snake19870227.stiger.admin.entity.dto.SysUserSearcher;
 import com.snake19870227.stiger.admin.entity.po.SysUser;
 import com.snake19870227.stiger.admin.entity.po.SysUserRole;
-import com.snake19870227.stiger.admin.opt.UserInfoOpt;
+import com.snake19870227.stiger.admin.opt.sys.UserInfoOpt;
 import com.snake19870227.stiger.admin.service.sys.SysUserService;
 import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.core.exception.ServiceException;

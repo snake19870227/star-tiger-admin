@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.opt.impl;
+package com.snake19870227.stiger.admin.opt.sys.impl;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.snake19870227.stiger.admin.dao.mapper.SysMenuMapper;
 import com.snake19870227.stiger.admin.entity.bo.MenuInfo;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
-import com.snake19870227.stiger.admin.opt.MenuInfoOpt;
+import com.snake19870227.stiger.admin.opt.sys.MenuInfoOpt;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)

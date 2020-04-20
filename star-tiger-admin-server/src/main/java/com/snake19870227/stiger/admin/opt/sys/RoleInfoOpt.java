@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.opt;
+package com.snake19870227.stiger.admin.opt.sys;
 
 import java.util.List;
 

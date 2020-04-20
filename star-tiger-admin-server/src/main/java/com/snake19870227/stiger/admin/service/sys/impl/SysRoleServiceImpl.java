@@ -17,7 +17,7 @@ import com.snake19870227.stiger.admin.entity.bo.RecordPage;
 import com.snake19870227.stiger.admin.entity.bo.RoleInfo;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
 import com.snake19870227.stiger.admin.entity.po.SysRoleResource;
-import com.snake19870227.stiger.admin.opt.RoleInfoOpt;
+import com.snake19870227.stiger.admin.opt.sys.RoleInfoOpt;
 import com.snake19870227.stiger.admin.service.sys.SysRoleService;
 
 /**

@@ -6,6 +6,9 @@ spring:
     name: ${project.name}-${proj.profile.id}
   main:
     allow-bean-definition-overriding: true
+logging:
+  level:
+    org.springframework.security: debug
 stiger:
   frame:
     use-http-status-code: false

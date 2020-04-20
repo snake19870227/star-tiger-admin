@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.opt;
+package com.snake19870227.stiger.admin.opt.sys;
 
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
 import com.snake19870227.stiger.admin.entity.po.SysUser;

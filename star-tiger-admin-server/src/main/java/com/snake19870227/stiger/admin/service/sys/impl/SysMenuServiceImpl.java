@@ -1,8 +1,6 @@
 package com.snake19870227.stiger.admin.service.sys.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -16,7 +14,7 @@ import com.snake19870227.stiger.admin.dao.mapper.SysMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysMenuMapper;
 import com.snake19870227.stiger.admin.entity.bo.MenuInfo;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
-import com.snake19870227.stiger.admin.opt.MenuInfoOpt;
+import com.snake19870227.stiger.admin.opt.sys.MenuInfoOpt;
 import com.snake19870227.stiger.admin.service.sys.SysMenuService;
 import com.snake19870227.stiger.core.exception.ServiceException;
 
