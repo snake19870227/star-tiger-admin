@@ -1,0 +1,1 @@
+http://localhost:9999/oauth/authorize?response_type=code&client_id=client1&redirect_uri=http://example.com&scope=user_base_info

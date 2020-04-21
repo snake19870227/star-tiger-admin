@@ -87,11 +87,3 @@ insert into stigeradmin.sys_menu (menu_flow, parent_menu_flow, menu_level, menu_
 values (@menu_flow_xtgl, null, 1, 'xtgl', '系统管理', @menu_order);
 
 commit;
-
-begin;
-set @client1_flow = replace(uuid(), '-', '');
-insert into stigeradmin.sys_ext_client (client_flow, client_id, client_secret, grant_types, redirect_url)
-values (@client1_flow, 'client1', '{noop}123456', 'authorization_code,password,refresh_token', 'http://example.com');
-insert into stigeradmin.sys_ext_client_scope (client_scope_flow, client_flow, scope)
-values (replace(uuid(), '-', ''), @client1_flow, 'user_base_info');
-commit;

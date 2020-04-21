@@ -62,6 +62,7 @@
         <module>star-tiger-admin-security</module>
         <module>star-tiger-admin-oauth2</module>
         <module>star-tiger-admin-ui</module>
+        <module>star-tiger-admin-oauth2-ui</module>
         <module>star-tiger-admin-runtime</module>
     </modules>
 

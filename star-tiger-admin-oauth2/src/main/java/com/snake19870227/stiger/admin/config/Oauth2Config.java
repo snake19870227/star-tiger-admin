@@ -28,7 +28,7 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 import org.springframework.security.web.access.AccessDeniedHandler;
 import com.snake19870227.stiger.admin.oauth2.DefaultDbClientDetailsService;
 import com.snake19870227.stiger.admin.security.AdminUser;
-import com.snake19870227.stiger.admin.service.sys.SysClientService;
+import com.snake19870227.stiger.admin.oauth2.service.SysClientService;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)

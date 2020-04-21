@@ -1,0 +1,27 @@
+<div xmlns:th="http://www.thymeleaf.org" class="col-md-12">
+    <table class="table table-bordered table-hover table-striped" style="width:100%;">
+        <thead>
+        <tr>
+            <th style="width:300px">CLIENT_ID</th>
+            <th style="width:500px">授权方式</th>
+            <th>授权码接收地址</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="clientInfo : ${clientInfos.records}"
+            th:attr="data-client-flow=${clientInfo.client.clientFlow}">
+            <td th:text="${clientInfo.client.clientId}">CLIENT_ID</td>
+            <td th:text="${clientInfo.client.grantTypes}">授权方式</td>
+            <td th:text="${clientInfo.client.redirectUrl}">授权码接收地址</td>
+            <td>
+                <button type="button" class="btn btn-primary modify-record-btn btn-sm">修改</button>
+                <button type="button" class="btn btn-danger delete-record-btn btn-sm">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div xmlns:th="http://www.thymeleaf.org" class="col-md-12">
+    <th:block th:replace="global::ui-page(${clientInfos},'Oauth2Client.searchClient')"/>
+</div>

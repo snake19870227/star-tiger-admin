@@ -22,18 +22,6 @@ public class RecordPage<T> extends Page<T> implements IPage<T> {
         super(current, size);
     }
 
-    public RecordPage(long current, long size, long total) {
-        super(current, size, total);
-    }
-
-    public RecordPage(long current, long size, boolean isSearchCount) {
-        super(current, size, isSearchCount);
-    }
-
-    public RecordPage(long current, long size, long total, boolean isSearchCount) {
-        super(current, size, total, isSearchCount);
-    }
-
     @Override
     public RecordPage<T> setTotal(long total) {
         super.setTotal(total);

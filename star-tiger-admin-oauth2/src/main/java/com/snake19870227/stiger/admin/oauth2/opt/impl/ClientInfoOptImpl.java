@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.opt.sys.impl;
+package com.snake19870227.stiger.admin.oauth2.opt.impl;
 
 import java.util.List;
 
@@ -9,9 +9,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysExtClientMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysExtClientScopeMapper;
 import com.snake19870227.stiger.admin.entity.bo.ClientInfo;
+import com.snake19870227.stiger.admin.entity.bo.RecordPage;
 import com.snake19870227.stiger.admin.entity.po.SysExtClient;
 import com.snake19870227.stiger.admin.entity.po.SysExtClientScope;
-import com.snake19870227.stiger.admin.opt.sys.ClientInfoOpt;
+import com.snake19870227.stiger.admin.oauth2.opt.ClientInfoOpt;
 import com.snake19870227.stiger.core.exception.OptException;
 import com.snake19870227.stiger.core.utils.BusinessAssert;
 
@@ -28,7 +29,8 @@ public class ClientInfoOptImpl implements ClientInfoOpt {
 
     private final SysExtClientScopeMapper clientScopeMapper;
 
-    public ClientInfoOptImpl(SysExtClientMapper clientMapper, SysExtClientScopeMapper clientScopeMapper) {
+    public ClientInfoOptImpl(SysExtClientMapper clientMapper,
+                             SysExtClientScopeMapper clientScopeMapper) {
         this.clientMapper = clientMapper;
         this.clientScopeMapper = clientScopeMapper;
     }
@@ -47,8 +49,19 @@ public class ClientInfoOptImpl implements ClientInfoOpt {
     }
 
     @Override
+    public RecordPage<SysExtClient> getClientInfo(long page, long pageSize) {
+        RecordPage<SysExtClient> pager = new RecordPage<>(page, pageSize);
+        return clientMapper.selectPage(pager, null);
+    }
+
+    @Override
     public SysExtClient getClientById(String clientId) {
         return getClient(clientId);
+    }
+
+    @Override
+    public List<SysExtClientScope> getClientScopes(String clientFlow) {
+        return getClientScope(clientFlow);
     }
 
     private SysExtClient getClient(String clientId) {

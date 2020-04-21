@@ -48,7 +48,7 @@ case "$1" in
     bin/db-init-slave.sh "$2" "$3" "$4"
 	;;
   'db-init-data')
-    bin/db-init-data.sh
+    bin/db-init-data.sh "$2"
 	;;
   *)
     help

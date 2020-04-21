@@ -31,7 +31,7 @@ public class StarTigerAdminConstant {
 
         public static String[] anonymousPaths() {
             return new String[] {
-                    ROOT, INDEX, LOGIN, ACCESS_DENIED, ADMINLTE + "/**", OAUTH_PATTERN
+                    ROOT, INDEX, LOGIN, ACCESS_DENIED, ADMINLTE + "/**"/*, OAUTH_PATTERN*/
             };
         }
 

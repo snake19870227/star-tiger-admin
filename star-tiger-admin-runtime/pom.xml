@@ -97,6 +97,11 @@
         </dependency>
         <dependency>
             <groupId>com.github.snake19870227</groupId>
+            <artifactId>star-tiger-admin-oauth2-ui</artifactId>
+            <version>0.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.snake19870227</groupId>
             <artifactId>star-tiger-admin-ui</artifactId>
             <version>0.0.5</version>
         </dependency>

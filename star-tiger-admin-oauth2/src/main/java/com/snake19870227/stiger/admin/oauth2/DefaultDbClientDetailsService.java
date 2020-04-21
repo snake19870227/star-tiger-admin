@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import com.snake19870227.stiger.admin.entity.bo.ClientInfo;
 import com.snake19870227.stiger.admin.entity.po.SysExtClient;
-import com.snake19870227.stiger.admin.service.sys.SysClientService;
+import com.snake19870227.stiger.admin.oauth2.service.SysClientService;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
