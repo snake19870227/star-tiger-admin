@@ -1,0 +1,14 @@
+server:
+  port: 9998
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://adminDbMaster13306:3306/stigeradmin?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
+    username: root
+    password: 123456
+  redis:
+    host: redis16379
+    port: 6379
+#logging:
+#  level:
+#    org.springframework.security: debug

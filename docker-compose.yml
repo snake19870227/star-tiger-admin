@@ -39,7 +39,6 @@ services:
   stiger-admin-redis:
     image: redis:5.0.8
     container_name: redis16379
-    hostname: redis16379
     ports:
       - 16379:6379
     volumes:
@@ -51,15 +50,15 @@ services:
       args:
         ACTIVE_PROFILE: docker
     image: stiger-admin-web
-    container_name: stigeradmin19999
+    container_name: stigerAdminWeb19999
     ports:
       - 19999:9999
-  stiger-admin-web-dynamic:
+  stiger-admin-endpoint:
     build:
-      context: ./star-tiger-admin-web
+      context: ./star-tiger-admin-endpoint
       args:
-        ACTIVE_PROFILE: dockerdynamic
-    image: stiger-admin-web-dynamic
-    container_name: stigeradmin29999
+        ACTIVE_PROFILE: docker
+    image: stiger-admin-endpoint
+    container_name: stigerAdminEndpoint19998
     ports:
-      - 29999:9999
+      - 19998:9998

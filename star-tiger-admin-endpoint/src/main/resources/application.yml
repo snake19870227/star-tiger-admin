@@ -1,21 +1,11 @@
-server:
-  port: 9998
 spring:
   profiles:
-#    active: ${proj.profile.id}
+    active: ${proj.profile.id}
     include: base
   application:
     name: ${project.name}-${proj.profile.id}
   main:
     allow-bean-definition-overriding: true
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:13306/stigeradmin?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
-    username: root
-    password: 123456
-  redis:
-    host: localhost
-    port: 16379
   cache:
     type: redis
     redis:
@@ -25,9 +15,6 @@ spring:
       resourceserver:
         jwt:
           public-key-location: classpath:oauth-jwt-public-key.txt
-#logging:
-#  level:
-#    org.springframework.security: debug
 stiger:
   frame:
     use-http-status-code: true
