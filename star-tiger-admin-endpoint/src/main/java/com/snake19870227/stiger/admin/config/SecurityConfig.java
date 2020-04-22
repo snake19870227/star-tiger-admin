@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
@@ -14,6 +15,7 @@ import com.snake19870227.stiger.admin.StarTigerAdminConstant.UrlPath;
  * @author Bu HuaYang
  */
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     @Configuration
@@ -44,9 +46,7 @@ public class SecurityConfig {
 //                    .anyRequest().access("@authAssert.canAccess(request, authentication)")
             ;
 
-            http.httpBasic()
-                .and().oauth2ResourceServer().jwt();
-            ;
+            http.oauth2ResourceServer().jwt();
         }
     }
 }

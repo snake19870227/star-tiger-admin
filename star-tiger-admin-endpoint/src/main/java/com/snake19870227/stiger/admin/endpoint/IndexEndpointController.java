@@ -1,5 +1,6 @@
 package com.snake19870227.stiger.admin.endpoint;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ public class IndexEndpointController {
         return "hello";
     }
 
+    @PreAuthorize("hasAuthority('SCOPE_user_base_info')")
     @GetMapping(path = "/hello")
     public Object hello() {
         return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
