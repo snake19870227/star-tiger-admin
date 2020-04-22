@@ -7,8 +7,8 @@
 
     <parent>
         <groupId>com.github.snake19870227</groupId>
-        <artifactId>star-tiger-framework</artifactId>
-        <version>0.1.2-SNAPSHOT</version>
+        <artifactId>star-tiger-framework-dependencies</artifactId>
+        <version>0.2.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>star-tiger-admin</artifactId>
@@ -57,13 +57,9 @@
     </distributionManagement>
 
     <modules>
-        <module>star-tiger-admin-core</module>
-        <module>star-tiger-admin-server</module>
-        <module>star-tiger-admin-security</module>
-        <module>star-tiger-admin-oauth2</module>
-        <module>star-tiger-admin-ui</module>
-        <module>star-tiger-admin-oauth2-ui</module>
-        <module>star-tiger-admin-runtime</module>
+        <module>star-tiger-admin-common</module>
+        <module>star-tiger-admin-web</module>
+        <module>star-tiger-admin-endpoint</module>
     </modules>
 
     <properties>
