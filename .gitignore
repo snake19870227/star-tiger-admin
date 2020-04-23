@@ -35,3 +35,6 @@ Thumbs.db
 
 # plugin
 .flattened-pom.xml
+
+# project
+logs
