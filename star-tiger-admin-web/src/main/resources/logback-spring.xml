@@ -21,7 +21,7 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <cleanHistoryOnStart>false</cleanHistoryOnStart>
             <fileNamePattern>${LOG_FILE_PATH}/${LOG_FILE_NAME}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
-            <maxFileSize>1kb</maxFileSize>
+            <maxFileSize>100kb</maxFileSize>
             <maxHistory>90</maxHistory>
             <totalSizeCap>0</totalSizeCap>
         </rollingPolicy>
@@ -39,7 +39,7 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <cleanHistoryOnStart>false</cleanHistoryOnStart>
             <fileNamePattern>${LOG_FILE_PATH}/${ERROR_LOG_FILE_NAME}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
-            <maxFileSize>1kb</maxFileSize>
+            <maxFileSize>100kb</maxFileSize>
             <maxHistory>90</maxHistory>
             <totalSizeCap>0</totalSizeCap>
         </rollingPolicy>
@@ -49,24 +49,37 @@
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="LOG_FILE_APPENDER"/>
         <appender-ref ref="ERROR_LOG_FILE_APPENDER"/>
+        <appender-ref ref="LOGSTASH"/>
     </root>
 
     <logger name="com.snake19870227.stiger" level="debug"/>
 
     <springProfile name="dev">
-<!--        <logger name="com.snake19870227.stiger.admin.dao" level="error"/>-->
+        <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+            <destination>127.0.0.1:15044</destination>
+            <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
+        </appender>
     </springProfile>
 
     <springProfile name="docker">
-<!--        <logger name="com.snake19870227.stiger.admin.dao" level="error"/>-->
+        <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+            <destination>adminElasticLogstash19600:5044</destination>
+            <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
+        </appender>
     </springProfile>
 
     <springProfile name="devdynamic">
-<!--        <logger name="com.snake19870227.stiger.admin.dao" level="error"/>-->
+        <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+            <destination>127.0.0.1:15044</destination>
+            <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
+        </appender>
     </springProfile>
 
     <springProfile name="dockerdynamic">
-<!--        <logger name="com.snake19870227.stiger.admin.dao" level="error"/>-->
+        <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+            <destination>adminElasticLogstash19600:5044</destination>
+            <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
+        </appender>
     </springProfile>
 
 </configuration>

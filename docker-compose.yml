@@ -12,7 +12,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 123456
     volumes:
-      - "/Users/snake/docker/container/mysql/5.7.29/adminDbMaster13306/data:/var/lib/mysql"
+      - "/Users/snake/docker/container/admin/adminDbMaster13306/data:/var/lib/mysql"
     command: [
       "--character-set-server=utf8mb4",
       "--collation-server=utf8mb4_unicode_ci"
@@ -31,19 +31,45 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 123456
     volumes:
-      - "/Users/snake/docker/container/mysql/5.7.29/adminDbSlave123306/data:/var/lib/mysql"
+      - "/Users/snake/docker/container/admin/adminDbSlave123306/data:/var/lib/mysql"
     command: [
       "--character-set-server=utf8mb4",
       "--collation-server=utf8mb4_unicode_ci"
     ]
   stiger-admin-redis:
     image: redis:5.0.8
-    container_name: redis16379
+    container_name: adminRedis16379
     ports:
       - 16379:6379
     volumes:
-      - "/Users/snake/docker/container/redis/5.0.8/etc:/usr/local/etc/redis"
-      - "/Users/snake/docker/container/redis/5.0.8/data:/data"
+      - "/Users/snake/docker/container/admin/redis/etc:/usr/local/etc/redis"
+      - "/Users/snake/docker/container/admin/redis/data:/data"
+  stiger-admin-elastic-search:
+    build:
+      context: ./elasticsearch
+    image: elasticsearch-ik:7.6.2
+    container_name: adminElasticSearch19200
+    ports:
+      - 19200:9200
+    environment:
+      - discovery.type=single-node
+  stiger-admin-elastic-kibana:
+    image: kibana:7.6.2
+    container_name: adminElasticKibana15601
+    ports:
+      - 15601:5601
+    environment:
+      ELASTICSEARCH_HOSTS: http://adminElasticSearch19200:9200
+  stiger-admin-elastic-logstash:
+    image: logstash:7.6.2
+    container_name: adminElasticLogstash19600
+    ports:
+      - 15044:5044
+      - 15055:5055
+      - 19600:9600
+#    volumes:
+#      - "/Users/snake/docker/container/admin/logstash/pipeline:/usr/share/logstash/pipeline"
+#      - "/Users/snake/docker/container/admin/logstash/config:/usr/share/logstash/config"
   stiger-admin-web:
     build:
       context: ./star-tiger-admin-web
@@ -53,6 +79,8 @@ services:
     container_name: stigerAdminWeb19999
     ports:
       - 19999:9999
+    volumes:
+      - "/Users/snake/docker/container/admin/web:/opt"
   stiger-admin-endpoint:
     build:
       context: ./star-tiger-admin-endpoint
@@ -62,3 +90,5 @@ services:
     container_name: stigerAdminEndpoint19998
     ports:
       - 19998:9998
+    volumes:
+      - "/Users/snake/docker/container/admin/endpoint:/opt"

@@ -15,7 +15,7 @@ spring:
     username: root
     password: 123456
   redis:
-    host: redis16379
+    host: adminRedis16379
     port: 6379
   thymeleaf:
     cache: false
