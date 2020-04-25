@@ -96,8 +96,19 @@ git仓库地址：https://github.com/snake19870227/star-tiger-framework
     ```bash
     docker-compose up -d stiger-admin-redis
     ```
-3. 应用
+3. ELK
     ```bash
-    docker-compose build stiger-admin-runtime-dynamic
-    docker-compose up -d stiger-admin-runtime-dynamic
+    docker-compose build stiger-admin-elastic-search stiger-admin-elastic-kibana stiger-admin-elastic-logstash
+    docker-compose up -d stiger-admin-elastic-search stiger-admin-elastic-kibana stiger-admin-elastic-logstash
     ```
+4. 应用
+    - 管理后台
+        ```bash
+        docker-compose build stiger-admin-web
+        docker-compose up -d stiger-admin-web
+        ```
+    - 开放接口
+        ```bash
+        docker-compose build stiger-admin-endpoint
+        docker-compose up -d stiger-admin-endpoint
+        ```
