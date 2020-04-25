@@ -45,15 +45,6 @@
         </rollingPolicy>
     </appender>
 
-    <root level="info">
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="LOG_FILE_APPENDER"/>
-        <appender-ref ref="ERROR_LOG_FILE_APPENDER"/>
-        <appender-ref ref="LOGSTASH"/>
-    </root>
-
-    <logger name="com.snake19870227.stiger" level="debug"/>
-
     <springProfile name="dev">
         <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
             <destination>127.0.0.1:15044</destination>
@@ -81,5 +72,14 @@
             <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
         </appender>
     </springProfile>
+
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="LOG_FILE_APPENDER"/>
+        <appender-ref ref="ERROR_LOG_FILE_APPENDER"/>
+        <appender-ref ref="LOGSTASH"/>
+    </root>
+
+    <logger name="com.snake19870227.stiger" level="debug"/>
 
 </configuration>

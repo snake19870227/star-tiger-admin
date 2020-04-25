@@ -61,15 +61,14 @@ services:
     environment:
       ELASTICSEARCH_HOSTS: http://adminElasticSearch19200:9200
   stiger-admin-elastic-logstash:
-    image: logstash:7.6.2
+    build:
+      context: ./elasticlogstash
+    image: admin-logstash:7.6.2
     container_name: adminElasticLogstash19600
     ports:
       - 15044:5044
       - 15055:5055
       - 19600:9600
-#    volumes:
-#      - "/Users/snake/docker/container/admin/logstash/pipeline:/usr/share/logstash/pipeline"
-#      - "/Users/snake/docker/container/admin/logstash/config:/usr/share/logstash/config"
   stiger-admin-web:
     build:
       context: ./star-tiger-admin-web
