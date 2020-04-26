@@ -52,6 +52,13 @@
         </appender>
     </springProfile>
 
+    <springProfile name="docker">
+        <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+            <destination>adminElasticLogstash19600:5055</destination>
+            <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
+        </appender>
+    </springProfile>
+
     <root level="info">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="LOG_FILE_APPENDER"/>
