@@ -1,7 +1,7 @@
 spring:
   profiles:
     active: ${proj.profile.id}
-    include: base
+    include: base,datasource
   application:
     name: ${project.name}-${proj.profile.id}
   main:

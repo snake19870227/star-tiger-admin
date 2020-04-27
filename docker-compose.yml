@@ -36,6 +36,8 @@ services:
       "--character-set-server=utf8mb4",
       "--collation-server=utf8mb4_unicode_ci"
     ]
+    depends_on:
+      - stiger-admin-db-master
   stiger-admin-redis:
     image: redis:5.0.8
     container_name: adminRedis16379
@@ -60,6 +62,8 @@ services:
       - 15601:5601
     environment:
       ELASTICSEARCH_HOSTS: http://adminElasticSearch19200:9200
+    depends_on:
+      - stiger-admin-elastic-search
   stiger-admin-elastic-logstash:
     build:
       context: ./elasticlogstash
@@ -69,6 +73,8 @@ services:
       - 15044:5044
       - 15055:5055
       - 19600:9600
+    depends_on:
+      - stiger-admin-elastic-search
   stiger-admin-web:
     build:
       context: ./star-tiger-admin-web
@@ -80,6 +86,10 @@ services:
       - 19999:9999
     volumes:
       - "/Users/snake/docker/container/admin/web:/opt"
+    depends_on:
+      - stiger-admin-db-master
+      - stiger-admin-redis
+      - stiger-admin-elastic-logstash
   stiger-admin-endpoint:
     build:
       context: ./star-tiger-admin-endpoint
@@ -91,3 +101,5 @@ services:
       - 19998:9998
     volumes:
       - "/Users/snake/docker/container/admin/endpoint:/opt"
+    depends_on:
+      - stiger-admin-web

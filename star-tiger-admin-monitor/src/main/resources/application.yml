@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: ${proj.profile.id}
+    include: base,datasource
+  application:
+    name: ${project.name}
+  main:
+    allow-bean-definition-overriding: true

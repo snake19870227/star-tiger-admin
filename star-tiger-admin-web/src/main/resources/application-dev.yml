@@ -1,14 +1,14 @@
 spring:
-#  boot:
-#    admin:
-#      client:
-#        url: http://localhost:8080
-#        username: actadmin
-#        password: 123456
-#        instance:
-#          metadata:
-#            user.name: snake
-#            user.password: 123456
+  boot:
+    admin:
+      client:
+        url: http://localhost:9988
+        username: root
+        password: 123456
+        instance:
+          metadata:
+            user.name: root
+            user.password: 123456
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:13306/stigeradmin?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
