@@ -6,3 +6,11 @@ spring:
     name: ${project.name}
   main:
     allow-bean-definition-overriding: true
+  boot:
+    admin:
+      ui:
+        brand: "<img src=\"images/logo.jpg\"><span>STiger Admin</span>"
+        title: "STiger Admin"
+        login-icon: "images/logo.jpg"
+        favicon: "favicon.ico"
+        favicon-danger: "favicon.ico"
