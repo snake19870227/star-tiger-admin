@@ -86,7 +86,8 @@ public class SecurityConfig {
                     .authenticationSuccessHandler(webAuthenticationSuccessHandler)
                 .and()
                 .httpBasic()
-                .and().sessionManagement().maximumSessions(1);
+//                .and().sessionManagement().maximumSessions(1)
+            ;
 
 //            if (enableOauth2) {
 //                http.oauth2ResourceServer().jwt();
