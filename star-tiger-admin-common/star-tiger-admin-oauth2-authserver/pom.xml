@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>star-tiger-admin-oauth2-authserver</artifactId>
-    <name>StarTigerAdminOauth2Authserver</name>
+    <name>STigerAdminOauth2Authserver</name>
     <description>Star Tiger OAuth2 授权服务模块</description>
 
     <dependencies>

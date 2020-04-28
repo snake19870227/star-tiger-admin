@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>star-tiger-admin-datasource</artifactId>
-    <name>StarTigerAdminDatasource</name>
+    <name>STigerAdminDatasource</name>
     <description>Star Tiger 后端管理 数据源模块</description>
 
     <dependencies>

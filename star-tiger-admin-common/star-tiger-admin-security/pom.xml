@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>star-tiger-admin-security</artifactId>
-    <name>StarTigerAdminSecurity</name>
+    <name>STigerAdminSecurity</name>
     <description>Star Tiger 后端管理安全模块</description>
 
     <dependencies>

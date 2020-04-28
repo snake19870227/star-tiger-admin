@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>star-tiger-admin-core</artifactId>
-    <name>StarTigerAdminCore</name>
+    <name>STigerAdminCore</name>
     <description>Star Tiger 后端管理 core 模块</description>
 
     <build>

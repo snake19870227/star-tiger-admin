@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>star-tiger-admin-oauth2-ui</artifactId>
-    <name>StarTigerAdminOauth2Ui</name>
+    <name>STigerAdminOauth2Ui</name>
     <description>Star Tiger OAuth2 授权UI模块</description>
 
     <build>
