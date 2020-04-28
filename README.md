@@ -25,7 +25,7 @@
 由 https://github.com/snake19870227/StarTiger/tree/master/StarTiger-admin 迁移至此  
 
 ### 说明
-后端管理中心，spring boot 2.x + spring security + AdminLTE  
+基于RABC模型的后端管理中心，spring boot 2.x + spring security + AdminLTE  
 
 依赖项目：
 ```xml
@@ -55,11 +55,18 @@ git仓库地址：https://github.com/snake19870227/star-tiger-framework
 
     - 本机安装mysql
     - 初始化数据  
-    `mysql -uroot -p123456 < /init/ddl.sql`  
-    `mysql -uroot -p123456 < /init/dml.sql`
+        `mysql -uroot -p123456 < /init/sys-ddl.sql`  
+        `mysql -uroot -p123456 < /init/sys-dml.sql`
+    - 如果需要oauth2模块  
+        `mysql -uroot -p123456 < /init/sys-ext-ddl.sql`  
+        `mysql -uroot -p123456 < /init/sys-ext-dml.sql`
+        
 
 2. redis  
    本机安装redis
+   
+3. elasticsearch+kibana+logstash  
+   本地安装ELK
 
 3. 配置文件与启动程序
    - 修改`star-tiger-admin-runtime`模块下`application-dev.yml`关于数据库连接与redis连接的配置
@@ -112,3 +119,9 @@ git仓库地址：https://github.com/snake19870227/star-tiger-framework
         docker-compose build stiger-admin-endpoint
         docker-compose up -d stiger-admin-endpoint
         ```
+
+### 待完成（TODO）
+1. 整合SpringCloud，将`star-tiger-admin-rabc-biz`服务化
+2. 日志收集采用filebeat
+3. 增加`star-tiger-admin-monitor`资源表（`sys_resource`）初始数据，方便定义单独权限的监控服务角色
+4. oauth2模式scope增加至rabc模型中

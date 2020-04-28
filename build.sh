@@ -14,7 +14,7 @@ help(){
   echo "-db-slave        构建从数据库 eg: ./build.sh db-slave 1"
   echo "-db-init-master  初始化主数据库 eg: ./build.sh db-init-master"
   echo "-db-init-slave   初始化从数据库 eg: ./build.sh db-init-slave \"mysql-bin.000003\" 591"
-  echo "-db-init-data    初始化数据 eg: ./build.sh db-init-data"
+  echo "-db-init-data    初始化数据 eg: ./build.sh db-init-data ext"
   echo ""
   echo "--------------------------------------------------------------------------"
 }
