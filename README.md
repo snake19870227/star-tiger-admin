@@ -125,3 +125,12 @@ git仓库地址：https://github.com/snake19870227/star-tiger-framework
 2. 日志收集采用filebeat
 3. 增加`star-tiger-admin-monitor`资源表（`sys_resource`）初始数据，方便定义单独权限的监控服务角色
 4. oauth2模式scope增加至rabc模型中
+
+### 页面展示
+![](assets/img/show1.png)
+![](assets/img/show2.png)
+![](assets/img/show3.png)
+![](assets/img/show4.png)
+![](assets/img/show5.png)
+![](assets/img/show6.png)
+![](assets/img/show7.png)
