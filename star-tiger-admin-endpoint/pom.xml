@@ -71,6 +71,19 @@
             <artifactId>logstash-logback-encoder</artifactId>
         </dependency>
         <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.snake19870227</groupId>
+            <artifactId>star-tiger-admin-static</artifactId>
+            <version>0.0.5</version>
+        </dependency>
+        <dependency>
             <groupId>com.github.snake19870227</groupId>
             <artifactId>star-tiger-admin-oauth2</artifactId>
             <version>0.0.5</version>

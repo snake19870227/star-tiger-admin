@@ -4,6 +4,12 @@ insert into stigeradmin.sys_ext_client (client_flow, client_id, client_secret, g
  values (@client1_flow, 'client1', '{noop}123456', 'authorization_code,password,refresh_token', 'http://example.com');
 insert into stigeradmin.sys_ext_client_scope (client_scope_flow, client_flow, scope)
  values (replace(uuid(), '-', ''), @client1_flow, 'user_base_info');
+
+set @actuator_client_flow = replace(uuid(), '-', '');
+insert into stigeradmin.sys_ext_client (client_flow, client_id, client_secret, grant_types, redirect_url)
+ values (@actuator_client_flow, 'actuator_client', '{noop}123456', 'client_credentials,refresh_token', '');
+insert into stigeradmin.sys_ext_client_scope (client_scope_flow, client_flow, scope)
+ values (replace(uuid(), '-', ''), @actuator_client_flow, 'actuator');
 commit;
 
 begin;
