@@ -15,6 +15,10 @@ spring:
       resourceserver:
         jwt:
           public-key-location: classpath:oauth-jwt-public-key.txt
+logging:
+  file:
+    path: logs
+    name: ${logging.file.path}/${spring.application.name}.log
 stiger:
   frame:
     use-http-status-code: true

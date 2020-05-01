@@ -1,49 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <configuration>
 
-    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-
-    <property name="FILE_ERROR_PATTERN"
-              value="${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} %file:%line: %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
-
-    <springProperty scope="context" name="appName" source="spring.application.name"/>
-    <property name="LOG_FILE_PATH" value="${LOG_PATH:-logs}"/>
-    <property name="LOG_FILE_NAME" value="${appName}.log"/>
-    <property name="ERROR_LOG_FILE_NAME" value="${appName}.error.log"/>
-
-    <appender name="LOG_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <encoder>
-            <pattern>${FILE_LOG_PATTERN}</pattern>
-            <charset>UTF-8</charset>
-        </encoder>
-        <file>${LOG_FILE_PATH}/${LOG_FILE_NAME}</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <cleanHistoryOnStart>false</cleanHistoryOnStart>
-            <fileNamePattern>${LOG_FILE_PATH}/${LOG_FILE_NAME}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
-            <maxFileSize>100kb</maxFileSize>
-            <maxHistory>90</maxHistory>
-            <totalSizeCap>0</totalSizeCap>
-        </rollingPolicy>
-    </appender>
-
-    <appender name="ERROR_LOG_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>error</level>
-        </filter>
-        <encoder>
-            <pattern>${FILE_ERROR_PATTERN}</pattern>
-            <charset>UTF-8</charset>
-        </encoder>
-        <file>${LOG_FILE_PATH}/${ERROR_LOG_FILE_NAME}</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <cleanHistoryOnStart>false</cleanHistoryOnStart>
-            <fileNamePattern>${LOG_FILE_PATH}/${ERROR_LOG_FILE_NAME}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
-            <maxFileSize>100kb</maxFileSize>
-            <maxHistory>90</maxHistory>
-            <totalSizeCap>0</totalSizeCap>
-        </rollingPolicy>
-    </appender>
+    <include resource="com/snake19870227/stiger/core/log/StarTigerLogBase.xml"/>
 
     <springProfile name="dev">
         <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
