@@ -1,6 +1,18 @@
 server:
   port: 9998
 spring:
+  boot:
+    admin:
+      client:
+        url: http://stigerAdminMonitor19988:9988
+        username: root
+        password: 123456
+        instance:
+          metadata:
+            oauth.resource.server: true
+            oauth.token.endpoint: http://stigerAdminWeb19999:9999/oauth/token
+            client.id: actuator_client
+            client.secret: 123456
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://adminDbMaster13306:3306/stigeradmin?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8

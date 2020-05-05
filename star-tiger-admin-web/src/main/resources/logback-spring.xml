@@ -3,40 +3,31 @@
 
     <include resource="com/snake19870227/stiger/core/log/StarTigerLogBase.xml"/>
 
-    <springProfile name="dev">
+    <springProfile name="dev | devdynamic">
+
+        <springProperty scope="context" name="logstashLocation" source="stiger.admin.logstash.location"
+                        defaultValue="localhost:15044"/>
+
         <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-            <destination>127.0.0.1:15044</destination>
+            <destination>${logstashLocation}</destination>
             <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
         </appender>
+
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="LOG_FILE_APPENDER"/>
+            <appender-ref ref="ERROR_LOG_FILE_APPENDER"/>
+            <appender-ref ref="LOGSTASH"/>
+        </root>
     </springProfile>
 
-    <springProfile name="docker">
-        <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-            <destination>adminElasticLogstash19600:5044</destination>
-            <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
-        </appender>
+    <springProfile name="docker | dockerdynamic">
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="LOG_FILE_APPENDER"/>
+            <appender-ref ref="ERROR_LOG_FILE_APPENDER"/>
+        </root>
     </springProfile>
-
-    <springProfile name="devdynamic">
-        <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-            <destination>127.0.0.1:15044</destination>
-            <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
-        </appender>
-    </springProfile>
-
-    <springProfile name="dockerdynamic">
-        <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-            <destination>adminElasticLogstash19600:5044</destination>
-            <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
-        </appender>
-    </springProfile>
-
-    <root level="info">
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="LOG_FILE_APPENDER"/>
-        <appender-ref ref="ERROR_LOG_FILE_APPENDER"/>
-        <appender-ref ref="LOGSTASH"/>
-    </root>
 
     <logger name="com.snake19870227.stiger" level="debug"/>
 

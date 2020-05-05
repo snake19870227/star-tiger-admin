@@ -1,4 +1,14 @@
 spring:
+  boot:
+    admin:
+      client:
+        url: http://stigerAdminMonitor19988:9988
+        username: root
+        password: 123456
+        instance:
+          metadata:
+            user.name: root
+            user.password: 123456
   redis:
     host: adminRedis16379
     port: 6379

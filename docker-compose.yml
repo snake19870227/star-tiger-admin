@@ -72,9 +72,24 @@ services:
     ports:
       - 15044:5044
       - 15055:5055
+      - 15144:5144
+      - 15155:5155
       - 19600:9600
     depends_on:
       - stiger-admin-elastic-search
+  stiger-admin-monitor:
+    build:
+      context: ./star-tiger-admin-monitor
+      args:
+        ACTIVE_PROFILE: docker
+    image: stiger-admin-monitor
+    container_name: stigerAdminMonitor19988
+    ports:
+      - 19988:9988
+    depends_on:
+      - stiger-admin-db-master
+      - stiger-admin-db-slave1
+      - stiger-admin-redis
   stiger-admin-web:
     build:
       context: ./star-tiger-admin-web
@@ -84,10 +99,9 @@ services:
     container_name: stigerAdminWeb19999
     ports:
       - 19999:9999
-    volumes:
-      - "/Users/snake/docker/container/admin/web:/opt"
     depends_on:
       - stiger-admin-db-master
+      - stiger-admin-db-slave1
       - stiger-admin-redis
       - stiger-admin-elastic-logstash
   stiger-admin-endpoint:
@@ -99,7 +113,5 @@ services:
     container_name: stigerAdminEndpoint19998
     ports:
       - 19998:9998
-    volumes:
-      - "/Users/snake/docker/container/admin/endpoint:/opt"
     depends_on:
       - stiger-admin-web
