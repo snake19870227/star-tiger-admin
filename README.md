@@ -24,6 +24,8 @@
 ```
 由 https://github.com/snake19870227/StarTiger/tree/master/StarTiger-admin 迁移至此  
 
+**特别感谢 [Jetbrains](https://www.jetbrains.com/?from=StarTiger) 提供的License**  
+
 ### 说明
 基于RABC模型的后端管理中心
 
