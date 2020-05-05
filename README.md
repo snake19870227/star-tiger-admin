@@ -72,7 +72,7 @@ git仓库地址：https://github.com/snake19870227/star-tiger-framework
 ### 待完成（TODO）
 - 完成机构、部门维护功能
 - 整合SpringCloud，将`star-tiger-admin-rabc-biz`服务化
-~~- 日志收集采用filebeat~~ (已完成)
+- ~~日志收集采用filebeat~~ (已完成)
 - 增加`star-tiger-admin-monitor`资源表（`sys_resource`）初始数据，方便定义单独权限的监控服务角色
 - oauth2模式scope增加至rabc模型中（维护功能）
 
