@@ -8,7 +8,7 @@
     <parent>
         <groupId>com.github.snake19870227</groupId>
         <artifactId>star-tiger-admin-common</artifactId>
-        <version>0.0.5</version>
+        <version>0.1.0</version>
     </parent>
 
     <artifactId>star-tiger-admin-security</artifactId>
@@ -24,7 +24,7 @@
         <dependency>
             <groupId>com.github.snake19870227</groupId>
             <artifactId>star-tiger-admin-rabc-biz</artifactId>
-            <version>0.0.5</version>
+            <version>0.1.0</version>
         </dependency>
     </dependencies>
 
