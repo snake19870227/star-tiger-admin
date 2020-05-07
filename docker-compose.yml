@@ -77,6 +77,36 @@ services:
       - 19600:9600
     depends_on:
       - stiger-admin-elastic-search
+  stiger-admin-rabbitmq1:
+    build:
+      context: ./rabbitmq
+    image: admin-rabbitmq:3
+    container_name: adminRabbitmq1
+    hostname: adminRabbitmq1
+    ports:
+      - 5672:5672
+      - 15670:15670
+      - 15672:15672
+      - 15674:15674
+      - 1883:1883
+      - 61613:61613
+    environment:
+      RABBITMQ_ERLANG_COOKIE: RHCOPAILQZTXFZLFJQVU
+  stiger-admin-rabbitmq2:
+    build:
+      context: ./rabbitmq
+    image: admin-rabbitmq:3
+    container_name: adminRabbitmq2
+    hostname: adminRabbitmq2
+    ports:
+      - 5673:5672
+      - 15671:15670
+      - 15673:15672
+      - 15675:15674
+      - 1884:1883
+      - 61614:61613
+    environment:
+      RABBITMQ_ERLANG_COOKIE: RHCOPAILQZTXFZLFJQVU
   stiger-admin-monitor:
     build:
       context: ./star-tiger-admin-monitor
