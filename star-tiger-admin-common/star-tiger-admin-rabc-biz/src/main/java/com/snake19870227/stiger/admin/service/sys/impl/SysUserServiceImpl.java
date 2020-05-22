@@ -1,5 +1,7 @@
 package com.snake19870227.stiger.admin.service.sys.impl;
 
+import cn.hutool.core.util.ArrayUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
@@ -86,7 +88,9 @@ public class SysUserServiceImpl implements SysUserService {
     public SysUser createUser(SysUser user, String[] roleFlows) {
         user.setEncodePassword(passwordEncoder.encode(DEFAULT_PASSWORD));
         sysUserMapper.insert(user);
-        createUserRoles(user, roleFlows);
+        if (ArrayUtil.isNotEmpty(roleFlows)) {
+            createUserRoles(user, roleFlows);
+        }
         return user;
     }
 

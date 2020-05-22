@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.BiConsumer;
 
 import org.slf4j.Logger;
@@ -104,7 +103,7 @@ public class SysUserController extends BaseController {
     @PostMapping
     @ResponseBody
     public RestResponse.DefaultRestResponse create(@Valid @ModelAttribute SysUserModel userModel,
-                                                   @RequestParam(name = "roleFlows") String[] roleFlows) {
+                                                   @RequestParam(name = "roleFlows", required = false) String[] roleFlows) {
         SysUser user = sysObjectMapStruct.toUserPo(userModel);
         sysUserService.createUser(user, roleFlows);
         return RestResponseBuilder.createSuccessDefaultRestResp(user);
