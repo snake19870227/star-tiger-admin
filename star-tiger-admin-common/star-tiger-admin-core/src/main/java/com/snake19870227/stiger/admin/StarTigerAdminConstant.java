@@ -28,6 +28,7 @@ public class StarTigerAdminConstant {
         public static final String MENU_ROUTING = "/routing";
 
         public static final String OAUTH_PATTERN = "/oauth/**";
+        public static final String ACTUATOR_PATTERN = "/actuator/**";
 
         public static String[] anonymousPaths() {
             return new String[] {
@@ -37,7 +38,7 @@ public class StarTigerAdminConstant {
 
         public static String[] authenticatedPaths() {
             return new String[] {
-                    MAIN, MENU_ROUTING
+                    MAIN, MENU_ROUTING, ACTUATOR_PATTERN
             };
         }
     }

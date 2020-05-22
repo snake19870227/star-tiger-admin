@@ -7,8 +7,8 @@ spring:
         password: 123456
         instance:
           metadata:
-            user.name: root
-            user.password: 123456
+            user.name: monitor
+            user.password: 888888
   redis:
     host: adminRedis16379
     port: 6379

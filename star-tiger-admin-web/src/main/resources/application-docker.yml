@@ -7,8 +7,8 @@ spring:
         password: 123456
         instance:
           metadata:
-            user.name: root
-            user.password: 123456
+            user.name: monitor
+            user.password: 888888
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://adminDbMaster13306:3306/stigeradmin?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8

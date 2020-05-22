@@ -1,4 +1,14 @@
 spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:9988
+        username: root
+        password: 123456
+        instance:
+          metadata:
+            user.name: monitor
+            user.password: 888888
   redis:
     host: localhost
     port: 16379
