@@ -2,6 +2,9 @@ SET character_set_client = utf8;
 SET character_set_results = utf8;
 SET character_set_connection = utf8;
 
+insert into stigeradmin.sys_user (user_flow, username, encode_password, short_name)
+values (replace(uuid(), '-', ''), 'monitor', '{bcrypt}$2a$10$xgpV83U/KYsruVE4OoPp7OyKkKk6vc16zvR0IRohCh4EOu0sRFEr2', '监控者');
+
 begin;
 insert into stigeradmin.sys_resource (res_flow, res_name, res_path, res_method)
 values (replace(uuid(), '-', ''), '查询菜单', '/sys/menu/**', 'GET'),
