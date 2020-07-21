@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.snake19870227.stiger.admin.dao.ext.SysExtMapper">
+
+    <resultMap id="sys_role_resultMap" type="com.snake19870227.stiger.admin.entity.po.SysRole">
+        <id property="roleFlow" column="role_flow"/>
+        <result property="roleCode" column="role_code"/>
+        <result property="roleName" column="role_name"/>
+    </resultMap>
+
+    <select id="selectRoleByUser" resultMap="sys_role_resultMap">
+        select role_flow, role_code, role_name
+          from sys_role
+         where delete_flag = 'N'
+           and exists(
+               select null
+                 from sys_user_role
+                where sys_user_role.delete_flag = 'N'
+                  and sys_user_role.role_flow   = sys_role.role_flow
+                  and sys_user_role.user_flow   = #{userFlow}
+           )
+    </select>
+</mapper>

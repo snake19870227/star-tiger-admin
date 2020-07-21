@@ -61,6 +61,7 @@
         <module>star-tiger-admin-web</module>
         <module>star-tiger-admin-endpoint</module>
         <module>star-tiger-admin-monitor</module>
+        <module>star-tiger-admin-manager</module>
     </modules>
 
     <properties>

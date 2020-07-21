@@ -1,7 +1,7 @@
 #!/bin/bash
 
 docker exec -i adminDbMaster13306 mysql -uroot -p123456 < database/sql/sys-ddl.sql
-docker exec -i adminDbMaster13306 mysql -uroot -p123456 < database/sql/sys-dml.sql
+docker exec -i adminDbMaster13306 mysql -uroot -p123456 < database/sql/sys-user.sql
 
 if [ -n "$1" ]; then
   echo "初始化 $1 脚本"

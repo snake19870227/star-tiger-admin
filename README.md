@@ -119,7 +119,7 @@ git仓库地址：https://github.com/snake19870227/star-tiger-framework
     - 初始化数据
         ```bash
         docker exec -i adminDbMaster13306 mysql -uroot -p123456 < database/sql/sys-ddl.sql
-        docker exec -i adminDbMaster13306 mysql -uroot -p123456 < database/sql/sys-dml.sql
+        docker exec -i adminDbMaster13306 mysql -uroot -p123456 < database/sql/sys-user.sql
         docker exec -i adminDbMaster13306 mysql -uroot -p123456 < database/sql/sys-ext-ddl.sql
         docker exec -i adminDbMaster13306 mysql -uroot -p123456 < database/sql/sys-ext-dml.sql
         ```
@@ -160,7 +160,7 @@ git仓库地址：https://github.com/snake19870227/star-tiger-framework
     ~~- 本机安装mysql~~
     ~~- 初始化数据~~  
         `mysql -uroot -p123456 < /init/sys-ddl.sql`  
-        `mysql -uroot -p123456 < /init/sys-dml.sql`
+        `mysql -uroot -p123456 < /init/sys-user.sql`
     ~~- 如果需要oauth2模块~~  
         `mysql -uroot -p123456 < /init/sys-ext-ddl.sql`  
         `mysql -uroot -p123456 < /init/sys-ext-dml.sql`

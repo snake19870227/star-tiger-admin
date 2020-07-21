@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+</head>
+<body>
+<form th:action="@{/login}" method="post">
+    <input type="text" name="username" value="root" placeholder="用户名"><br/>
+    <input type="password" name="password" value="888888" placeholder="密码"><br/>
+    <button type="submit">登录</button>
+</form>
+
+<script th:src="@{/jquery/jquery.min.js}"></script>
+<script th:src="@{/layui/layui.all.js}"></script>
+</body>
+</html>
