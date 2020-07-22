@@ -4,7 +4,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,10 +14,6 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import com.snake19870227.stiger.admin.common.StarTigerAdminConstant;
-import com.snake19870227.stiger.admin.common.TreeNode;
-import com.snake19870227.stiger.admin.entity.po.SysMenu;
-import com.snake19870227.stiger.admin.security.UserSecurityDetail;
 import com.snake19870227.stiger.admin.sys.service.ISysExtService;
 import com.snake19870227.stiger.web.utils.WebUtil;
 
@@ -43,7 +38,7 @@ public class ManagerAuthSuccessHandler extends SavedRequestAwareAuthenticationSu
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
 
-        loadUserSidebar(request, authentication);
+//        loadUserSidebar(request, authentication);
 
         if (authentication instanceof RememberMeAuthenticationToken) {
             redirectStrategy.sendRedirect(request, response, WebUtil.getPath(request, false, true));
@@ -54,9 +49,9 @@ public class ManagerAuthSuccessHandler extends SavedRequestAwareAuthenticationSu
         super.onAuthenticationSuccess(request, response, authentication);
     }
 
-    private void loadUserSidebar(HttpServletRequest request, Authentication authentication) {
-        UserSecurityDetail userSecurityDetail = (UserSecurityDetail) authentication.getPrincipal();
-        List<TreeNode<SysMenu>> menuTree = sysExtService.treeMenu(userSecurityDetail);
-        request.setAttribute(StarTigerAdminConstant.WebAttrKey.USER_SIDEBAR, menuTree);
-    }
+//    private void loadUserSidebar(HttpServletRequest request, Authentication authentication) {
+//        UserSecurityDetail userSecurityDetail = (UserSecurityDetail) authentication.getPrincipal();
+//        List<TreeNode<SysMenu>> menuTree = sysExtService.treeMenu(userSecurityDetail);
+//        request.getSession().setAttribute(StarTigerAdminConstant.WebAttrKey.USER_SIDEBAR, menuTree);
+//    }
 }

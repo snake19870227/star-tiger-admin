@@ -1,5 +1,6 @@
 package com.snake19870227.stiger.admin.sys.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 
 import java.util.ArrayList;
@@ -134,6 +135,8 @@ public class SysExtServiceImpl implements ISysExtService {
             }
         });
 
-        return menuTree;
+        return menuTree.stream()
+                .filter(treeNode -> CollUtil.isNotEmpty(treeNode.getChildren()))
+                .collect(Collectors.toList());
     }
 }

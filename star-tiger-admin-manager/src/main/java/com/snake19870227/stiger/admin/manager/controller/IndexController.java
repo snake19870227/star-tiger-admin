@@ -21,7 +21,7 @@ public class IndexController {
 
     @GetMapping(path = {"", "/"})
     public String root() {
-        return "index";
+        return "redirect:" + StarTigerAdminConstant.UrlPath.LOGIN;
     }
 
     @GetMapping(path = StarTigerAdminConstant.UrlPath.LOGIN)
