@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import com.snake19870227.stiger.admin.common.StarTigerAdminConstant;
+import com.snake19870227.stiger.admin.manager.security.ManagerAuthSuccessHandler;
 
 /**
  * @author Bu HuaYang
@@ -26,22 +27,16 @@ public class SecurityConfig {
 //        @Value("${stiger.admin.oauth2.enable:false}")
 //        private boolean enableOauth2;
 
-//        private final WebAuthenticationSuccessHandler webAuthenticationSuccessHandler;
+        private final ManagerAuthSuccessHandler managerAuthSuccessHandler;
+
+        public CustomWebSecurityConfigurerAdapter(ManagerAuthSuccessHandler managerAuthSuccessHandler) {
+            this.managerAuthSuccessHandler = managerAuthSuccessHandler;
+        }
 //        private final WebAuthenticationFailureHandler webAuthenticationFailureHandler;
 
 //        private final WebSecurityExceptionHandler webSecurityExceptionHandler;
 
 //        private final RememberMeServices rememberMeServices;
-
-//        public CustomWebSecurityConfigurerAdapter(WebAuthenticationSuccessHandler webAuthenticationSuccessHandler,
-//                                                  WebAuthenticationFailureHandler webAuthenticationFailureHandler,
-//                                                  WebSecurityExceptionHandler webSecurityExceptionHandler,
-//                                                  RememberMeServices rememberMeServices) {
-//            this.webAuthenticationSuccessHandler = webAuthenticationSuccessHandler;
-//            this.webAuthenticationFailureHandler = webAuthenticationFailureHandler;
-//            this.webSecurityExceptionHandler = webSecurityExceptionHandler;
-//            this.rememberMeServices = rememberMeServices;
-//        }
 
 //        @Override
 //        @Bean
@@ -70,7 +65,7 @@ public class SecurityConfig {
             http.formLogin()
                     .loginPage("/login")
 //                    .failureHandler(webAuthenticationFailureHandler)
-//                    .successHandler(webAuthenticationSuccessHandler)
+                    .successHandler(managerAuthSuccessHandler)
 //                .and()
 //                .logout()
 //                    .logoutRequestMatcher(new AntPathRequestMatcher(StarTigerAdminConstant.UrlPath.LOGOUT, "GET"))

@@ -6,6 +6,7 @@ import java.util.Collections;
 
 import com.snake19870227.stiger.admin.common.StarTigerAdminConstant;
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
+import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
 import com.snake19870227.stiger.admin.entity.po.SysUser;
 import com.snake19870227.stiger.core.StarTigerConstant;
@@ -18,10 +19,19 @@ public class RabcUtil {
 
     public static SysRole getSuperRole() {
         SysRole superRole = new SysRole();
-        superRole.setRoleFlow(IdUtil.simpleUUID());
+        superRole.setRoleFlow(IdUtil.fastSimpleUUID());
         superRole.setRoleCode(StarTigerAdminConstant.SUPER_ROLE_CODE);
         superRole.setRoleName("超级管理员");
         return superRole;
+    }
+
+    public static SysResource getSuperResource() {
+        SysResource resource = new SysResource();
+        resource.setResFlow(IdUtil.fastSimpleUUID());
+        resource.setResName("所有资源");
+        resource.setResPath("/**");
+        resource.setResMethod("");
+        return resource;
     }
 
     public static UserInfo getRootUser() {
@@ -31,6 +41,8 @@ public class RabcUtil {
                 .setEncodePassword("{noop}123456")
                 .setShortName("超级管理员")
                 .setLocked(StarTigerConstant.FLAG_N);
-        return new UserInfo(rootUser, Collections.singletonList(getSuperRole()));
+        return new UserInfo(rootUser,
+                Collections.singletonList(getSuperRole()),
+                Collections.singletonList(getSuperResource()));
     }
 }

@@ -22,7 +22,7 @@ public class UserSecurityDetail extends UserInfo implements UserDetails {
     private List<SimpleGrantedAuthority> authorities;
 
     public UserSecurityDetail(UserInfo userInfo) {
-        super(userInfo.getUser(), userInfo.getRoles());
+        super(userInfo.getUser(), userInfo.getRoles(), userInfo.getResources());
         if (CollUtil.isNotEmpty(userInfo.getRoles())) {
             this.authorities = userInfo.getRoles().stream()
                     .map(role -> new SimpleGrantedAuthority(StarTigerConstant.SPRING_SECURITY_ROLE_PREFIX + role.getRoleCode()))

@@ -8,6 +8,13 @@
         <result property="roleName" column="role_name"/>
     </resultMap>
 
+    <resultMap id="sys_resource_resultMap" type="com.snake19870227.stiger.admin.entity.po.SysResource">
+        <id property="resFlow" column="res_flow"/>
+        <result property="resName" column="res_name"/>
+        <result property="resPath" column="res_path"/>
+        <result property="resMethod" column="res_method"/>
+    </resultMap>
+
     <select id="selectRoleByUser" resultMap="sys_role_resultMap">
         select role_flow, role_code, role_name
           from sys_role
@@ -18,6 +25,21 @@
                 where sys_user_role.delete_flag = 'N'
                   and sys_user_role.role_flow   = sys_role.role_flow
                   and sys_user_role.user_flow   = #{userFlow}
+           )
+    </select>
+
+    <select id="selectResourceByUser" resultMap="sys_resource_resultMap">
+        select res_flow, res_name, res_path, res_method
+          from sys_resource
+         where delete_flag = 'N'
+           and exists(
+               select null
+                 from sys_user_role, sys_role_resource
+                where sys_user_role.delete_flag     = 'N'
+                  and sys_role_resource.delete_flag = 'N'
+                  and sys_user_role.role_flow       = sys_role_resource.role_flow
+                  and sys_resource.res_flow         = sys_role_resource.res_flow
+                  and sys_user_role.user_flow       = #{userFlow}
            )
     </select>
 </mapper>
