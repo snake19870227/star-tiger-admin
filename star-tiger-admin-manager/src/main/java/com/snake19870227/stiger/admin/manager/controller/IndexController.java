@@ -113,12 +113,6 @@ public class IndexController {
 
     }
 
-    @GetMapping(path = "/main")
-    public String main() {
-
-        return "main";
-    }
-
     private boolean isLogoutSuccess(HttpServletRequest request) {
         return matches(request, UrlPath.LOGIN + "?" + UrlParamNames.LOGOUT_SUCCESS);
     }

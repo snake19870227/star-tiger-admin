@@ -68,6 +68,7 @@ public class SecurityConfig {
             urlRegistry
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                     .antMatchers(StarTigerAdminConstant.UrlPath.anonymousPaths()).permitAll()
+                    .antMatchers("/aaa", "/aaaa", "/api/**").permitAll()
 //                    .antMatchers(StarTigerAdminConstant.UrlPath.authenticatedPaths()).authenticated()
 //                    .anyRequest().access("@authAssert.canAccess(request, authentication)")
                     .anyRequest().authenticated()

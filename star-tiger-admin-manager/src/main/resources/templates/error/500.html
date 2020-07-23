@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="zh-CN">
+<head>
+    <th:block th:replace="global::baseHead('出错了')"/>
+</head>
+<body>
+<h1>500</h1>
+<p>详细信息:&nbsp;<strong th:text="${errorMessage}"></strong>.</p>
+<p th:if="${not #lists.isEmpty(errorDetailMessages)}">
+    <th:block th:each="errorDetailMessage:${errorDetailMessages}">
+        <span th:text="${errorDetailMessage}"></span><br/>
+    </th:block>
+</p>
+</body>
+</html>

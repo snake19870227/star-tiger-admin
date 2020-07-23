@@ -49,9 +49,9 @@
     </div>
 </div>
 
-<script th:src="@{/lib/jquery-3.4.1/jquery-3.4.1.min.js}" charset="utf-8"></script>
-<script th:src="@{/lib/layui-v2.5.5/layui.js}" charset="utf-8"></script>
+<th:block th:replace="global::script-frame"/>
 <script th:src="@{/lib/jq-module/jquery.particleground.min.js}" charset="utf-8"></script>
+<th:block th:replace="global::script-stiger"/>
 <script th:src="@{/js/login.js}" charset="utf-8"></script>
 </body>
 </html>
