@@ -3,11 +3,19 @@ package com.snake19870227.stiger.admin.manager.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import com.snake19870227.stiger.admin.common.CaptchaCacheStorage;
 import com.snake19870227.stiger.admin.common.StarTigerAdminConstant;
+import com.snake19870227.stiger.admin.manager.security.ManagerAuthFailureHandler;
 import com.snake19870227.stiger.admin.manager.security.ManagerAuthSuccessHandler;
+import com.snake19870227.stiger.admin.security.ImageCaptchaAuthenticationFilter;
+
+import static com.snake19870227.stiger.admin.common.StarTigerAdminConstant.UrlPath;
 
 /**
  * @author Bu HuaYang
@@ -29,8 +37,16 @@ public class SecurityConfig {
 
         private final ManagerAuthSuccessHandler managerAuthSuccessHandler;
 
-        public CustomWebSecurityConfigurerAdapter(ManagerAuthSuccessHandler managerAuthSuccessHandler) {
+        private final ManagerAuthFailureHandler managerAuthFailureHandler;
+
+        private final CaptchaCacheStorage captchaCacheStorage;
+
+        public CustomWebSecurityConfigurerAdapter(ManagerAuthSuccessHandler managerAuthSuccessHandler,
+                                                  ManagerAuthFailureHandler managerAuthFailureHandler,
+                                                  CaptchaCacheStorage captchaCacheStorage) {
             this.managerAuthSuccessHandler = managerAuthSuccessHandler;
+            this.managerAuthFailureHandler = managerAuthFailureHandler;
+            this.captchaCacheStorage = captchaCacheStorage;
         }
 //        private final WebAuthenticationFailureHandler webAuthenticationFailureHandler;
 
@@ -63,12 +79,12 @@ public class SecurityConfig {
             http.headers().frameOptions().sameOrigin();
 
             http.formLogin()
-                    .loginPage("/login")
-//                    .failureHandler(webAuthenticationFailureHandler)
+                    .loginPage(UrlPath.LOGIN)
+                    .failureHandler(managerAuthFailureHandler)
                     .successHandler(managerAuthSuccessHandler)
-//                .and()
-//                .logout()
-//                    .logoutRequestMatcher(new AntPathRequestMatcher(StarTigerAdminConstant.UrlPath.LOGOUT, "GET"))
+                .and()
+                .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher(UrlPath.LOGOUT, HttpMethod.GET.name()))
 //                .and()
 //                .rememberMe()
 //                    .key(rememberMeKey)
@@ -76,7 +92,12 @@ public class SecurityConfig {
 //                    .authenticationSuccessHandler(webAuthenticationSuccessHandler)
 //                .and()
 //                .httpBasic()
-//                .and().sessionManagement().maximumSessions(1)
+                .and()
+                .addFilterBefore(
+                        new ImageCaptchaAuthenticationFilter(UrlPath.LOGIN, captchaCacheStorage, managerAuthFailureHandler),
+                        UsernamePasswordAuthenticationFilter.class
+                )
+                .sessionManagement().maximumSessions(1)
             ;
 
 //            if (enableOauth2) {
