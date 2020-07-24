@@ -87,7 +87,7 @@ public class SysExtServiceImpl implements ISysExtService {
         List<SysMenu> userMenus = menus.stream().filter(menu -> {
             for (AntPathRequestMatcher requestMatcher : userSecurityDetail.getMatchers()) {
                 boolean flag = pathMatcher.match(requestMatcher.getPattern(), menu.getMenuPath());
-                if (flag) {
+                if (StrUtil.isBlank(menu.getMenuPath()) || flag) {
                     return true;
                 }
             }

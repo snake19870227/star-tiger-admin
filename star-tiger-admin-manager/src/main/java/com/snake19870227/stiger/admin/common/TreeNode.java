@@ -27,6 +27,7 @@ public class TreeNode<T> {
 
     public static <T> TreeNode<T> create(T data, TreeNodeCreateCallback<T> createCallback) {
         TreeNode<T> node = new TreeNode<>();
+        node.setData(data);
         createCallback.build(node, data);
         return node;
     }

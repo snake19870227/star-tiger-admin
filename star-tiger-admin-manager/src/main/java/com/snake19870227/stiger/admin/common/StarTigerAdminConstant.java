@@ -25,12 +25,15 @@ public class StarTigerAdminConstant {
         public static final String LOGOUT = "/logout";
         public static final String MAIN = "/main";
         public static final String CAPTCHA = "/captcha";
+        public static final String INIT = "/init";
+
+        public static final String WORKBENCH = "/workbench";
 
         public static final String ACTUATOR_PATTERN = "/actuator/**";
 
         public static String[] anonymousPaths() {
             return new String[] {
-                    ROOT, INDEX, LOGIN, CAPTCHA, "/lib/**"
+                    ROOT, INDEX, LOGIN, CAPTCHA, INIT, "/lib/**"
             };
         }
 

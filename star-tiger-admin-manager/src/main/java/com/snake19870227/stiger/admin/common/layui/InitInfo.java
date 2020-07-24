@@ -1,5 +1,6 @@
 package com.snake19870227.stiger.admin.common.layui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +14,10 @@ public class InitInfo {
     private LogoInfo logoInfo;
 
     private List<MenuInfo> menuInfo;
+
+    public InitInfo() {
+        this.menuInfo = new ArrayList<>();
+    }
 
     public HomeInfo getHomeInfo() {
         return homeInfo;

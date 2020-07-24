@@ -12,6 +12,10 @@ public class LogoInfo {
 
     private String href;
 
+    public LogoInfo() {
+        this.href = "";
+    }
+
     public String getTitle() {
         return title;
     }

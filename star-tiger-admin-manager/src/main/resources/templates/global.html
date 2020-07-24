@@ -38,6 +38,11 @@
 </th:block>
 <th:block th:fragment="script-stiger">
     <input type="hidden" id="context-path" th:value="${#servletContext.contextPath}">
+    <script>
+        $(function () {
+            window.contextPath = $("#context-path").val();
+        });
+    </script>
 </th:block>
 </body>
 </html>

@@ -40,7 +40,9 @@ public class RabcUtil {
                 .setUsername(StarTigerAdminConstant.ROOT_USER_NAME)
                 .setEncodePassword("{noop}123456")
                 .setShortName("超级管理员")
-                .setLocked(StarTigerConstant.FLAG_N);
+                .setLocked(StarTigerConstant.FLAG_N)
+                .setExpired(StarTigerConstant.FLAG_N)
+        ;
         return new UserInfo(rootUser,
                 Collections.singletonList(getSuperRole()),
                 Collections.singletonList(getSuperResource()));

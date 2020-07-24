@@ -8,10 +8,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.snake19870227.stiger.admin.common.StarTigerAdminConstant;
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
 import com.snake19870227.stiger.admin.entity.po.SysUser;
 import com.snake19870227.stiger.admin.sys.service.ISysExtService;
 import com.snake19870227.stiger.admin.sys.service.ISysUserService;
+import com.snake19870227.stiger.admin.util.RabcUtil;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -61,7 +63,13 @@ public class UserSecurityDetailManager implements UserDetailsManager {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        UserInfo userInfo = sysExtService.getUserInfo(username);
+        UserInfo userInfo = null;
+
+        if (StrUtil.equals(username, StarTigerAdminConstant.ROOT_USER_NAME)) {
+            userInfo = RabcUtil.getRootUser();
+        } else {
+            userInfo = sysExtService.getUserInfo(username);
+        }
 
         if (userInfo == null) {
             throw new UsernameNotFoundException(StrUtil.format("未找到用户名[{}]对应的账户", username));

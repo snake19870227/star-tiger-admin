@@ -1,5 +1,6 @@
 package com.snake19870227.stiger.admin.common.layui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +14,13 @@ public class MenuInfo {
     private String href;
     private String target;
     private List<MenuInfo> child;
+
+    public MenuInfo() {
+        this.icon = "fa fa-bars";
+        this.href = "";
+        this.target = "_self";
+        this.child = new ArrayList<>();
+    }
 
     public String getTitle() {
         return title;
