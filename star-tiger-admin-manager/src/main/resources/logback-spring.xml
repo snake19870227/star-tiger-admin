@@ -7,7 +7,7 @@
         <appender-ref ref="CONSOLE"/>
     </root>
 
-    <logger name="org.springframework.security" level="debug"/>
+<!--    <logger name="org.springframework.security" level="debug"/>-->
 
     <logger name="com.snake19870227.stiger" level="debug"/>
 

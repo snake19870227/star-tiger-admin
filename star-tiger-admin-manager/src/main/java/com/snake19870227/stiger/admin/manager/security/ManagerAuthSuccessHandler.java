@@ -38,8 +38,6 @@ public class ManagerAuthSuccessHandler extends SavedRequestAwareAuthenticationSu
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
 
-//        loadUserSidebar(request, authentication);
-
         if (authentication instanceof RememberMeAuthenticationToken) {
             redirectStrategy.sendRedirect(request, response, WebUtil.getPath(request, false, true));
             clearAuthenticationAttributes(request);
@@ -48,10 +46,4 @@ public class ManagerAuthSuccessHandler extends SavedRequestAwareAuthenticationSu
 
         super.onAuthenticationSuccess(request, response, authentication);
     }
-
-//    private void loadUserSidebar(HttpServletRequest request, Authentication authentication) {
-//        UserSecurityDetail userSecurityDetail = (UserSecurityDetail) authentication.getPrincipal();
-//        List<TreeNode<SysMenu>> menuTree = sysExtService.treeMenu(userSecurityDetail);
-//        request.getSession().setAttribute(StarTigerAdminConstant.WebAttrKey.USER_SIDEBAR, menuTree);
-//    }
 }

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="zh-CN">
+<head>
+    <th:block th:replace="global::baseHead('未授权访问')"/>
+    <link rel="stylesheet" th:href="@{/lib/layui-v2.5.5/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/css/error/404.css}" media="all">
+</head>
+<body>
+<h1>403</h1>
+<p>详细信息:&nbsp;<strong>您未被授权访问该资源</strong>.</p>
+
+<th:block th:replace="global::script-frame"/>
+</body>
+</html>

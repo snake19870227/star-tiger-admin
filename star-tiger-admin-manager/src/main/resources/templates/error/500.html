@@ -3,6 +3,8 @@
       lang="zh-CN">
 <head>
     <th:block th:replace="global::baseHead('出错了')"/>
+    <link rel="stylesheet" th:href="@{/lib/layui-v2.5.5/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/css/error/404.css}" media="all">
 </head>
 <body>
 <h1>500</h1>
@@ -12,5 +14,7 @@
         <span th:text="${errorDetailMessage}"></span><br/>
     </th:block>
 </p>
+
+<th:block th:replace="global::script-frame"/>
 </body>
 </html>
