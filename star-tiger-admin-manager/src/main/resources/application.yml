@@ -24,7 +24,9 @@ mybatis-plus:
     aggressive-lazy-loading: false
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
 stiger.admin:
+  debug-mode: true
   init:
     logo-info:
       title: STiger Admin
       image-url: ${server.servlet.context-path}/images/logo.jpg
+    multi-module: false

@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author buhuayang
- * @since 2020-07-21
+ * @since 2020-07-25
  */
 @ApiModel(value="SysCfg对象", description="")
 public class SysCfg implements Serializable {

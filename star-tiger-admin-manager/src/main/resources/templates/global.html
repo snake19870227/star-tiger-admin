@@ -38,9 +38,12 @@
 </th:block>
 <th:block th:fragment="script-stiger">
     <input type="hidden" id="context-path" th:value="${#servletContext.contextPath}">
+    <input type="hidden" id="multi-module"
+           th:value="${#servletContext.getAttribute(T(com.snake19870227.stiger.admin.manager.common.StarTigerAdminManagerConstant.WebAttrKey).MULTI_MODULE)}">
     <script>
         $(function () {
             window.contextPath = $("#context-path").val();
+            window.multiModule = ($("#multi-module").val() === "true");
         });
     </script>
 </th:block>

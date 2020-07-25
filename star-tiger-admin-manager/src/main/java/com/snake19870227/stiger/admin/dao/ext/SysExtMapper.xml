@@ -22,8 +22,8 @@
            and exists(
                select null
                  from sys_user_role
-                where sys_user_role.delete_flag = 'N'
-                  and sys_user_role.role_flow   = sys_role.role_flow
+                where sys_user_role.role_flow   = sys_role.role_flow
+                  and sys_user_role.delete_flag = 'N'
                   and sys_user_role.user_flow   = #{userFlow}
            )
     </select>
@@ -35,10 +35,11 @@
            and exists(
                select null
                  from sys_user_role, sys_role_resource
-                where sys_user_role.delete_flag     = 'N'
-                  and sys_role_resource.delete_flag = 'N'
-                  and sys_user_role.role_flow       = sys_role_resource.role_flow
+                where sys_role_resource.delete_flag = 'N'
+                  and sys_resource.enable_flag      = 'Y'
                   and sys_resource.res_flow         = sys_role_resource.res_flow
+                  and sys_user_role.role_flow       = sys_role_resource.role_flow
+                  and sys_user_role.delete_flag     = 'N'
                   and sys_user_role.user_flow       = #{userFlow}
            )
     </select>

@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author buhuayang
- * @since 2020-07-21
+ * @since 2020-07-25
  */
 public interface SysOrgMapper extends BaseMapper<SysOrg> {
 

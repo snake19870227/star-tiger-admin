@@ -13,6 +13,15 @@
     </div>
 </div>
 
+<script type="text/html" id="enable-flag-switch">
+    <input type="checkbox" name="enableFlag" value="{{d.resFlow}}"
+           lay-skin="switch" lay-text="启用|停用" lay-filter="enable-flag" {{ d.enableFlag == 'Y' ? 'checked' : '' }}>
+</script>
+
+<script type="text/html" id="record-tool-bar">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+</script>
+
 <th:block th:replace="global::script-frame"/>
 <th:block th:replace="global::script-stiger"/>
 <script th:src="@{/js/sys/resource.js}" charset="utf-8"></script>

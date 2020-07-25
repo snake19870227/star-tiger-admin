@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author buhuayang
- * @since 2020-07-21
+ * @since 2020-07-25
  */
 @ApiModel(value="SysResource对象", description="")
 public class SysResource implements Serializable {
@@ -32,6 +32,9 @@ public class SysResource implements Serializable {
 
     @ApiModelProperty(value = "操作范围")
     private String resMethod;
+
+    @ApiModelProperty(value = "启用标记")
+    private String enableFlag;
 
     @ApiModelProperty(value = "删除标记")
     @TableLogic
@@ -74,6 +77,15 @@ public class SysResource implements Serializable {
         return this;
     }
 
+    public String getEnableFlag() {
+        return enableFlag;
+    }
+
+    public SysResource setEnableFlag(String enableFlag) {
+        this.enableFlag = enableFlag;
+        return this;
+    }
+
     public String getDeleteFlag() {
         return deleteFlag;
     }
@@ -90,6 +102,7 @@ public class SysResource implements Serializable {
         ", resName=" + resName +
         ", resPath=" + resPath +
         ", resMethod=" + resMethod +
+        ", enableFlag=" + enableFlag +
         ", deleteFlag=" + deleteFlag +
         "}";
     }

@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,6 +13,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.snake19870227.stiger.admin.common.RestResp;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.sys.service.ISysResourceService;
+import com.snake19870227.stiger.web.exception.BaseControllerException;
+import com.snake19870227.stiger.web.exception.MvcException;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -43,5 +47,26 @@ public class SysResourceController {
         pageInfo = sysResourceService.page(pageInfo);
 
         return RestResp.buildResp("10000", pageInfo);
+    }
+
+    @PutMapping(path = "/enable/{resFlow}/{flag}")
+    @ResponseBody
+    public RestResp<Object> enable(@PathVariable(name = "resFlow") String resFlow,
+                                   @PathVariable(name = "flag") String flag) {
+        try {
+            SysResource updater = new SysResource();
+            updater.setResFlow(resFlow);
+            updater.setEnableFlag(flag);
+            boolean result = sysResourceService.updateById(updater);
+            if (result) {
+                return RestResp.buildResp("10000");
+            } else {
+                return RestResp.buildResp("60001");
+            }
+        } catch (BaseControllerException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new MvcException("50000", e);
+        }
     }
 }

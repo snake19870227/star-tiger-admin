@@ -26,6 +26,7 @@ import com.snake19870227.stiger.admin.entity.po.SysRole;
 import com.snake19870227.stiger.admin.entity.po.SysUser;
 import com.snake19870227.stiger.admin.security.UserSecurityDetail;
 import com.snake19870227.stiger.admin.sys.service.ISysExtService;
+import com.snake19870227.stiger.core.StarTigerConstant;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -99,6 +100,8 @@ public class SysExtServiceImpl implements ISysExtService {
 
     private List<SysMenu> allMenus() {
         QueryWrapper<SysMenu> menuQueryWrapper = new QueryWrapper<>();
+
+        menuQueryWrapper.eq("enable_flag", StarTigerConstant.FLAG_Y);
 
         menuQueryWrapper.orderByAsc("menu_order");
 

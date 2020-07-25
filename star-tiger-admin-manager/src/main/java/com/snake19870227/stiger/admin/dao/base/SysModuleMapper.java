@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.admin.dao.base;
 
-import com.snake19870227.stiger.admin.entity.po.SysMenu;
+import com.snake19870227.stiger.admin.entity.po.SysModule;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author buhuayang
  * @since 2020-07-25
  */
-public interface SysMenuMapper extends BaseMapper<SysMenu> {
+public interface SysModuleMapper extends BaseMapper<SysModule> {
 
 }

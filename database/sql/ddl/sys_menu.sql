@@ -10,6 +10,7 @@ create table sys_menu
     menu_path        varchar(500) comment '菜单地址',
     menu_order       int comment '排序码',
     module_flow      varchar(32) comment '模块流水号',
+    enable_flag  varchar(2) default 'Y' comment '启用标记',
     delete_flag      varchar(2) default 'N' comment '删除标记',
     primary key (menu_flow)
 );

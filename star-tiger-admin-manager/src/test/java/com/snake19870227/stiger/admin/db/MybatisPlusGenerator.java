@@ -55,7 +55,7 @@ public class MybatisPlusGenerator {
         mpg.setTemplate(tc);
 
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setEntityBuilderModel(true);
+        strategy.setChainModel(true);
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setLogicDeleteFieldName("delete_flag");
         mpg.setStrategy(strategy);

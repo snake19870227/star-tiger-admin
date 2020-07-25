@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author buhuayang
- * @since 2020-07-21
+ * @since 2020-07-25
  */
 @ApiModel(value="SysMenu对象", description="")
 public class SysMenu implements Serializable {
@@ -41,6 +41,9 @@ public class SysMenu implements Serializable {
 
     @ApiModelProperty(value = "排序码")
     private Integer menuOrder;
+
+    @ApiModelProperty(value = "模块流水号")
+    private String moduleFlow;
 
     @ApiModelProperty(value = "删除标记")
     @TableLogic
@@ -110,6 +113,15 @@ public class SysMenu implements Serializable {
         return this;
     }
 
+    public String getModuleFlow() {
+        return moduleFlow;
+    }
+
+    public SysMenu setModuleFlow(String moduleFlow) {
+        this.moduleFlow = moduleFlow;
+        return this;
+    }
+
     public String getDeleteFlag() {
         return deleteFlag;
     }
@@ -129,6 +141,7 @@ public class SysMenu implements Serializable {
         ", menuName=" + menuName +
         ", menuPath=" + menuPath +
         ", menuOrder=" + menuOrder +
+        ", moduleFlow=" + moduleFlow +
         ", deleteFlag=" + deleteFlag +
         "}";
     }

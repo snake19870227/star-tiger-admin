@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -40,6 +41,9 @@ import static com.snake19870227.stiger.admin.common.StarTigerAdminConstant.WebAt
 public class IndexController {
 
     private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
+
+    @Value("${stiger.admin.debug-mode}")
+    private boolean debugMode;
 
     private final CaptchaCacheStorage captchaCacheStorage;
 
@@ -101,7 +105,13 @@ public class IndexController {
                         HttpServletRequest request,
                         HttpServletResponse response) {
 
-        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(width, height);
+        LineCaptcha lineCaptcha;
+
+        if (debugMode) {
+            lineCaptcha = CaptchaUtil.createLineCaptcha(width, height, 4, 10);
+        } else {
+            lineCaptcha = CaptchaUtil.createLineCaptcha(width, height);
+        }
 
         HttpSession session = request.getSession();
 

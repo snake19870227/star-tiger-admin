@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.admin.sys.service;
 
-import com.snake19870227.stiger.admin.entity.po.SysDept;
+import com.snake19870227.stiger.admin.entity.po.SysModule;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author buhuayang
  * @since 2020-07-25
  */
-public interface ISysDeptService extends IService<SysDept> {
+public interface ISysModuleService extends IService<SysModule> {
 
 }
