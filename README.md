@@ -1,4 +1,5 @@
 # Star Tiger Admin
+## 正在转为使用layui构建前端，移步1.x分支
 ```bash
                                     ,
                      A           \  :  /           A
