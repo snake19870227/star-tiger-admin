@@ -18,11 +18,11 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
-import com.snake19870227.stiger.admin.common.RestResp;
 import com.snake19870227.stiger.admin.common.StarTigerAdminConstant;
 import com.snake19870227.stiger.autoconfigure.properties.StarTigerFrameProperties;
 import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.core.context.StarTigerContext;
+import com.snake19870227.stiger.web.restful.RestResp;
 import com.snake19870227.stiger.web.utils.WebUtil;
 
 /**

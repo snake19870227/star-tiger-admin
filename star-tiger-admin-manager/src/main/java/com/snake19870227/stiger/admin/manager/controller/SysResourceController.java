@@ -5,16 +5,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.snake19870227.stiger.admin.common.RestResp;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.sys.service.ISysResourceService;
+import com.snake19870227.stiger.core.context.StarTigerContext;
+import com.snake19870227.stiger.core.exception.BusinessException;
 import com.snake19870227.stiger.web.exception.BaseControllerException;
 import com.snake19870227.stiger.web.exception.MvcException;
+import com.snake19870227.stiger.web.restful.RestResp;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -39,14 +44,51 @@ public class SysResourceController {
 
     @GetMapping(path = "/data")
     @ResponseBody
-    public RestResp<Page<SysResource>> data(@RequestParam(name = "page", defaultValue = "1") Long page,
-                                            @RequestParam(name = "limit", defaultValue = "10") Long limit) {
+    public RestResp<Page<SysResource>> data(@RequestParam(name = "resName", required = false) String resName,
+                                            @RequestParam(name = "resPath", required = false) String resPath,
+                                            @RequestParam(name = "page", defaultValue = "1") Long page,
+                                            @RequestParam(name = "limit", defaultValue = "20") Long limit) {
 
         Page<SysResource> pageInfo = new Page<>(page, limit);
 
-        pageInfo = sysResourceService.page(pageInfo);
+        QueryWrapper<SysResource> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByAsc("res_path");
+
+        pageInfo = sysResourceService.page(pageInfo, queryWrapper);
 
         return RestResp.buildResp("10000", pageInfo);
+    }
+
+    @GetMapping(path = "/{resFlow}")
+    @ResponseBody
+    public RestResp<SysResource> recordInfo(@PathVariable(name = "resFlow") String resFlow) {
+
+        SysResource resource = sysResourceService.getById(resFlow);
+
+        if (resource == null) {
+            throw new BusinessException(StarTigerContext.getMessage("resource.notfound"));
+        }
+
+        return RestResp.buildResp("10000", resource);
+    }
+
+    @PostMapping
+    @ResponseBody
+    public RestResp<SysResource> add(@RequestBody SysResource resource) {
+
+        sysResourceService.save(resource);
+
+        return RestResp.buildResp("10000", resource);
+    }
+
+    @PutMapping(path = "/{resFlow}")
+    @ResponseBody
+    public RestResp<SysResource> update(@PathVariable(name = "resFlow") String resFlow,
+                                        @RequestBody SysResource resource) {
+
+        sysResourceService.updateById(resource);
+
+        return RestResp.buildResp("10000", resource);
     }
 
     @PutMapping(path = "/enable/{resFlow}/{flag}")
