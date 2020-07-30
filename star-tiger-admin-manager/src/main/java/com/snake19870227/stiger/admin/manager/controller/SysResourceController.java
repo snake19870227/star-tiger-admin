@@ -1,5 +1,7 @@
 package com.snake19870227.stiger.admin.manager.controller;
 
+import cn.hutool.core.util.StrUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -46,12 +48,31 @@ public class SysResourceController {
     @ResponseBody
     public RestResp<Page<SysResource>> data(@RequestParam(name = "resName", required = false) String resName,
                                             @RequestParam(name = "resPath", required = false) String resPath,
+                                            @RequestParam(name = "resMethod", required = false) String resMethod,
+                                            @RequestParam(name = "enableFlag", required = false) String enableFlag,
                                             @RequestParam(name = "page", defaultValue = "1") Long page,
-                                            @RequestParam(name = "limit", defaultValue = "20") Long limit) {
+                                            @RequestParam(name = "limit", defaultValue = "10") Long limit) {
 
         Page<SysResource> pageInfo = new Page<>(page, limit);
 
         QueryWrapper<SysResource> queryWrapper = new QueryWrapper<>();
+
+        if (StrUtil.isNotBlank(resName)) {
+            queryWrapper.like("res_name", resName);
+        }
+
+        if (StrUtil.isNotBlank(resPath)) {
+            queryWrapper.likeRight("res_path", resPath);
+        }
+
+        if (StrUtil.isNotBlank(resMethod)) {
+            queryWrapper.eq("res_method", resMethod);
+        }
+
+        if (StrUtil.isNotBlank(enableFlag)) {
+            queryWrapper.eq("enable_flag", enableFlag);
+        }
+
         queryWrapper.orderByAsc("res_path");
 
         pageInfo = sysResourceService.page(pageInfo, queryWrapper);

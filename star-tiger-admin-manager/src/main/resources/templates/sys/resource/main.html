@@ -7,47 +7,75 @@
     <th:block th:replace="global::style"/>
 </head>
 <body>
-<div class="layui-row">
-    <div class="layui-col-md12" style="padding: 5px;">
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <form id="resource-search-form" class="layui-form" lay-filter="resource-search-form">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">资源名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="resName" placeholder="请输入资源名" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">资源地址</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="resPath" placeholder="请输入资源地址" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">访问方式</label>
+                        <div class="layui-input-block">
+                            <select name="resMethod">
+                                <option value="">请选择</option>
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                                <option value="PUT">PUT</option>
+                                <option value="DELETE">DELETE</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">启用状态</label>
+                        <div class="layui-input-block">
+                            <select name="enableFlag">
+                                <option value="">全部</option>
+                                <option value="Y">启用</option>
+                                <option value="N">停用</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button type="button" class="layui-btn layui-btn-normal" lay-event="search">
+                            <i class="fa fa-search"></i> 查 询
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+
         <table id="resource-list-table" lay-filter="resource-list-table"></table>
+
+        <script type="text/html" id="top-tool-bar">
+            <div class="layui-btn-container">
+                <button type="button" class="layui-btn layui-btn-sm" lay-event="add">
+                    <i class="fa fa-plus"></i> 添 加
+                </button>
+            </div>
+        </script>
+
+        <script type="text/html" id="enable-flag-switch">
+            <input type="checkbox" name="enableFlag" value="{{d.resFlow}}"
+                   lay-skin="switch" lay-text="启用|停用" lay-filter="enable-flag" {{ d.enableFlag== 'Y' ? 'checked' : '' }}>
+        </script>
+
+        <script type="text/html" id="record-tool-bar">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        </script>
     </div>
 </div>
-
-<script type="text/html" id="top-tool-bar">
-    <form id="resource-search-form" class="layui-form" lay-filter="resource-search-form">
-        资源名：
-        <div class="layui-inline">
-            <input type="text" name="resName" placeholder="请输入资源名" class="layui-input">
-        </div>
-        &nbsp;资源地址：
-        <div class="layui-inline">
-            <input type="text" name="resPath" placeholder="请输入资源地址" class="layui-input">
-        </div>
-        &nbsp;访问方式
-        <div class="layui-inline">
-            <select name="resMethod">
-                <option value="">请选择</option>
-                <option value="GET">GET</option>
-                <option value="POST">POST</option>
-                <option value="PUT">PUT</option>
-                <option value="DELETE">DELETE</option>
-            </select>
-        </div>
-        <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-normal layui-btn-sm">查询</button>
-            <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
-        </div>
-    </form>
-</script>
-
-<script type="text/html" id="enable-flag-switch">
-    <input type="checkbox" name="enableFlag" value="{{d.resFlow}}"
-           lay-skin="switch" lay-text="启用|停用" lay-filter="enable-flag" {{ d.enableFlag == 'Y' ? 'checked' : '' }}>
-</script>
-
-<script type="text/html" id="record-tool-bar">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-</script>
 
 <div id="add-win" style="padding:10px;display:none;">
     <form id="resource-add-form" class="layui-form" lay-filter="resource-add-form">
@@ -105,7 +133,7 @@
 
 <th:block th:replace="global::script-frame"/>
 <th:block th:replace="global::script-stiger"/>
-<script th:src="@{/js/rest-api.js}" charset="utf-8"></script>
+<script th:src="@{/js/sys/rest-api.js}" charset="utf-8"></script>
 <script th:src="@{/js/sys/resource.js}" charset="utf-8"></script>
 </body>
 </html>

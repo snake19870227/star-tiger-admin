@@ -1,4 +1,10 @@
-
+function getResourceInfo(searchParam, successCallback, errorCallback, completeCallback) {
+    StigerHttp.ajax(
+        "/sys/resource/data",
+        "get", searchParam, "", "json",
+        successCallback, errorCallback, completeCallback
+    );
+}
 
 function readResourceInfo(resFlow, successCallback, errorCallback, completeCallback) {
     StigerHttp.ajax(

@@ -1,13 +1,22 @@
-layui.use(["table", "form", "layer"], function () {
+layui.use(["table", "form", "layer", "laypage", "util"], function () {
+
     let table = layui.table,
         form = layui.form,
-        layer = layui.layer
+        layer = layui.layer,
+        laypage = layui.laypage,
+        util = layui.util
     ;
 
-    let resourceDataTable = table.render({
+    let resourceDataTableOptions = {
         id: "resourceDataTable",
         elem: "#resource-list-table",
-        height: "full-30",
+        toolbar: "#top-tool-bar",
+        url: contextPath + "/sys/resource/data",
+        loading: true,
+        page: {
+            limit: 10,
+            layout: ['prev', 'page', 'next', 'limit', 'count', 'refresh']
+        },
         cols: [[
             {
                 field: "resName",
@@ -31,13 +40,6 @@ layui.use(["table", "form", "layer"], function () {
                 toolbar: "#record-tool-bar"
             }
         ]],
-        where: {
-
-        },
-        page: {
-            limit: 20
-        },
-        url: contextPath + "/sys/resource/data",
         parseData: function (res) {
             let parseData = {};
             if ("10000" === res.code) {
@@ -47,9 +49,33 @@ layui.use(["table", "form", "layer"], function () {
             parseData.count = res.data.total;
             parseData.data = res.data.records;
             return parseData;
-        },
-        toolbar: "#top-tool-bar"
+        }
+    }
+
+    let resourceDataTable = undefined;
+
+    $(function () {
+        loadResourceDataTable();
+        util.event("lay-event", {
+            search: function(){
+                loadResourceDataTable();
+            }
+        });
     });
+
+    let loadResourceDataTable = function () {
+        let mainInnerHeight = $(".layuimini-main").innerHeight();
+        let searchOuterHeight = $(".table-search-fieldset").outerHeight();
+        let options = {};
+        $.extend(options, resourceDataTableOptions);
+        options.height = "full-" + (searchOuterHeight + 60);
+        options.where = form.val("resource-search-form");
+        if (resourceDataTable) {
+            resourceDataTable.reload(options);
+        } else {
+            resourceDataTable = table.render(options);
+        }
+    };
 
     table.on("toolbar(resource-list-table)", function (obj) {
         let layEvent = obj.event;
@@ -75,7 +101,7 @@ layui.use(["table", "form", "layer"], function () {
                                 layer.msg(msg);
                                 return;
                             }
-                            resourceDataTable.reload({});
+                            loadResourceDataTable();
                             layer.close(index);
                         }
                     );
@@ -162,7 +188,7 @@ layui.use(["table", "form", "layer"], function () {
                                 layer.msg(msg);
                                 return;
                             }
-                            resourceDataTable.reload({});
+                            loadResourceDataTable();
                             layer.close(index);
                         }
                     );
