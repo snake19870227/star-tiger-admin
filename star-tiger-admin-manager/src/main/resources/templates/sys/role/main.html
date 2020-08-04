@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="zh-CN">
+<head>
+    <th:block th:replace="global::baseHead('主页')"/>
+    <th:block th:replace="global::style"/>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <form id="role-search-form" class="layui-form" lay-filter="role-search-form">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">角色代码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="roleCode" placeholder="请输入角色代码" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">角色名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="roleName" placeholder="请输入角色名称" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button type="button" class="layui-btn layui-btn-normal" lay-event="search">
+                            <i class="fa fa-search"></i> 查 询
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+
+        <table id="role-data-table" lay-filter="role-data-table"></table>
+
+        <script type="text/html" id="top-tool-bar">
+            <div class="layui-btn-container">
+                <button type="button" class="layui-btn layui-btn-sm" lay-event="add">
+                    <i class="fa fa-plus"></i> 添 加
+                </button>
+            </div>
+        </script>
+
+        <script type="text/html" id="record-tool-bar">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        </script>
+
+    </div>
+</div>
+
+<div id="info-win" style="padding:10px;display:none;">
+    <form id="resource-add-form" class="layui-form" lay-filter="resource-add-form">
+        <input type="hidden" name="resFlow">
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色编码</label>
+            <div class="layui-input-block">
+                <input type="text" name="roleCode" placeholder="请输入资源名" class="layui-input" lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="roleName" placeholder="请输入资源地址" class="layui-input" lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">资源权限</label>
+            <div class="layui-input-block">
+                <div id="resource-transfer"></div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<th:block th:replace="global::script-frame"/>
+<th:block th:replace="global::script-stiger"/>
+<script th:src="@{/js/sys/rest-api.js}" charset="utf-8"></script>
+<script th:src="@{/js/sys/role.js}" charset="utf-8"></script>
+</body>
+</html>

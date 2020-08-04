@@ -2,6 +2,9 @@ package com.snake19870227.stiger.admin.manager.controller;
 
 import cn.hutool.core.util.StrUtil;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.snake19870227.stiger.admin.common.layui.TransferData;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.sys.service.ISysResourceService;
+import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.core.context.StarTigerContext;
 import com.snake19870227.stiger.core.exception.BusinessException;
 import com.snake19870227.stiger.web.exception.BaseControllerException;
@@ -78,6 +83,25 @@ public class SysResourceController {
         pageInfo = sysResourceService.page(pageInfo, queryWrapper);
 
         return RestResp.buildResp("10000", pageInfo);
+    }
+
+    @GetMapping(path = "/transferData")
+    @ResponseBody
+    public RestResp<List<TransferData>> get() {
+        QueryWrapper<SysResource> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("enable_flag", StarTigerConstant.FLAG_Y);
+        queryWrapper.orderByAsc("res_name");
+        List<SysResource> resources = sysResourceService.list(queryWrapper);
+        List<TransferData> transferDataList =
+                resources.stream().map(resource -> {
+                    TransferData transferData = new TransferData();
+                    transferData.setValue(resource.getResFlow());
+                    transferData.setTitle(resource.getResName());
+                    transferData.setChecked(false);
+                    transferData.setDisabled(false);
+                    return transferData;
+                }).collect(Collectors.toList());
+        return RestResp.buildResp("10000", transferDataList);
     }
 
     @GetMapping(path = "/{resFlow}")

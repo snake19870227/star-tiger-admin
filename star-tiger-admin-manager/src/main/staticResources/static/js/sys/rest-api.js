@@ -1,7 +1,7 @@
-function getResourceInfo(searchParam, successCallback, errorCallback, completeCallback) {
+function getAllResourceTransferData(successCallback, errorCallback, completeCallback) {
     StigerHttp.ajax(
-        "/sys/resource/data",
-        "get", searchParam, "", "json",
+        "/sys/resource/transferData",
+        "get", {}, "", "json",
         successCallback, errorCallback, completeCallback
     );
 }
