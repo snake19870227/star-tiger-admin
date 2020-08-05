@@ -17,12 +17,15 @@ import org.springframework.util.AntPathMatcher;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.snake19870227.stiger.admin.common.TreeNode;
 import com.snake19870227.stiger.admin.dao.base.SysMenuMapper;
+import com.snake19870227.stiger.admin.dao.base.SysRoleMapper;
+import com.snake19870227.stiger.admin.dao.base.SysRoleResourceMapper;
 import com.snake19870227.stiger.admin.dao.base.SysUserMapper;
 import com.snake19870227.stiger.admin.dao.ext.SysExtMapper;
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
+import com.snake19870227.stiger.admin.entity.po.SysRoleResource;
 import com.snake19870227.stiger.admin.entity.po.SysUser;
 import com.snake19870227.stiger.admin.security.UserSecurityDetail;
 import com.snake19870227.stiger.admin.sys.service.ISysExtService;
@@ -41,13 +44,21 @@ public class SysExtServiceImpl implements ISysExtService {
 
     private final SysMenuMapper sysMenuMapper;
 
+    private final SysRoleMapper sysRoleMapper;
+
+    private final SysRoleResourceMapper sysRoleResourceMapper;
+
     private final SysExtMapper sysExtMapper;
 
     public SysExtServiceImpl(SysUserMapper sysUserMapper,
                              SysMenuMapper sysMenuMapper,
+                             SysRoleMapper sysRoleMapper,
+                             SysRoleResourceMapper sysRoleResourceMapper,
                              SysExtMapper sysExtMapper) {
         this.sysUserMapper = sysUserMapper;
         this.sysMenuMapper = sysMenuMapper;
+        this.sysRoleMapper = sysRoleMapper;
+        this.sysRoleResourceMapper = sysRoleResourceMapper;
         this.sysExtMapper = sysExtMapper;
     }
 
@@ -96,6 +107,33 @@ public class SysExtServiceImpl implements ISysExtService {
         }).collect(Collectors.toList());
 
         return buildTreeNode(userMenus);
+    }
+
+    @Override
+    public boolean saveRole(SysRole role, List<String> resourceFlows) {
+
+        int i = sysRoleMapper.insert(role);
+
+        int j = 0;
+
+        for (String resourceFlow : resourceFlows) {
+            SysRoleResource roleResource = new SysRoleResource();
+            roleResource.setResFlow(resourceFlow);
+            roleResource.setRoleFlow(role.getRoleFlow());
+            j += sysRoleResourceMapper.insert(roleResource);
+        }
+
+        return i == 1 && j == resourceFlows.size();
+    }
+
+    @Override
+    public List<String> getResourceFlowsByRole(String roleFlow) {
+        QueryWrapper<SysRoleResource> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("role_flow", roleFlow);
+        List<SysRoleResource> roleResources = sysRoleResourceMapper.selectList(queryWrapper);
+        return roleResources.stream()
+                .map(SysRoleResource::getResFlow)
+                .collect(Collectors.toList());
     }
 
     private List<SysMenu> allMenus() {

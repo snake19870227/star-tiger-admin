@@ -6,6 +6,14 @@ function getAllResourceTransferData(successCallback, errorCallback, completeCall
     );
 }
 
+function getRoleResourceTransferData(roleFlow, successCallback, errorCallback, completeCallback) {
+    StigerHttp.ajax(
+        "/sys/resource/transferData?roleFlow=" + roleFlow,
+        "get", {}, "", "json",
+        successCallback, errorCallback, completeCallback
+    );
+}
+
 function readResourceInfo(resFlow, successCallback, errorCallback, completeCallback) {
     StigerHttp.ajax(
         "/sys/resource/" + resFlow,
@@ -15,7 +23,7 @@ function readResourceInfo(resFlow, successCallback, errorCallback, completeCallb
 }
 
 function addResource(resource,
-                        successCallback, errorCallback, completeCallback) {
+                     successCallback, errorCallback, completeCallback) {
     StigerHttp.ajax(
         "/sys/resource",
         "post", JSON.stringify(resource), "application/json", "json",
@@ -37,6 +45,27 @@ function changeResourceEnableStatus(resFlow, enableFlag,
     StigerHttp.ajax(
         "/sys/resource/enable/" + resFlow + "/" + enableFlag,
         "put", {}, "", "json",
+        successCallback, errorCallback, completeCallback
+    );
+}
+
+function addRole(role, resourceFlows,
+                 successCallback, errorCallback, completeCallback) {
+    let saveDto = {
+        role: role,
+        resourceFlows: resourceFlows
+    }
+    StigerHttp.ajax(
+        "/sys/role",
+        "post", JSON.stringify(saveDto), "application/json", "json",
+        successCallback, errorCallback, completeCallback
+    );
+}
+
+function readRole(roleFlow, successCallback, errorCallback, completeCallback) {
+    StigerHttp.ajax(
+        "/sys/role/" + roleFlow,
+        "get", {}, "", "json",
         successCallback, errorCallback, completeCallback
     );
 }

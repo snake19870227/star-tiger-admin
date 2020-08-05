@@ -7,6 +7,14 @@ layui.use(["table", "form", "layer", "laypage", "util", "transfer"], function ()
         transfer = layui.transfer
     ;
 
+    let infoWinOptions = {
+        type: 1,
+        id: "roleInfoWin",
+        content: $("#info-win"),
+        btn: ["保存"],
+        offset: "100px"
+    }
+
     let roleDataTableOptions = {
         id: "roleDataTable",
         elem: "#role-data-table",
@@ -46,7 +54,7 @@ layui.use(["table", "form", "layer", "laypage", "util", "transfer"], function ()
     let resourceTransferOptions = {
         id: "resource-transfer",
         elem: "#resource-transfer",
-        title: ['所有资源','已选资源'],
+        title: ['所有资源', '已选资源'],
         showSearch: true
     }
 
@@ -57,7 +65,7 @@ layui.use(["table", "form", "layer", "laypage", "util", "transfer"], function ()
     $(function () {
         loadRoleDataTable();
         util.event("lay-event", {
-            search: function(){
+            search: function () {
                 loadRoleDataTable();
             }
         });
@@ -81,31 +89,118 @@ layui.use(["table", "form", "layer", "laypage", "util", "transfer"], function ()
         let layEvent = obj.event;
         let $body = $("body");
         let width = $body.innerWidth();
-        width = (width / 5) * 3;
+        width = (width / 10) * 7;
+
         if (layEvent === "add") {
-            let resAddWin = layer.open({
-                type: 1,
-                id: "roleAddWin",
-                title: "新增角色",
-                content: $("#info-win"),
-                btn: ["保存"],
-                area: width + "px",
-                offset: "100px",
-                yes: function (index, layero) {
-                    getAllResourceTransferData(
-                        function (data, textStatus, xhr) {
-                            let options = {};
-                            $.extend(options, resourceTransferOptions);
-                            options.data = data;
-                            if (resourceTransfer) {
-                                transfer.reload(resourceTransferOptions.id, options);
-                            } else {
-                                resourceTransfer = transfer.render(options);
-                            }
-                        }
-                    );
-                }
+            form.val("role-save-form", {
+                roleCode: "",
+                roleName: ""
             });
+            let winOptions = {};
+            $.extend(winOptions, infoWinOptions);
+            winOptions.title = "新增角色";
+            winOptions.area = width + "px";
+            winOptions.success = function (layero, index) {
+                getAllResourceTransferData(
+                    function (data, textStatus, xhr) {
+                        let code = data.code;
+                        let msg = data.msg;
+                        if (code !== "10000") {
+                            layer.msg(msg);
+                            return;
+                        }
+                        let options = {};
+                        $.extend(options, resourceTransferOptions);
+                        options.data = data.data;
+                        options.value = [];
+                        if (resourceTransfer) {
+                            transfer.reload(resourceTransferOptions.id, options);
+                        } else {
+                            resourceTransfer = transfer.render(options);
+                        }
+                    }
+                );
+            };
+            winOptions.yes = function (index, layero) {
+                let role = form.val("role-save-form");
+                let selectResourceData = transfer.getData(resourceTransferOptions.id);
+                let resourceFlows = [];
+                $.each(selectResourceData, function (i, n) {
+                    resourceFlows.push(n.value);
+                });
+                console.log(role);
+                console.log(resourceFlows);
+                addRole(role, resourceFlows, function (data, textStatus, xhr) {
+                    loadRoleDataTable();
+                    layer.close(index);
+                });
+            };
+            layer.open(winOptions);
+        }
+    });
+
+    table.on("tool(role-data-table)", function (obj) {
+        let data = obj.data;
+        let layEvent = obj.event;
+        let tr = obj.tr;
+        let $body = $("body");
+        let width = $body.innerWidth();
+        width = (width / 10) * 7;
+
+        let roleFlow = data.roleFlow;
+
+        if (layEvent === "edit") {
+            readRole(
+                roleFlow,
+                function (data, textStatus, xhr) {
+                    let code = data.code;
+                    let msg = data.msg;
+                    let role = data.data.role;
+                    let resourceFlows = data.data.resourceFlows;
+                    if (code !== "10000") {
+                        layer.msg(msg);
+                    } else {
+                        form.val("role-save-form", role);
+                        let winOptions = {};
+                        $.extend(winOptions, infoWinOptions);
+                        winOptions.title = "编辑角色";
+                        winOptions.area = width + "px";
+                        winOptions.success = function (layero, index) {
+                            getAllResourceTransferData(
+                                function (data, textStatus, xhr) {
+                                    let code = data.code;
+                                    let msg = data.msg;
+                                    if (code !== "10000") {
+                                        layer.msg(msg);
+                                        return;
+                                    }
+                                    let options = {};
+                                    $.extend(options, resourceTransferOptions);
+                                    options.data = data.data;
+                                    options.value = resourceFlows;
+                                    if (resourceTransfer) {
+                                        transfer.reload(resourceTransferOptions.id, options);
+                                    } else {
+                                        resourceTransfer = transfer.render(options);
+                                    }
+                                }
+                            );
+                        };
+                        winOptions.yes = function (index, layero) {
+                            let role = form.val("role-save-form");
+                            let selectResourceData = transfer.getData(resourceTransferOptions.id);
+                            let resourceFlows = [];
+                            $.each(selectResourceData, function (i, n) {
+                                resourceFlows.push(n.value);
+                            });
+                            console.log(role);
+                            console.log(resourceFlows);
+
+                        };
+                        layer.open(winOptions);
+                    }
+                }
+            );
         }
     });
 

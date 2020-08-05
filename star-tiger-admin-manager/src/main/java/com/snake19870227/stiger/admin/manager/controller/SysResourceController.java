@@ -2,7 +2,9 @@ package com.snake19870227.stiger.admin.manager.controller;
 
 import cn.hutool.core.util.StrUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -20,6 +22,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.snake19870227.stiger.admin.common.layui.TransferData;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
+import com.snake19870227.stiger.admin.sys.service.ISysExtService;
 import com.snake19870227.stiger.admin.sys.service.ISysResourceService;
 import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.core.context.StarTigerContext;
@@ -40,8 +43,12 @@ public class SysResourceController {
 
     private final ISysResourceService sysResourceService;
 
-    public SysResourceController(ISysResourceService sysResourceService) {
+    private final ISysExtService sysExtService;
+
+    public SysResourceController(ISysResourceService sysResourceService,
+                                 ISysExtService sysExtService) {
         this.sysResourceService = sysResourceService;
+        this.sysExtService = sysExtService;
     }
 
     @GetMapping(path = "/main")
@@ -87,7 +94,14 @@ public class SysResourceController {
 
     @GetMapping(path = "/transferData")
     @ResponseBody
-    public RestResp<List<TransferData>> get() {
+    public RestResp<List<TransferData>> get(@RequestParam(name = "roleFlow", required = false) String roleFlow) {
+
+        Map<String, String> roleResourceMap = new HashMap<>();
+        if (StrUtil.isNotBlank(roleFlow)) {
+            List<String> roleResourceFlows = sysExtService.getResourceFlowsByRole(roleFlow);
+            roleResourceFlows.forEach(s -> roleResourceMap.put(s, s));
+        }
+
         QueryWrapper<SysResource> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("enable_flag", StarTigerConstant.FLAG_Y);
         queryWrapper.orderByAsc("res_name");
@@ -97,10 +111,11 @@ public class SysResourceController {
                     TransferData transferData = new TransferData();
                     transferData.setValue(resource.getResFlow());
                     transferData.setTitle(resource.getResName());
-                    transferData.setChecked(false);
+                    transferData.setChecked(roleResourceMap.containsKey(resource.getResFlow()));
                     transferData.setDisabled(false);
                     return transferData;
                 }).collect(Collectors.toList());
+
         return RestResp.buildResp("10000", transferDataList);
     }
 
